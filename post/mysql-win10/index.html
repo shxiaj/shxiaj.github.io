@@ -1,0 +1,313 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>MySQL-Win10下压缩包安装方式 | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.xyz/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.xyz/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664171483923"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-%E4%B8%8B%E8%BD%BDmysql">1、下载MySQL</a></li>
+<li><a href="#2-%E8%A7%A3%E5%8E%8B%E5%8E%8B%E7%BC%A9%E5%8C%85">2、解压压缩包</a></li>
+<li><a href="#3-%E9%85%8D%E7%BD%AEwin10%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">3、配置Win10系统环境变量</a></li>
+<li><a href="#4-%E9%85%8D%E7%BD%AEmyinimysql%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">4、配置my.ini，MySQL配置文件</a>
+<ul>
+<li><a href="#myini%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9">my.ini文件内容</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%AE%89%E8%A3%85mysql%E6%9C%8D%E5%8A%A1">5、安装MySQL服务</a></li>
+<li><a href="#6-%E8%BF%90%E8%A1%8Cmysql%E6%9C%8D%E5%8A%A1">6、运行MySQL服务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    MySQL-Win10下压缩包安装方式
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-12-09 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <p>简洁方式，方便使用和卸载</p>
+<!-- more -->
+<h3 id="1-下载mysql">1、下载MySQL</h3>
+<p><a href="https://downloads.mysql.com/archives/community/">MySQL社区版下载地址</a></p>
+<p>https://downloads.mysql.com/archives/community/</p>
+<figure data-type="image" tabindex="1"><img src="https://shxiaj.xyz/post-images/image-20211209202250658.png" alt="image-20211209202250658" loading="lazy"></figure>
+<h3 id="2-解压压缩包">2、解压压缩包</h3>
+<figure data-type="image" tabindex="2"><img src="https://shxiaj.xyz/post-images/image-20211209202220033.png" alt="image-20211209202220033" loading="lazy"></figure>
+<h3 id="3-配置win10系统环境变量">3、配置Win10系统环境变量</h3>
+<p>配置系统环境变量，方法百度</p>
+<p>path路径中添加F:\JavaProject\mysql-5.7.35\bin</p>
+<h3 id="4-配置myinimysql配置文件">4、配置my.ini，MySQL配置文件</h3>
+<p>新建my.ini文件在MySQL解压完成的目录下</p>
+<figure data-type="image" tabindex="3"><img src="https://shxiaj.xyz/post-images/image-20211209203120701.png" alt="image-20211209203120701" loading="lazy"></figure>
+<h4 id="myini文件内容">my.ini文件内容</h4>
+<pre><code class="language-ini">[mysql]
+# 设置mysql客户端默认字符集
+default-character-set=utf8 
+[mysqld]
+#设置3306端口
+port = 3306 
+# 设置mysql的安装目录，都为自己安装目录
+basedir=F:\JavaProject\mysql-5.7.35
+# 设置mysql数据库的数据的存放目录
+datadir=F:\JavaProject\mysql-5.7.35\data
+# 允许最大连接数
+max_connections=200
+# 服务端使用的字符集默认为8比特编码的latin1字符集
+character-set-server=utf8
+# 创建新表时将使用的默认存储引擎
+default-storage-engine=INNODB
+# 跳过密码登录，可选择是否开启
+# skip-grant-tables
+</code></pre>
+<h3 id="5-安装mysql服务">5、安装MySQL服务</h3>
+<p>bin目录中运行cmd，使用管理员身份</p>
+<figure data-type="image" tabindex="4"><img src="https://shxiaj.xyz/post-images/image-20211209204216723.png" alt="image-20211209204216723" loading="lazy"></figure>
+<p>使用cmd命令初始化和启动MySQL服务，生成data文件夹，如果出现下面情况2，删除data文件夹重新输入命令即可</p>
+<pre><code class="language-bat">cd /d F:\JavaProject\mysql-5.7.35\bin
+mysqld  --initialize-insecure
+mysqld -install
+
+# mysqld  --initialize-insecure（建议使用，不设置root密码）
+# mysqld  --initialize （不建议使用，生成一个随机的root密码）
+
+</code></pre>
+<figure data-type="image" tabindex="5"><img src="https://shxiaj.xyz/post-images/image-20211209205343411.png" alt="" loading="lazy"></figure>
+<p><code>net start mysql</code>启动MySQL服务</p>
+<figure data-type="image" tabindex="6"><img src="https://shxiaj.xyz/post-images/image-20211209205534149.png" alt="image-20211209205534149" loading="lazy"></figure>
+<h3 id="6-运行mysql服务">6、运行MySQL服务</h3>
+<pre><code class="language-sql"># 直接cmd中运行，输入密码时，直接按回车键可以直接登录
+mysql -u root -p
+# 设置密码 ''  单引号中间为root密码，然后再刷新
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('ding');
+flush privileges; 
+quit;
+# 关闭重新启动
+net stop mysql
+net start mysql
+# 再次使用root登录，输入设置好的密码
+mysql -u root -p
+</code></pre>
+<figure data-type="image" tabindex="7"><img src="https://shxiaj.xyz/post-images/image-20211209210656569.png" alt="image-20211209210656569" loading="lazy"></figure>
+<p>出现这种错误都是由于MySQL服务没有启动，必须在管理员权限下的cmd中使用net start mysql启动服务</p>
+<figure data-type="image" tabindex="8"><img src="https://shxiaj.xyz/post-images/image-20211209211447382.png" alt="image-20211209211447382" loading="lazy"></figure>
+<figure data-type="image" tabindex="9"><img src="https://shxiaj.xyz/post-images/image-20211209210709462.png" alt="image-20211209210709462" loading="lazy"></figure>
+<p>OK，完成，尽情学习MySQL数据库！</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.xyz/post/java-learnroad/" class="post-title gt-a-link">
+                    Java-learnRoad
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/mysql-win10/" class="leancloud_visitors" data-flag-title="MySQL-Win10下压缩包安装方式">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.xyz/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

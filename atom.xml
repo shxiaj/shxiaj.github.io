@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://shxiaj.xyz</id>
+    <title>ShXiaJ&apos;s Note</title>
+    <updated>2022-09-26T05:51:34.346Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://shxiaj.xyz"/>
+    <link rel="self" href="https://shxiaj.xyz/atom.xml"/>
+    <subtitle>天道酬勤！</subtitle>
+    <logo>https://shxiaj.xyz/images/avatar.png</logo>
+    <icon>https://shxiaj.xyz/favicon.ico</icon>
+    <rights>All rights reserved 2022, ShXiaJ&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[按比率随机替换大文件行中指定字符 Java-ReplaceMol]]></title>
+        <id>https://shxiaj.xyz/post/replaceMol-Java/</id>
+        <link href="https://shxiaj.xyz/post/replaceMol-Java/">
+        </link>
+        <updated>2022-09-26T04:51:50.000Z</updated>
+        <summary type="html"><![CDATA[<p>在一定比率下的随机替换指定行中的大文本字符串 java i/o 实现方法</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在一定比率下的随机替换指定行中的大文本字符串 java i/o 实现方法</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Ps中索引色、RGB色 | Origin中导出RGB256色]]></title>
+        <id>https://shxiaj.xyz/post/ps-256&amp;rgb24/</id>
+        <link href="https://shxiaj.xyz/post/ps-256&amp;rgb24/">
+        </link>
+        <updated>2022-06-22T05:12:39.000Z</updated>
+        <summary type="html"><![CDATA[<p>形形色色的，仿佛是bug的</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>形形色色的，仿佛是bug的</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[gmx do_dssp & xpm2ps 蛋白二级结构图绘制]]></title>
+        <id>https://shxiaj.xyz/post/gmx-do_dssp/</id>
+        <link href="https://shxiaj.xyz/post/gmx-do_dssp/">
+        </link>
+        <updated>2022-06-18T18:06:59.000Z</updated>
+        <summary type="html"><![CDATA[<p>又是无比折腾的一次体验，用到的文件都在最后可以下载</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>又是无比折腾的一次体验，用到的文件都在最后可以下载</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Windows下的Linux基础环境 & 程序]]></title>
+        <id>https://shxiaj.xyz/post/win-linux-gmx/</id>
+        <link href="https://shxiaj.xyz/post/win-linux-gmx/">
+        </link>
+        <updated>2022-06-18T18:04:43.000Z</updated>
+        <summary type="html"><![CDATA[<p>简洁美观，但是无比折腾</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>简洁美观，但是无比折腾</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[gromacs画蛋白质残基接触图]]></title>
+        <id>https://shxiaj.xyz/post/resOrigin/</id>
+        <link href="https://shxiaj.xyz/post/resOrigin/">
+        </link>
+        <updated>2022-06-13T13:24:14.000Z</updated>
+        <summary type="html"><![CDATA[<p>两种方法，一种感觉并不通用</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>两种方法，一种感觉并不通用</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[function]]></title>
+        <id>https://shxiaj.xyz/post/function/</id>
+        <link href="https://shxiaj.xyz/post/function/">
+        </link>
+        <updated>2022-06-08T06:07:53.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Tcl绘制Vmd里面的静电偶级]]></title>
+        <id>https://shxiaj.xyz/post/tclVmdDipoles/</id>
+        <link href="https://shxiaj.xyz/post/tclVmdDipoles/">
+        </link>
+        <updated>2022-06-08T06:07:53.000Z</updated>
+        <summary type="html"><![CDATA[<p>重写了diploes.sh，更快更方便</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>重写了diploes.sh，更快更方便</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Pymol 计算蛋白质静电势，渲染导出动画]]></title>
+        <id>https://shxiaj.xyz/post/pymolPlot/</id>
+        <link href="https://shxiaj.xyz/post/pymolPlot/">
+        </link>
+        <updated>2022-06-08T04:32:28.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Sublime Text 右键打开当前文件夹]]></title>
+        <id>https://shxiaj.xyz/post/sublime-text/</id>
+        <link href="https://shxiaj.xyz/post/sublime-text/">
+        </link>
+        <updated>2022-01-19T04:51:19.000Z</updated>
+        <summary type="html"><![CDATA[<p>使用sublime 右键打开资源管理器里的当前文件夹</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>使用sublime 右键打开资源管理器里的当前文件夹</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[记录Bug]]></title>
+        <id>https://shxiaj.xyz/post/ji-lu-bug/</id>
+        <link href="https://shxiaj.xyz/post/ji-lu-bug/">
+        </link>
+        <updated>2022-01-08T07:55:09.000Z</updated>
+        <summary type="html"><![CDATA[<p>遇到的bug解决方式</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>遇到的bug解决方式</p>
+]]></content>
+    </entry>
+</feed>

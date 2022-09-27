@@ -1,0 +1,457 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Gromacs程序安装&amp;使用 | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.xyz/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.xyz/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664171483923"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#by-dingliang">by DingLiAng</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#cmake%E5%AE%89%E8%A3%85-%E5%8E%BB%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BDbinary-distributions%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%89%88">cmake安装, 去官网下载Binary distributions二进制版</a></li>
+<li><a href="#fftw%E5%AE%89%E8%A3%85">fftw安装</a></li>
+<li><a href="#gromacs%E5%AE%89%E8%A3%85cpu%E7%89%88%E6%9C%AC">Gromacs安装，CPU版本</a></li>
+<li><a href="#cpu%E5%8F%82%E6%95%B0">CPU参数</a></li>
+</ul>
+</li>
+<li><a href="#gromacs%E6%8F%90%E4%BA%A4%E4%BB%BB%E5%8A%A1">Gromacs提交任务</a></li>
+<li><a href="#gromacs20213-and-gtx3070-and-28%E6%A0%B827ghz%E6%B5%8B%E8%AF%95">Gromacs2021.3 And GTX3070 And 28核2.7Ghz测试</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Gromacs程序安装&amp;使用
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-08-25 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.xyz/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h6 id="by-dingliang">by DingLiAng</h6>
+<h3 id="cmake安装-去官网下载binary-distributions二进制版">cmake安装, 去官网下载Binary distributions二进制版</h3>
+<p>解压就能用，方便</p>
+<pre><code class="language-bash">wget https://github.com/Kitware/CMake/releases/download/v3.22.0-rc2/cmake-3.22.0-rc2-linux-x86_64.tar.gz
+</code></pre>
+<h3 id="fftw安装">fftw安装</h3>
+<pre><code class="language-bash">wget http://www.fftw.org/fftw-3.3.10.tar.gz
+# 解压
+./configure --prefix=${HOME}/soft/fftw --enable-sse2 --enable-avx --enable-float --enable-shared --enable-avx2
+make install -j 4
+</code></pre>
+<h3 id="gromacs安装cpu版本">Gromacs安装，CPU版本</h3>
+<pre><code class="language-bash">wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2019.6.tar.gz
+# 解压，安装fftw，cmake，gcc &gt; 4.8.1;
+# 注意安装fftw时加上AVX2指令集
+tar xvzf xxx
+cd gromacs
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=指定安装目录 -DGMX_SIMD=AVX2_256 \ 
+         -DCMAKE_PREFIX_PATH=fftw安装目录 \ 
+         -DCMAKE_C_COMPILER=gcc文件全路径
+         -DCMAKE_CXX_COMPILER=g++文件全路径 
+         # gcc是自己安装的需要指定，系统自带则不需要
+# exmaple：cmake .. -DCMAKE_INSTALL_PREFIX=${HOME}/soft/gromacs \
+# -DGMX_SIMD=AVX_256 -DCMAKE_PREFIX_PATH=/public/home/DLA/soft/fftw \ 
+# -DCMAKE_C_COMPILER=/public/apps/gcc/bin/gcc -DCMAKE_CXX_COMPILER=/public/apps/gcc/bin/g++
+make install -j xxx  # xxx 为编译时使用的核数，int型
+</code></pre>
+<p><a href="https://manual.gromacs.org/documentation/2020/install-guide/index.html">gromacs官网安装手册</a></p>
+<h3 id="cpu参数">CPU参数</h3>
+<pre><code class="language-bash"># 查看逻辑核心个数
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+
+# 查看cpu运行频率
+cat /proc/cpuinfo |grep MHz|uniq
+watch grep \&quot;cpu MHz\&quot; /proc/cpuinfo 
+
+# 查看物理CPU个数
+cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l
+
+# 查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo| grep &quot;cpu cores&quot;| uniq
+
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo| grep &quot;processor&quot;| wc -l
+</code></pre>
+<h2 id="gromacs提交任务">Gromacs提交任务</h2>
+<pre><code class="language-bash"># -nt 指定总线程数，即为所使用的的CPU核数
+nohup gmx mdrun -v -deffnm md -nt 28 -ntomp 14 -pinoffset 14 &gt; task.log 2&gt;&amp;1 &amp; 
+# nt = MPI*OpenMP = 任务使用核心数; -ntmpi 指定MPI; -ntomp 指定OpenMP;
+</code></pre>
+<ul>
+<li>测试结果:<br>
+chox体系进行的测试，8w原子， box = 9 * 9 * 10大约</li>
+</ul>
+<pre><code class="language-bash"># 8个CPU，总共256核(实际上是双线程，物理核心数128); 默频2.2Ghz, 全核2.2Ghz
+switch(MPI * OpenMP) {
+	case：4 * 64		18ns/day
+	case：8 * 32		33ns/day
+	case：16 * 16	39ns/day
+	case：32 * 8		56ns/day
+	case：64 * 4		46ns/day
+	case：128 * 2	48ns/day
+	case：256 * 1	58ns/day # 直接使用-nt 256
+	case：64 * 1		28ns/day # 真垃圾
+}
+
+# 2个CPU，总共28核(单线程); 默频2.4Ghz，全核2.8Ghz
+switch(MPI * OpenMP) {
+	case：2 * 14		17ns/day
+	case：4 * 7		20ns/day
+	case：7 * 4		20ns/day
+	case：28 * 1		28ns/day
+}
+</code></pre>
+<ul>
+<li>总结<br>
+设置OpenMP = 1; MPI设为使用核数，最快。<br>
+但可能会出现报错，适当调整即可。</li>
+</ul>
+<h2 id="gromacs20213-and-gtx3070-and-28核27ghz测试">Gromacs2021.3 And GTX3070 And 28核2.7Ghz测试</h2>
+<p>chox体系进行的测试，8.5w原子，box = 9.99 * 8.65 * 9.85</p>
+<ul>
+<li>命令：<code>htop</code> 查看CPU核心以及任务情况</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://shxiaj.xyz/post-images/image-20211215092513100.png" alt="image-20211215092513100" loading="lazy"></figure>
+<p>28核双线程，两块CPU，每个逻辑核是完全相同的。</p>
+<ul>
+<li>命令：<code>sensors</code> 查看CPU温度</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://shxiaj.xyz/post-images/image-20211215093321509.png" alt="image-20211215093321509" loading="lazy"></figure>
+<ul>
+<li>命令：<code>nvidia-smi</code>查看GPU工作情况</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://shxiaj.xyz/post-images/image-20211215093041585.png" alt="image-20211215093041585" loading="lazy"></figure>
+<p>重点在于：温度、功耗、利用率</p>
+<ul>
+<li>
+<p>提交命令</p>
+<p>gmx mdrun 参数：&quot;-pin on -ntmpi 1 -ntomp 9 -pme gpu -nb gpu -gpu_id 0 -pinoffset 56&quot;</p>
+<ul>
+<li><code>-ntomp 9</code>9核效果比较好，单个任务GPU利用率52%，体系85ns/day</li>
+<li><code>-pinoffset 56</code> 绑定起始CPU核心，调用CPU时会按照顺序调用</li>
+<li>pinoffset计算方法：内部编号与htop显示出来的编号并不相同，转换方法：(htop的编号 - 1) * 2 = pinoffset编号</li>
+<li>例如：想从htop上面序号为1的核心开始，pinoffset = (1 - 1) * 2 = 0;<br>
+第十个开始，pinoffset = 18;</li>
+<li><code>-gpu_id 0</code> 0或者1 看GPU喽</li>
+</ul>
+</li>
+<li>
+<p>核心测试，GPU单个任务</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">CPU核数</th>
+<th style="text-align:center">GPU利用率%</th>
+<th style="text-align:center">CPU核数</th>
+<th style="text-align:center">GPU利用率%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">40</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center">52</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">42</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">53</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">45</td>
+<td style="text-align:center">14</td>
+<td style="text-align:center">54</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">48</td>
+<td style="text-align:center">28</td>
+<td style="text-align:center">53</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">50</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>一个GPU两个任务时，利用率82-88%都遇见过，不能到100%，疑惑，但是88%时，GPU功耗将近满载220W，疑惑。<br>
+一个GPU一个任务时，测试体系85ns/day * 1，一个GPU两个任务时75ns/day  * 2<br>
+使用核数7,8,9，认为都可以，按照任务数量调节，任务少就多用，任务多就少用。</p>
+<p>一个GPU提交3个任务，每个任务用7个核，利用率最高97%左右，总体速度应该是最优的，实测61ns/day * 3</p>
+<figure data-type="image" tabindex="4"><img src="https://shxiaj.xyz/post-images/image-20211219185219554.png" alt="image-20211219185219554" loading="lazy"></figure>
+<ul>
+<li>我的提交方式</li>
+</ul>
+<pre><code class="language-bash">#!/usr/bin/bash
+
+
+# 前台执行：./task.sh 2&gt;&amp;1 | tee task.log
+# 后台执行：nohup ./task.sh &gt; task.log 2&gt;&amp;1 &amp;
+# 后台查看进程：ps -ef | grep [t]ask.sh
+
+function gmxem {
+  gmx grompp -f em.mdp -c ions.gro -p topol.top -o ./em/em.tpr -po ./em/emout.mdp -n
+  gmx mdrun -v -deffnm ./em/em -nt 30
+}
+
+function gmxnvt {
+  gmx grompp -f nvt.mdp -c ./em/em.gro -p topol.top -o ./nvt/nvt.tpr -po ./nvt/nvtout.mdp -n -r ./em/em.gro
+  gmx mdrun -v -deffnm ./nvt/nvt $logogram
+}
+
+function gmxmd {
+  gmx grompp -f md.mdp -c ./nvt/nvt.gro -p topol.top -o ./md/md.tpr -po ./md/mdout.mdp -n -r ./nvt/nvt.gro
+  gmx mdrun -v -deffnm ./md/md $logogram
+}
+
+function gmxrerun {
+  gmx grompp -f energy.mdp -n -c ./nvt/nvt.gro -p topol.top -o ./energy/energy.tpr -po ./energy/energy.mdp
+  gmx mdrun -v -rerun ./md/md.trr -deffnm ./energy/energy 
+}
+###############################################################
+
+logogram=&quot;-pin on -ntmpi 1 -ntomp 9 -pme gpu -nb gpu -gpu_id 0 -pinoffset 56&quot;
+
+gmxem
+gmxnvt
+gmxmd
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.xyz/post/sam/" class="post-title gt-a-link">
+                    SAM.sh
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/gmx1/" class="leancloud_visitors" data-flag-title="Gromacs程序安装&amp;使用">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.xyz/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
