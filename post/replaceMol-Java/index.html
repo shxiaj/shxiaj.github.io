@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1664171483923"
+            <form id="gridea-search-form" style="position: relative" data-update="1664282560277"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -150,7 +150,8 @@
                     <p>在一定比率下的随机替换指定行中的大文本字符串 java i/o 实现方法</p>
 <!-- more -->
 <h3 id="1-需求">1. 需求</h3>
-<p>mol2 分子坐标文件，120Mb大小，包含300w原子，需要将其中240多w的D原子按照20%的比例替换成W原子</p>
+<p>mol2 分子坐标文件，120Mb大小，包含300w原子，需要将其中240多w的D原子按照20%的比例替换成W原子<br>
+为什么不使用Bash工具？ 生成随机数太慢了，不知道因为什么，可能就是生成不出来吧。 匹配行号替换 awk sed 感觉都不好用，总不能循环读取修改文件40多w次吧</p>
 <h3 id="2-解决思路">2. 解决思路</h3>
 <ul>
 <li>生成有序随机数：按照比率生成总数一定不重复的随机数，表示着将要替换的行数</li>

@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1664171483923"
+            <form id="gridea-search-form" style="position: relative" data-update="1664282560277"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -105,6 +105,7 @@
 <li><a href="#%E6%88%91%E7%9A%84%E7%94%B5%E8%84%91git%E6%8F%90%E4%BA%A4%E5%91%BD%E4%BB%A4">我的电脑git提交命令</a></li>
 <li><a href="#bat%E8%84%9A%E6%9C%AC-gitpushbat">bat脚本 gitPush.bat</a></li>
 <li><a href="#bash%E8%84%9A%E6%9C%AC">bash脚本</a></li>
+<li><a href="#%E5%A4%8D%E6%9D%82%E7%9A%84git%E8%BF%87%E7%A8%8B">复杂的git过程</a></li>
 </ul>
 </li>
 </ul>
@@ -285,6 +286,14 @@
                         · 2021-10-25 ·
                     </time>
                     
+                        <a href="https://shxiaj.github.io/tag/3OcsyzkVl/" class="post-tags">
+                            # git
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/k6WWwAH4v/" class="post-tags">
+                            # shell
+                        </a>
+                    
                 </div>
                 <div class="post-content">
                     <h3 id="我的电脑git提交命令">我的电脑git提交命令</h3>
@@ -314,6 +323,43 @@ git add .
 git remote add github git@github.com:ShXiaJ/shxiaj.github.io.git
 git commit -m update$(date +%F)
 git push -u github master
+</code></pre>
+<h3 id="复杂的git过程">复杂的git过程</h3>
+<pre><code class="language-bash">#########################################
+# 复制一份
+cp -rf ./output ./github
+cd ./github 
+# 改个域名
+echo -e &quot;### 盛夏捷的静态博客\nhttps://shxiaj.github.io 或 https://shxiaj.github.io&quot; &gt; README.md
+sed -i &quot;s|https://shxiaj.github.io|https://shxiaj.github.io|g&quot; `find . -name &quot;*.html&quot;`
+sed -i &quot;s|https://shxiaj.github.io|https://shxiaj.github.io|g&quot; `find . -name &quot;*.html&quot;`
+# 添加, 提交
+git init
+git config user.name shxiaj
+git config user.email 923066712@qq.com
+git add .
+git commit -m &quot;$(date)&quot;
+# 添加github仓库, 提交
+git remote add origin git@github.com:shxiaj/shxiaj.github.io.git
+git push -u origin master # 如果会报错需要-f 强制推送
+cd ..
+#######################################
+# clone服务器仓库到本地电脑
+# git clone root@shxiaj.xyz:/root/software/shxiaj.git
+
+cp -rf ./output ./shxiaj
+cd ./shxiaj
+sed -i &quot;s|https://shxiaj.github.io|https://shxiaj.github.io|g&quot; `find . -name &quot;*.html&quot;`
+git init
+git add .
+git commit -m &quot;$(date)&quot;
+git push -u origin master
+cd ..
+
+# 服务器文件仓库的初始化
+# git clone /root/software/shxiaj.git .
+# git pull origin master
+ssh root@shxiaj.xyz &quot;cd /www/wwwroot/blogs.xyz &amp;&amp; git pull origin master&quot;
 </code></pre>
 <h1 id="git-cheat-sheet-中文版教程"><a href="https://github.com/arslanbilal/git-cheat-sheet/blob/master/other-sheets/git-cheat-sheet-zh.md">Git Cheat Sheet 中文版教程</a></h1>
 <h3 id="索引">索引</h3>
