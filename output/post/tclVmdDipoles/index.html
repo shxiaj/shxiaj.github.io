@@ -1,0 +1,292 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Tcl绘制Vmd里面的静电偶级 | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664279107991"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Tcl绘制Vmd里面的静电偶级
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-08 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/XfNcvL8iF/" class="post-tags">
+                            # Vmd
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/oamoXsiu7e/" class="post-tags">
+                            # Tcl
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>重写了diploes.sh，更快更方便</p>
+<!-- more -->
+<p>调用方法:<br>
+<code>diploes x y z ?s ?t</code><br>
+x y z 分别代表Mtot.xvg的三个分量，Mtot.xvg 由gmx dipoles获得<br>
+s  t 分别都有默认值3，0.9，分别控制圆柱的长度和圆锥的长度, 是可选输入<br>
+依赖 massCenter 函数的结果，在最下面。<br>
+执行完成后，会在工作目录生成vmdDipoles文件，查看即可<br>
+同时可能会默认输出，看电脑环境变量的设置</p>
+<pre><code class="language-tcl"># dipoles过程
+proc dipoles {dx dy dz {s 3} {t 0.9}} {
+  set mc [massCenter]
+  set mx [expr [lindex $mc 0]/10]
+  set my [expr [lindex $mc 1]/10]
+  set mz [expr [lindex $mc 2]/10]
+
+  for {set i 0} {$i &lt; 1000} {incr i} {
+    set dxi [expr $dx/$i]
+    set dyi [expr $dy/$i]
+    set dzi [expr $dz/$i]
+    if {-$s &lt; $dxi &amp;&amp; $dxi &lt; $s &amp;&amp; -$s &lt; $dyi &amp;&amp; $dyi &lt; $s &amp;&amp; -$s &lt; $dzi &amp;&amp; $dzi &lt; $s} {
+      break
+    }
+  }
+  set x2 [expr ($mx+$dxi)*10]
+  set y2 [expr ($my+$dyi)*10]
+  set z2 [expr ($mz+$dzi)*10]
+  set x3 [expr ($mx+$dx/($t*$i))*10]
+  set y3 [expr ($my+$dy/($t*$i))*10]
+  set z3 [expr ($mz+$dz/($t*$i))*10]
+  set mx [expr $mx*10]
+  set my [expr $my*10]
+  set mz [expr $mz*10]
+
+  set fn [open &quot;vmdDipoles&quot; w+]
+  puts $fn [format &quot;偶极分量: %.3f %.3f %.3f&quot; $dx $dy $dz]
+  puts $fn [format &quot;蛋白质心坐标(A): %.3f %.3f %.3f&quot; $mx $my $mz]
+  puts $fn [format &quot;缩放偶极坐标(A): %.3f %.3f %.3f&quot; $x2 $y2 $z2]
+  puts $fn [format &quot;偶极尖尖坐标(A): %.3f %.3f %.3f&quot; $x3 $y3 $z3]
+  puts $fn &quot;缩放次数: $i&quot;
+  puts $fn &quot;draw delete all\ndraw color purple&quot;
+  puts $fn [format &quot;draw cylinder {%.3f %.3f %.3f} {%.3f %.3f %.3f} radius 0.5 filled yes resolution 20&quot; $mx $my $mz $x2 $y2 $z2]
+  puts $fn [format &quot;draw cone {%.3f %.3f %.3f} {%.3f %.3f %.3f} radius 1.5 resolution 20&quot; $x2 $y2 $z2 $x3 $y3 $z3]
+  close $fn
+  # 调用cat命令查看文件，不全部都有用
+  exec cat vmdDipoles | iconv -f UTF-8 -t GBK
+}
+
+# massCenter过程
+proc massCenter {} {
+  set mcid [atomselect 0 &quot;protein or resname FAD&quot;]
+  measure center $mcid weight mass
+}
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/pymolPlot/" class="post-title gt-a-link">
+                    Pymol 计算蛋白质静电势，渲染导出动画
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/tclVmdDipoles/" class="leancloud_visitors" data-flag-title="Tcl绘制Vmd里面的静电偶级">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

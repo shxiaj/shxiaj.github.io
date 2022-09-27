@@ -1,0 +1,581 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>背包问题 LeetCode | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664279107991"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#0-1%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98">0-1背包问题</a></li>
+<li><a href="#leetcode%E9%A2%98%E8%A7%A3">LeetCode题解</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    背包问题 LeetCode
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-11-18 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/iV4T-YtS58/" class="post-tags">
+                            # Java
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <hr>
+<h4 id="0-1背包问题">0-1背包问题</h4>
+<p>完全背包和01背包问题唯一不同的地方就是，每种物品有无限件。<br>
+使用二维数组，即dp[i][j] 表示从下标为[0-i]的物品里任意取，放进容量为j的背包，价值总和最大。<br>
+使用一维数组更为简洁。<br>
+0-1背包和完全背包唯一不同就是体现在遍历顺序上，从一维数组看，第二个遍历过程0-1是从后往前，完全背包是从前往后</p>
+<pre><code class="language-java">package leetcode;
+
+import java.util.Arrays;
+
+public class BagDemo {
+    public static void main(String[] args) {
+        int[] weight = {1, 3, 4};
+        int[] value = {15, 20, 30};
+        // 物品的数量
+        int num = weight.length;
+        // 背包容量
+        int vol = 4;
+
+        int[][] dp = new int[num][vol + 1];
+
+        // 初始化dp数组, 第一行从背包容量等于物品质量开始，剪枝
+        for (int j = weight[0]; j &lt;= vol; j++) {
+            dp[0][j] = value[0];
+        }
+
+        // 遍历行，即先遍历物品，数量从小到多
+        for (int i = 1; i &lt; num; i++) {
+            // 再遍历列，即遍历容量，从小到大
+            for (int j = 1; j &lt;= vol; j++) {
+                // 如果当前背包容量小于当前物品重量，无法放入，
+                // 最大值等于不放这个物品的最大值：
+                if (j &lt; weight[i]) {
+                    // [i - 1]等于不放这个物品的重量
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    // 如果放进去：相当于容量为j - i的背包的dp值加上当前i的价值；
+                    int isPut = dp[i - 1][j - weight[i]] + value[i];
+                    int noPut = dp[i - 1][j];
+                    // 两种情况取最大值
+                    dp[i][j] = Math.max(isPut, noPut);
+                }
+            }
+        }
+        System.out.println(dp[num - 1][vol]);
+        System.out.println(Arrays.deepToString(dp));
+
+    }
+}
+
+class BagDemo1 {
+    public static void main(String[] args) {
+        int[] weight = {1, 3, 4};
+        int[] value = {15, 20, 30};
+        // 物品的数量
+        int num = weight.length;
+        // 背包容量
+        int vol = 4;
+
+        int[] dp = new int[vol + 1];
+
+        for (int i = 0; i &lt; num; i++) {
+            // 从后向前，前面的数字不会受影响；
+            for (int j = vol; j &gt;= weight[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - weight[i]] + value[i]);
+            }
+            System.out.println(Arrays.toString(dp));
+        }
+    }
+}
+
+</code></pre>
+<h4 id="leetcode题解">LeetCode题解</h4>
+<pre><code class="language-java">/**
+ * 139. 单词拆分
+ */
+// 自己写出来的复杂度比官方解答小，逻辑更细节一些，还是有点蒙
+class Solution99 {
+    public boolean wordBreak(String s, List&lt;String&gt; wordDict) {
+        String[] word = wordDict.toArray(new String[0]);
+        char[] str = s.toCharArray();
+        boolean[] dp = new boolean[str.length + 1];
+        dp[0] = true;
+        // 字符串组合是无序的，所以要遍历背包容量，再遍历物品
+        for (int j = 0; j &lt;= str.length; j++) {
+            for (String w : word) {
+                // 边界确实有点懵逼，left和right
+                if (j &gt;= w.length() &amp;&amp; isTrue(str, w, j - w.length(), j))
+                    dp[j] |= dp[j - w.length()];
+            }
+        }
+        return dp[str.length];
+    }
+
+    public boolean isTrue(char[] str, String word, int left, int right) {
+        int j = 0;
+        for (int i = left; i &lt; right; i++, j++) {
+            if (str[i] != word.charAt(j)) return false;
+        }
+        return true;
+    }
+}
+
+/**
+ * 279. 完全平方数
+ */
+class Solution98 {
+    public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        Arrays.fill(dp, n + 1);
+        dp[0] = 0;
+        for (int i = 0; i * i &lt;= n; i++) {
+            for (int j = i * i; j &lt;= n; j++) {
+                dp[j] = Math.min(dp[j], dp[j - i * i] + 1);
+            }
+        }
+        return dp[n];
+
+    }
+}
+
+/**
+ * 322. 零钱兑换
+ */
+class Solution97 {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        int maxValue = amount + 1;
+        Arrays.fill(dp, maxValue);
+        dp[0] = 0;
+        for (int coin : coins) {
+            for (int j = coin; j &lt;= amount; j++) {
+                dp[j] = Math.min(dp[j], dp[j - coin] + 1);
+            }
+        }
+        return dp[amount] != maxValue ? dp[amount] : -1;
+    }
+}
+
+class Solution96 {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for (int j = 1; j &lt;= amount; j++) {
+            for (int coin : coins) {
+                if (j &gt;= coin) {
+                    dp[j] = Math.min(dp[j], dp[j - coin] + 1);
+                }
+            }
+        }
+        return dp[amount] &gt; amount ? dp[amount] : -1;
+    }
+}
+
+/**
+ * 70. 爬楼梯 (进阶)
+ * 完全背包问题
+ *
+ * @date 2021 11 15
+ */
+class Solution95 {
+    public int climbStairs(int n) {
+        int[] value = new int[]{1, 2};
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        for (int i = 0; i &lt;= n; i++) {
+            for (int v : value) {
+                if (i &gt;= v) {
+                    dp[i] += dp[i - v];
+                }
+            }
+        }
+        return dp[n];
+    }
+}
+
+/**
+ * 377. 组合总和 Ⅳ
+ *
+ * @date 2021 11 14
+ */
+
+class Solution94 {
+    public int combinationSum4(int[] nums, int target) {
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for (int j = 0; j &lt;= target; j++) {
+            for (int num : nums) {
+                if (num &lt;= j) {
+                    dp[j] += dp[j - num];
+                }
+            }
+        }
+        return dp[target];
+    }
+}
+
+/**
+ * 518. 零钱兑换 II
+ */
+class Solution93 {
+    public int change(int amount, int[] coins) {
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+        for (int coin : coins) {
+            for (int j = coin; j &lt;= amount; j++) {
+                dp[j] += dp[j - coin];
+            }
+        }
+        return dp[amount];
+    }
+}
+
+/**
+ * 474. 一和零
+ */
+// 二维背包问题，唉，懵逼
+class Solution92 {
+    public int findMaxForm(String[] strs, int m, int n) {
+        int[][] dp = new int[m + 1][n + 1];
+        // 初始值，相当于什么都不拿，价值为0，可以忽略不写；
+        for (String str : strs) {
+            // 找出当前元素的0,1个数，相当于找出当前物品的质量
+            int sum0 = 0, sum1 = 0;
+            for (char c : str.toCharArray()) {
+                if (c == '0') {
+                    sum0++;
+                } else sum1++;
+            }
+            // 二维背包的重量，两重for循环遍历取得最大值
+            for (int i = m; i &gt;= sum0; i--) {
+                for (int j = n; j &gt;= sum1; j--) {
+                    // 当前物品的价值为一；
+                    dp[i][j] = Math.max(dp[i - sum0][j - sum1] + 1, dp[i][j]);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+}
+
+/**
+ * 494. 目标和
+ */
+
+class Solution91 {
+    public int findTargetSumWays(int[] nums, int target) {
+        int sum = Arrays.stream(nums).sum();
+        if (Math.abs(target) &gt; sum || (sum + target) % 2 != 0) return 0;
+        int vol = (sum + target) / 2;
+        int[] dp = new int[vol + 1];
+        // dp的值代表着方法总数。初始值为1
+        dp[0] = 1;
+        for (int num : nums) {
+            for (int j = vol; j &gt;= num; j--) {
+                dp[j] += dp[j - num];
+            }
+        }
+        return dp[vol];
+    }
+}
+
+/**
+ * 1049. 最后一块石头的重量 II
+ * 2021 11 13
+ */
+// 使用boolean数组，速度更快
+// dp[j] = true 此时的j即为能取到的最大值
+class Solution90 {
+    public int lastStoneWeightII(int[] stones) {
+        int sum = Arrays.stream(stones).sum();
+        int vol = sum / 2;
+        int[] dp = new int[vol + 1];
+        for (int stone : stones) {
+            for (int j = vol; j &gt;= stone; j--) {
+                dp[j] = Math.max(dp[j], dp[j - stone] + stone);
+            }
+        }
+        return sum - dp[vol];
+    }
+}
+
+/**
+ * 416. 分割等和子集
+ */
+// 官方解答，使用boolean数组
+class Solution89 {
+    public boolean canPartition(int[] nums) {
+        int n = nums.length;
+        if (n &lt; 2) {
+            return false;
+        }
+        int sum = 0, maxNum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        if (sum % 2 != 0) {
+            return false;
+        }
+        int target = sum / 2;
+        boolean[] dp = new boolean[target + 1];
+        dp[0] = true;
+        for (int num : nums) {
+            for (int j = target; j &gt;= num; --j) {
+                dp[j] |= dp[j - num];
+            }
+        }
+        return dp[target];
+    }
+}
+
+
+// 巧妙的转化成背包问题
+class Solution88 {
+    public boolean canPartition(int[] nums) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        if (sum % 2 != 0) {
+            return false;
+        }
+        // 限定背包容量，所得的子集和只会小于等于sum / 2；
+        int vol = sum / 2;
+        int[] dp = new int[vol + 1];
+        for (int i = 0; i &lt; nums.length; i++) {
+            for (int j = vol; j &gt;= nums[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
+            }
+        }
+        return dp[vol] == vol;
+    }
+}
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/chox1/" class="post-title gt-a-link">
+                    ChOx分析1-Rerun
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/java-BagProblem/" class="leancloud_visitors" data-flag-title="背包问题 LeetCode">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

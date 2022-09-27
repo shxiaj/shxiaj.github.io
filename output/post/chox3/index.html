@@ -1,0 +1,370 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>ChOx分析3-Python | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664279107991"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li><a href="#chox%E5%88%86%E6%9E%903-python">ChOx分析3-Python</a><br>
+*
+<ul>
+<li><a href="#%E4%B8%80-%E5%81%B6%E6%9E%81%E5%88%86%E5%B8%83%E5%9B%BE">一、偶极分布图</a></li>
+<li><a href="#%E4%BA%8C-%E8%83%BD%E9%87%8F">二、能量</a></li>
+<li><a href="#%E4%B8%89-%E8%B7%9D%E7%A6%BB">三、距离</a></li>
+<li><a href="#%E5%9B%9B-rmsd-rmsf-%E5%9B%9E%E6%97%8B%E5%8D%8A%E5%BE%84">四、RMSD &amp; RMSF &amp; 回旋半径</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    ChOx分析3-Python
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-10-28 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h1 id="chox分析3-python">ChOx分析3-Python</h1>
+<h3 id="一-偶极分布图">一、偶极分布图</h3>
+<p>使用计算出来的'dipoles'文件，统计200ns后的结果</p>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.rc('font', family='Times New Roman')
+xy = np.loadtxt('dipoles', dtype=float, usecols=(0, 1))
+
+ax = sns.histplot(data=xy[:, 1], stat='percent', bins=100, kde=True, color=&quot;white&quot;, kde_kws={&quot;cut&quot;: 200},
+                  line_kws={&quot;linewidth&quot;: 1}, legend=True, fill=False, binrange=[-1, 1])
+ax.lines[0].set_color('crimson')
+
+ax.set_xlim(-1, 1)
+ax.set_ylabel('percent %', fontsize=15)
+plt.show()
+</code></pre>
+<h3 id="二-能量">二、能量</h3>
+<p>rerun后的.edr文件<br>
+统计后100ns的平均作用能<br>
+一般用短程库伦作用能（Coul-SR）和短程范德华作用能（LJ-SR）<br>
+<code>gmx energy -s energy.tpr -f energy.edr -o energy.xvg</code><br>
+隔四个取一个,统计接触残基能量，蛋白质整体能量。</p>
+<pre><code class="language-python">#!/usr/bin/env python3
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rc('font', family='Times New Roman')
+
+resname = [&quot;Gly30&quot;, &quot;Glu31&quot;, &quot;Ala32&quot;, &quot;Gly33&quot;, &quot;Asp145&quot;, &quot;Arg146&quot;, &quot;Arg150&quot;, &quot;Ser153&quot;, &quot;Lys163&quot;, &quot;Arg202&quot;, &quot;Glu207&quot;, &quot;Gly238&quot;, &quot;Thr239&quot;, &quot;Gly240&quot;, &quot;Lys241&quot;, &quot;Lys503&quot;]
+xy = np.loadtxt('energy1.xvg', dtype=float, comments=['#', '@'])
+ene = np.mean(xy[10000:, :], axis=0)
+
+# 库伦作用在前，vdw作用在后
+temp1 = ene[1::2].copy()
+temp1[temp1 &gt; 0] = 0
+temp2 = ene[1::2].copy()
+temp2[temp2 &lt; 0] = 0
+
+temp3 = ene[2::2].copy()
+temp3[temp3 &gt; 0] = 0
+temp4 = ene[2::2].copy()
+temp4[temp4 &lt; 0] = 0
+
+
+plt.bar(resname, temp1, color=&quot;red&quot;, label=&quot;Coul&quot;)
+plt.bar(resname, temp2, color=&quot;red&quot;)
+# plt.bar(resname, ene[2::2], color=&quot;black&quot;, label=&quot;Vdw&quot;, bottom=ene[1::2])
+# plt.bar(resname, ene[2::2], color=&quot;black&quot;, label=&quot;Vdw&quot;)
+plt.bar(resname, temp3, color=&quot;black&quot;, label=&quot;Vdw&quot;, bottom=temp1)
+plt.bar(resname, temp4, color=&quot;black&quot;, bottom=temp2)
+
+# plt.ylim(-160, -20)
+plt.xlabel('Times (ns)', fontsize=25)
+plt.ylabel('energy (kJ/mol)', fontsize=25)
+ax = plt.gca()
+ax.xaxis.set_ticks_position('top')
+# plt.gca().xaxis.set_ticks_position('top')
+plt.tick_params(top=False)
+plt.xticks(rotation=45)
+plt.xticks(fontsize=18)
+plt.yticks(fontsize=18)
+plt.legend(loc='best', frameon=False, fontsize=20)
+plt.show()
+</code></pre>
+<h3 id="三-距离">三、距离</h3>
+<p>gmx distance与gmx mindist</p>
+<pre><code class="language-bash">gmx make_ndx -f md.tpr -n
+
+# 建立活性中心的索引组
+echo -e &quot;a O6 O7 N6 N7 N9 C19 C17 C16 C15 \n q&quot; | gmx make_ndx -f md.tpr -n
+echo -e &quot;a O6 O7 N6 N7 N9 \n q&quot; | gmx make_ndx -f md.tpr -n # 结果更好
+xmgrace ./rms/rmsd.xvg
+
+# 分析活性中心，蛋白质整体与表面最小距离
+gmx mindist -s md.tpr -f md.xtc -tu ns -n -od -on
+gmx distance -s md.tpr -f md.xtc -oxyz -tu ns -n -select &quot;[0,0,1.519] plus group 28&quot; # 1.519 负电
+gmx distance -s md.tpr -f md.xtc -oxyz -tu ns -n -select &quot;[0,0,1.632] plus group 30&quot; # 1.632 正电
+</code></pre>
+<h3 id="四-rmsd-rmsf-回旋半径">四、RMSD &amp; RMSF &amp; 回旋半径</h3>
+<pre><code class="language-bash"># 计算均方根偏差，选择蛋白质组
+gmx rms -s md.tpr -f md.xtc -tu ns -n
+
+# 计算原子的均方根波动，选择蛋白质组
+gmx rmsf -s md.tpr -f md.xtc -res -n -b 100000
+
+# 计算回旋半径
+gmx gyrate -s md.tpr -f md.xtc -n
+# 计算关于主轴的回旋半径
+gmx gyrate -s md.tpr -f md.xtc -n -p
+# 两个结果总值相同，xyz分量的值不同
+
+# 残基接触图 正电
+gmx select -f md.xtc -s md.tpr -select 'resid 9 to 506 and z &lt; 1.982' -tu ns -dt 0.1 -seltype res_com -oi
+# 200-300ns残基接触比例
+gmx select -f md.xtc -s md.tpr -select 'resid 9 to 506 and z &lt; 1.982' -tu ns -dt 0.05 -seltype res_com -oi -of -b 200 -e 300
+
+# 残基接触图 负电
+gmx select -f md.xtc -s md.tpr -select 'resid 9 to 506 and z &lt; 1.869' -tu ns -dt 0.1 -seltype res_com -oi
+# 200-300ns残基接触比例
+gmx select -f md.xtc -s md.tpr -select 'resid 9 to 506 and z &lt; 1.869' -tu ns -seltype res_com -oi -of -b 200 -e 300
+
+# 查看残基接触时间占比
+awk '!/^(#|@)/ {if ($2 &gt; 0.8) printf(&quot;%7d%10.4f\n&quot;,$1+8,$2)}' occupancy.xvg
+# 用作Origin画残基接触图
+awk '{for(i=3;i&lt;=NF;i++) printf(&quot;%8.2f%6d\n&quot;,$1/1000,$i)}' index.dat &gt; resOrigin
+
+# 输出蛋白质所有残基的id到index.dat
+gmx select -f md.gro -s md.tpr -select 'group protein' -oi -seltype res_com
+# 输出蛋白质端基序号
+awk '{print $3 &quot; &quot; $NF}' index.dat
+# 输出蛋白质残基序号到resid, 用于gmx make_ndx输入
+awk '{for(i=3;i&lt;=NF;++i) print $i; print &quot;q&quot;}' index.dat &gt; resid
+
+# 废弃
+# for (( i = 9; i &lt;= 506; i++ )); do
+#   echo r $i
+# done &gt; resid
+# echo q &gt;&gt; resid
+
+gmx make_ndx -f ../md.tpr -n &lt; resid
+
+seq 26 524 &gt; mindid
+
+gmx mindist -f md.xtc -s md.tpr -n -od -tu ns -b 200 -e 300 -dt 0.1 -ng 498 &lt; mindid
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/git-user/" class="post-title gt-a-link">
+                    Git提交到远程仓库
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/chox3/" class="leancloud_visitors" data-flag-title="ChOx分析3-Python">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
