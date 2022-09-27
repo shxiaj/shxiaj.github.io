@@ -6,14 +6,14 @@
 
 <title>MySQL-Win10下压缩包安装方式 | ShXiaJ&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://shxiaj.xyz/favicon.ico">
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
 <link rel="stylesheet"
       href="/post-images/highlight/styles/lioshi.min.css">
 <script src="/post-images/highlight/highlight.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://shxiaj.xyz/styles/main.css">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
 <style>
     hr {
         margin-top: 1rem;
@@ -136,15 +136,15 @@
 <h3 id="1-下载mysql">1、下载MySQL</h3>
 <p><a href="https://downloads.mysql.com/archives/community/">MySQL社区版下载地址</a></p>
 <p>https://downloads.mysql.com/archives/community/</p>
-<figure data-type="image" tabindex="1"><img src="https://shxiaj.xyz/post-images/image-20211209202250658.png" alt="image-20211209202250658" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://shxiaj.github.io/post-images/image-20211209202250658.png" alt="image-20211209202250658" loading="lazy"></figure>
 <h3 id="2-解压压缩包">2、解压压缩包</h3>
-<figure data-type="image" tabindex="2"><img src="https://shxiaj.xyz/post-images/image-20211209202220033.png" alt="image-20211209202220033" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://shxiaj.github.io/post-images/image-20211209202220033.png" alt="image-20211209202220033" loading="lazy"></figure>
 <h3 id="3-配置win10系统环境变量">3、配置Win10系统环境变量</h3>
 <p>配置系统环境变量，方法百度</p>
 <p>path路径中添加F:\JavaProject\mysql-5.7.35\bin</p>
 <h3 id="4-配置myinimysql配置文件">4、配置my.ini，MySQL配置文件</h3>
 <p>新建my.ini文件在MySQL解压完成的目录下</p>
-<figure data-type="image" tabindex="3"><img src="https://shxiaj.xyz/post-images/image-20211209203120701.png" alt="image-20211209203120701" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://shxiaj.github.io/post-images/image-20211209203120701.png" alt="image-20211209203120701" loading="lazy"></figure>
 <h4 id="myini文件内容">my.ini文件内容</h4>
 <pre><code class="language-ini">[mysql]
 # 设置mysql客户端默认字符集
@@ -167,7 +167,7 @@ default-storage-engine=INNODB
 </code></pre>
 <h3 id="5-安装mysql服务">5、安装MySQL服务</h3>
 <p>bin目录中运行cmd，使用管理员身份</p>
-<figure data-type="image" tabindex="4"><img src="https://shxiaj.xyz/post-images/image-20211209204216723.png" alt="image-20211209204216723" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://shxiaj.github.io/post-images/image-20211209204216723.png" alt="image-20211209204216723" loading="lazy"></figure>
 <p>使用cmd命令初始化和启动MySQL服务，生成data文件夹，如果出现下面情况2，删除data文件夹重新输入命令即可</p>
 <pre><code class="language-bat">cd /d F:\JavaProject\mysql-5.7.35\bin
 mysqld  --initialize-insecure
@@ -177,9 +177,9 @@ mysqld -install
 # mysqld  --initialize （不建议使用，生成一个随机的root密码）
 
 </code></pre>
-<figure data-type="image" tabindex="5"><img src="https://shxiaj.xyz/post-images/image-20211209205343411.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://shxiaj.github.io/post-images/image-20211209205343411.png" alt="" loading="lazy"></figure>
 <p><code>net start mysql</code>启动MySQL服务</p>
-<figure data-type="image" tabindex="6"><img src="https://shxiaj.xyz/post-images/image-20211209205534149.png" alt="image-20211209205534149" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://shxiaj.github.io/post-images/image-20211209205534149.png" alt="image-20211209205534149" loading="lazy"></figure>
 <h3 id="6-运行mysql服务">6、运行MySQL服务</h3>
 <pre><code class="language-sql"># 直接cmd中运行，输入密码时，直接按回车键可以直接登录
 mysql -u root -p
@@ -193,10 +193,10 @@ net start mysql
 # 再次使用root登录，输入设置好的密码
 mysql -u root -p
 </code></pre>
-<figure data-type="image" tabindex="7"><img src="https://shxiaj.xyz/post-images/image-20211209210656569.png" alt="image-20211209210656569" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://shxiaj.github.io/post-images/image-20211209210656569.png" alt="image-20211209210656569" loading="lazy"></figure>
 <p>出现这种错误都是由于MySQL服务没有启动，必须在管理员权限下的cmd中使用net start mysql启动服务</p>
-<figure data-type="image" tabindex="8"><img src="https://shxiaj.xyz/post-images/image-20211209211447382.png" alt="image-20211209211447382" loading="lazy"></figure>
-<figure data-type="image" tabindex="9"><img src="https://shxiaj.xyz/post-images/image-20211209210709462.png" alt="image-20211209210709462" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://shxiaj.github.io/post-images/image-20211209211447382.png" alt="image-20211209211447382" loading="lazy"></figure>
+<figure data-type="image" tabindex="9"><img src="https://shxiaj.github.io/post-images/image-20211209210709462.png" alt="image-20211209210709462" loading="lazy"></figure>
 <p>OK，完成，尽情学习MySQL数据库！</p>
 
                 </div>
@@ -206,7 +206,7 @@ mysql -u root -p
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.xyz/post/java-learnroad/" class="post-title gt-a-link">
+                <a href="https://shxiaj.github.io/post/java-learnroad/" class="post-title gt-a-link">
                     Java-learnRoad
                 </a>
             </div>
@@ -299,7 +299,7 @@ mysql -u root -p
     </div>
     <div>
     <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
-    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.xyz/atom.xml" target="_blank">RSS</a></a>
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 

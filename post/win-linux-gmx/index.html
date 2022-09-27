@@ -6,14 +6,14 @@
 
 <title>Windows下的Linux基础环境 &amp; 程序 | ShXiaJ&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://shxiaj.xyz/favicon.ico">
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
 <link rel="stylesheet"
       href="/post-images/highlight/styles/lioshi.min.css">
 <script src="/post-images/highlight/highlight.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://shxiaj.xyz/styles/main.css">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
 <style>
     hr {
         margin-top: 1rem;
@@ -146,24 +146,24 @@
 链接里下载便携版直接解压就行<br>
 <a href="https://git-scm.com/download/win">https://git-scm.com/download/win</a><br>
 使用git-bash就能获得基础的linux使用环境了，bashrc在etc文件夹里。<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619171026579.png" alt="image-20220619171026579" loading="lazy"></p>
+<img src="https://shxiaj.github.io/post-images/image-20220619171026579.png" alt="image-20220619171026579" loading="lazy"></p>
 <h3 id="12-进阶">1.2 进阶</h3>
 <p>再将里面的bin目录添加到win环境变量就能直接在cmd里<br>
 输入bash.exe打开git-bash了，由于电脑里还装了Wsl，命令还会冲突，所以我就把bin里文件改了个名字gbash，以防冲突<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619171545974.png" alt="image-20220619171545974" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220619171545974.png" alt="image-20220619171545974" loading="lazy"><br>
 直接在文件管理器地址栏输入<code>cmd</code>回车打开工作目录就是当前的目录，再输入gbash就直接Ok了<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619171900903.png" alt="image-20220619171900903" loading="lazy"></p>
+<img src="https://shxiaj.github.io/post-images/image-20220619171900903.png" alt="image-20220619171900903" loading="lazy"></p>
 <h3 id="13-折腾">1.3 折腾</h3>
 <p>自带cmd命令行，不好用，字体难找到美观的<br>
 win10应用商店搜索下载 terminal 程序，用来替代自带的cmd窗口。<br>
 我的莫名其妙，重启电脑了过后，文件夹右键菜单才才出现了‘在当前文件夹打开终端’这个选项，如果没出现网上搜索教程。<br>
 如图，这个界面才是流行的风格，舒服了。<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619172605430.png" alt="image-20220619172605430" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220619172605430.png" alt="image-20220619172605430" loading="lazy"><br>
 里面集成了有Wsl、cmd、powersh的命令终端，添加一个新配置，同时设置新选项默认使用gsh打开界面<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619172905657.png" alt="image-20220619172905657" loading="lazy"><br>
-<img src="https://shxiaj.xyz/post-images/image-20220619173112951.png" alt="image-20220619173112951" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220619172905657.png" alt="image-20220619172905657" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220619173112951.png" alt="image-20220619173112951" loading="lazy"><br>
 空白处右击，完美<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619173745959.png" alt="image-20220619173745959" loading="lazy"></p>
+<img src="https://shxiaj.github.io/post-images/image-20220619173745959.png" alt="image-20220619173745959" loading="lazy"></p>
 <h3 id="14-总结">1.4 总结</h3>
 <p>折腾折腾再折腾，看起来很简单，实际上试过很多其他的方式，轻量使用还是这个最为方便了。<br>
 win10在装个miniconda3，基本工具都有了。<br>
@@ -176,9 +176,9 @@ sob的教程，同时也给出了编译好的文件了<br>
 2020.6 CUDA GPU加速版，AVX2指令集（88 MB）：http://sobereva.com/soft/gmx/gmx2020.6_AVX2_CUDA_win64.rar（nVidia显卡驱动需&gt;=471.11版）<br>
 2018.8虽然小，但是和我的xtc轨迹文件不兼容呀，无语子。<br>
 解压，添加bin目录到win环境变量里<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619174624605.png" alt="image-20220619174624605" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220619174624605.png" alt="image-20220619174624605" loading="lazy"><br>
 gmx使用，OK大功告成<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619174744446.png" alt="image-20220619174744446" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220619174744446.png" alt="image-20220619174744446" loading="lazy"><br>
 然后后续使用还有小小坑，无语子，缺dssp。<br>
 实测分析轨迹数据还是很快的，我还是喜欢吧xtc文件搞到本地，处理出来各种xvg文件保存也比较方便</p>
 <h2 id="3-win10软件推荐">3. win10软件推荐</h2>
@@ -192,7 +192,7 @@ gmx使用，OK大功告成<br>
 所有的设置都是Json形式的，改改字体就行啦<br>
 还有个设置：当失去焦点时，自动保存。 好用啊<br>
 界面如图<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619183243819.png" alt="image-20220619183243819" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220619183243819.png" alt="image-20220619183243819" loading="lazy"><br>
 设置json文件:</p>
 <pre><code class="language-json">{
 	&quot;ignored_packages&quot;:
@@ -228,11 +228,11 @@ gmx使用，OK大功告成<br>
 不过要钱，只能下载Crack版喽，安装包就60M。舒服<br>
 xshell6：优点是好看，比xshell7安装包小很多，对于不习惯选中右键直接复制的我比较友好。<br>
 调个舒服的背景色就能用了<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619183218543.png" alt="image-20220619183218543" loading="lazy"></p>
+<img src="https://shxiaj.github.io/post-images/image-20220619183218543.png" alt="image-20220619183218543" loading="lazy"></p>
 <h3 id="33-cover-文件多窗口管理器">3.3 Cover 文件多窗口管理器</h3>
 <p>文件管理器多窗口标签页呗，流畅，不过肯定比不了原生的了<br>
 多窗口切换的我人都麻了，有了这个好很多<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619183813439.png" alt="image-20220619183813439" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220619183813439.png" alt="image-20220619183813439" loading="lazy"><br>
 也有类似word的窗口，不好用，没必要，又开不了几个word</p>
 <h3 id="33-singlefile-浏览器插件">3.3 SingleFile 浏览器插件</h3>
 <p>保存网页页面的，好用就完事了。浏览器自带的保存，会出现一坨东西，这个就一个单个的html，方便的很<br>
@@ -243,7 +243,7 @@ xshell6：优点是好看，比xshell7安装包小很多，对于不习惯选中
 搜索：Adobe系列软件大全 一键安装版 By：Ansifa<br>
 Ansifa这个人的绿色版真滴方便呀<br>
 单个搜索也行，单个安装<br>
-<img src="https://shxiaj.xyz/post-images/image-20220619200019941.png" alt="image-20220619200019941" loading="lazy"></p>
+<img src="https://shxiaj.github.io/post-images/image-20220619200019941.png" alt="image-20220619200019941" loading="lazy"></p>
 <h3 id="35-pdgcnteditor目录书签编辑器">3.5 PdgCntEditor目录（书签）编辑器</h3>
 <p>PdgCntEditor是什么？这是一个目录（书签）编辑器。当每次下载的PDF没有目录时，可以直接搜索书名，在购物平台的详情页一般都会有目录介绍。复制下来用该程序导入到PDF中，具体使用方法Google。</p>
 
@@ -254,7 +254,7 @@ Ansifa这个人的绿色版真滴方便呀<br>
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.xyz/post/resOrigin/" class="post-title gt-a-link">
+                <a href="https://shxiaj.github.io/post/resOrigin/" class="post-title gt-a-link">
                     gromacs画蛋白质残基接触图
                 </a>
             </div>
@@ -347,7 +347,7 @@ Ansifa这个人的绿色版真滴方便呀<br>
     </div>
     <div>
     <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
-    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.xyz/atom.xml" target="_blank">RSS</a></a>
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 

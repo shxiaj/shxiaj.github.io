@@ -6,14 +6,14 @@
 
 <title>Ps中索引色、RGB色 | Origin中导出RGB256色 | ShXiaJ&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://shxiaj.xyz/favicon.ico">
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
 <link rel="stylesheet"
       href="/post-images/highlight/styles/lioshi.min.css">
 <script src="/post-images/highlight/highlight.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://shxiaj.xyz/styles/main.css">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
 <style>
     hr {
         margin-top: 1rem;
@@ -135,15 +135,15 @@
 <p>分析RMSF时，把&gt;0.2nm的resid全部画在了蛋白上，说明变得大的都不是二级结构方面。原本这图准备放SI里，结果觉得信息密度太低了，想了想可以放在RMSF的图里，就调调图腾个空放我的protein。用ps给这两合到一块去。</p>
 <h3 id="3仿佛遇到了bug">3.仿佛遇到了Bug</h3>
 <p>当我把origin导出的tif图放进ps里，再放protein图的时候，怎么也放不进去，以前都是这么叠加两张图的呀。打开关闭试了好几次，最后发现origin的图片显示的标志和普通的不一样啊。显示索引，图层也是被锁定的。<br>
-<img src="https://shxiaj.xyz/post-images/image-20220622132538859.png" alt="image-20220622132538859" loading="lazy"></p>
+<img src="https://shxiaj.github.io/post-images/image-20220622132538859.png" alt="image-20220622132538859" loading="lazy"></p>
 <h3 id="4解决">4.解决</h3>
 <p>Google喽，色深不同搞的，ps-&gt;图像-&gt;模式-&gt;rgb，调了即可，原来是默认的索引色只有256色，不能修改。</p>
 <h3 id="5原来如此">5.原来如此</h3>
 <p>origin里默认导出的tif是rgb，色深256色。就是ps里的索引颜色。<br>
-<img src="https://shxiaj.xyz/post-images/image-20220622132429917.png" alt="image-20220622132429917" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220622132429917.png" alt="image-20220622132429917" loading="lazy"><br>
 大概就是tif图片很小的原因吧。然后我又吃太饱了没事干，想看看256色和rgb24到底相差多少。<br>
 同样是300dpi，1063*815分辨率，9cm左右的大小。<br>
-<img src="https://shxiaj.xyz/post-images/image-20220622132433557.png" alt="image-20220622132433557" loading="lazy"><br>
+<img src="https://shxiaj.github.io/post-images/image-20220622132433557.png" alt="image-20220622132433557" loading="lazy"><br>
 果然大小相差很多啊，同时颜色没看出来任何区别，放大到163%时，256色的会有一点点不明显的灰色噪点，影响很小。</p>
 <h3 id="6用处">6.用处</h3>
 <p><strong>图片太大，256色可以大大压缩图片大小</strong>。</p>
@@ -155,7 +155,7 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.xyz/post/gmx-do_dssp/" class="post-title gt-a-link">
+                <a href="https://shxiaj.github.io/post/gmx-do_dssp/" class="post-title gt-a-link">
                     gmx do_dssp &amp; xpm2ps 蛋白二级结构图绘制
                 </a>
             </div>
@@ -248,7 +248,7 @@
     </div>
     <div>
     <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
-    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.xyz/atom.xml" target="_blank">RSS</a></a>
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 

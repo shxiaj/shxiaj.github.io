@@ -6,14 +6,14 @@
 
 <title>Git提交到远程仓库 | ShXiaJ&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://shxiaj.xyz/favicon.ico">
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
 <link rel="stylesheet"
       href="/post-images/highlight/styles/lioshi.min.css">
 <script src="/post-images/highlight/highlight.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://shxiaj.xyz/styles/main.css">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
 <style>
     hr {
         margin-top: 1rem;
@@ -308,8 +308,8 @@ git push -u github master
 <h3 id="bash脚本">bash脚本</h3>
 <pre><code class="language-bash">#!/usr/bin/bash
 cd C:/Users/92306/Documents/Gridea/output
-echo -e &quot;### 盛夏捷的静态博客\nhttps://shxiaj.github.io 或 https://shxiaj.xyz&quot; &gt; README.md
-sed -i &quot;s|https://shxiaj.xyz|https://shxiaj.github.io|g&quot; `find . -name &quot;*.html&quot;`
+echo -e &quot;### 盛夏捷的静态博客\nhttps://shxiaj.github.io 或 https://shxiaj.github.io&quot; &gt; README.md
+sed -i &quot;s|https://shxiaj.github.io|https://shxiaj.github.io|g&quot; `find . -name &quot;*.html&quot;`
 git add .
 git remote add github git@github.com:ShXiaJ/shxiaj.github.io.git
 git commit -m update$(date +%F)
@@ -717,7 +717,7 @@ $ git commit -m &quot;remove xyz file&quot;
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.xyz/post/java-TreeNode/" class="post-title gt-a-link">
+                <a href="https://shxiaj.github.io/post/java-TreeNode/" class="post-title gt-a-link">
                     Java二叉树算法题解 LeetCode
                 </a>
             </div>
@@ -810,7 +810,7 @@ $ git commit -m &quot;remove xyz file&quot;
     </div>
     <div>
     <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
-    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.xyz/atom.xml" target="_blank">RSS</a></a>
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
     </div>
 </div>
 
