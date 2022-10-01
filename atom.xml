@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>ShXiaJ&apos;s Note</title>
-    <updated>2022-09-27T12:43:38.422Z</updated>
+    <updated>2022-10-01T07:58:52.809Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>http://localhost:4000/images/avatar.png</logo>
     <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2022, ShXiaJ&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[氧化石墨烯表面力场构建 opls]]></title>
+        <id>http://localhost:4000/post/surfaceGo/</id>
+        <link href="http://localhost:4000/post/surfaceGo/">
+        </link>
+        <updated>2022-09-29T07:55:55.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ProtPos Learning Process]]></title>
         <id>http://localhost:4000/post/protposLearn/</id>
@@ -100,16 +107,5 @@
         <link href="http://localhost:4000/post/pymolPlot/">
         </link>
         <updated>2022-06-08T04:32:28.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Sublime Text 右键打开当前文件夹]]></title>
-        <id>http://localhost:4000/post/sublime-text/</id>
-        <link href="http://localhost:4000/post/sublime-text/">
-        </link>
-        <updated>2022-01-19T04:51:19.000Z</updated>
-        <summary type="html"><![CDATA[<p>使用sublime 右键打开资源管理器里的当前文件夹</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>使用sublime 右键打开资源管理器里的当前文件夹</p>
-]]></content>
     </entry>
 </feed>
