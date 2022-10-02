@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>ShXiaJ&apos;s Note</title>
-    <updated>2022-10-01T07:58:52.809Z</updated>
+    <updated>2022-10-02T07:53:56.742Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>http://localhost:4000/images/avatar.png</logo>
     <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2022, ShXiaJ&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[PatchDock 使用]]></title>
+        <id>http://localhost:4000/post/patchDock/</id>
+        <link href="http://localhost:4000/post/patchDock/">
+        </link>
+        <updated>2022-10-02T07:55:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>log</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>log</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[氧化石墨烯表面力场构建 opls]]></title>
         <id>http://localhost:4000/post/surfaceGo/</id>
@@ -100,12 +111,5 @@
 ]]></summary>
         <content type="html"><![CDATA[<p>重写了diploes.sh，更快更方便</p>
 ]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Pymol 计算蛋白质静电势，渲染导出动画]]></title>
-        <id>http://localhost:4000/post/pymolPlot/</id>
-        <link href="http://localhost:4000/post/pymolPlot/">
-        </link>
-        <updated>2022-06-08T04:32:28.000Z</updated>
     </entry>
 </feed>

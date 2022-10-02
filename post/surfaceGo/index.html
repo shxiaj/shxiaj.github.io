@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1664611129338"
+            <form id="gridea-search-form" style="position: relative" data-update="1664697231000"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -112,6 +112,7 @@
 <li><a href="#34-pdb2gmx">3.4 pdb2gmx</a></li>
 <li><a href="#35-grompp%E7%94%9F%E6%88%90%E5%8A%9B%E5%9C%BA-%E6%94%B9%E9%94%99">3.5 grompp生成力场, 改错</a></li>
 <li><a href="#36-%E5%AF%BB%E6%89%BE%E5%90%88%E9%80%82%E5%8F%82%E6%95%B0">3.6 寻找合适参数</a></li>
+<li><a href="#37-%E6%9D%A5%E4%B8%AAem">3.7 来个em</a></li>
 </ul>
 </li>
 </ul>
@@ -416,7 +417,10 @@ tail -1 go.gro &gt;&gt; go-new.gro
 <ul>
 <li>处理错误数据</li>
 </ul>
-<pre><code class="language-bash"># 提取error里有用的信息, sed 圆括号匹配() 还有[]都需要转义, ()匹配的字符按照顺序存为\1 \2 \3
+<pre><code class="language-bash">rm nohup.out
+nohup bash gmx.sh &amp;
+sleep 5s
+# 提取error里有用的信息, sed 圆括号匹配() 还有[]都需要转义, ()匹配的字符按照顺序存为\1 \2 \3
 # ERROR 7149 [file topol.top, line 86843]: 替换成 ERROR 7149 file topol.top, line 86843
 sed -n 's|\(^ERROR.*\)\[\(.*line.*\)\]:|\1\2|gp' nohup.out &gt; errlines
 
@@ -450,11 +454,35 @@ cat errData | while read line; do
   echo
 done &gt; errType
 
-# 排序后去重, 所留下来的就是力场文件里需要补充的参数
-sort -u -k 1 -k 2 -k 3 -k 4 errType &gt; missType
+# 排序后去重, 所留下来的就是力场文件里需要补充的参数,命令随意符合自己要求就行
+sort -u -k 1 -k 2 -k 3 -k 4 errType | tr a-z A-Z &gt; missType
+# 力场里没有CF, 小秦说力场里CT就是CF
+sed -i 's/GO_//g' missType
+
 </code></pre>
 <h4 id="36-寻找合适参数">3.6 寻找合适参数</h4>
 <p>问大佬们, 或者找找力场类似的, 或者使用ligpargen试试看有没有类似生成的, 或者直接全部设置成0;</p>
+<ul>
+<li>最终全部搞定, 把原子名MarkName改回来</li>
+</ul>
+<pre><code class="language-bash">atomTureNameStrings=$(sed '1,2d;$d' go.gro | awk '{print $2}')
+# 反人类的awk索引从1开始
+awk -v anStr=&quot;$atomTureNameStrings&quot; 'BEGIN {
+  split(anStr, an);
+} {
+  i = NR - 29;
+  if (i &gt; 0 &amp;&amp; i &lt;= 5244) { $5 = an[i] }
+  print $0;
+}' topol.top &gt; ogo.itp
+</code></pre>
+<h4 id="37-来个em">3.7 来个em</h4>
+<pre><code class="language-bash">gmx make_ndx -f box.gro &lt; 
+a CT CA CF &amp; &quot;OGO&quot;
+q
+gmx grompp -f em.mdp -c box.gro -p topol.top -o ./em/em.tpr -po ./em/emout.mdp -n
+gmx mdrun -v -deffnm ./em/em
+</code></pre>
+<p>搞定!</p>
 
                 </div>
             </article>
