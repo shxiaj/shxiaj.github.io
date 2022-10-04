@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>ShXiaJ&apos;s Note</title>
-    <updated>2022-10-02T07:53:56.742Z</updated>
+    <updated>2022-10-04T05:45:46.429Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>http://localhost:4000/images/avatar.png</logo>
     <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2022, ShXiaJ&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[计算蛋白疏水偶极 java]]></title>
+        <id>http://localhost:4000/post/hydropDipole-java/</id>
+        <link href="http://localhost:4000/post/hydropDipole-java/">
+        </link>
+        <updated>2022-10-04T04:35:51.000Z</updated>
+        <summary type="html"><![CDATA[<p>重写了计算脚本, 在学习一下用java怎么处理这种数据吧, 尽管java不适合干这个</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>重写了计算脚本, 在学习一下用java怎么处理这种数据吧, 尽管java不适合干这个</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[PatchDock 使用]]></title>
         <id>http://localhost:4000/post/patchDock/</id>
@@ -100,16 +111,5 @@
         <link href="http://localhost:4000/post/mdFunction/">
         </link>
         <updated>2022-06-08T06:07:53.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Tcl绘制Vmd里面的静电偶级]]></title>
-        <id>http://localhost:4000/post/tclVmdDipoles/</id>
-        <link href="http://localhost:4000/post/tclVmdDipoles/">
-        </link>
-        <updated>2022-06-08T06:07:53.000Z</updated>
-        <summary type="html"><![CDATA[<p>重写了diploes.sh，更快更方便</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>重写了diploes.sh，更快更方便</p>
-]]></content>
     </entry>
 </feed>

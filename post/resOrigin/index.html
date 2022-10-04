@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1664697231000"
+            <form id="gridea-search-form" style="position: relative" data-update="1664862342281"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -108,7 +108,7 @@
 <li><a href="#2-%E6%AE%8B%E5%9F%BA%E6%8E%A5%E8%A7%A6%E5%9B%BE">2. 残基接触图</a></li>
 </ul>
 </li>
-<li><a href="#b-gmx-minidist%E5%B7%A5%E5%85%B7-%E6%9B%B4%E9%80%9A%E7%94%A8">B. gmx minidist工具, 更通用</a>
+<li><a href="#b-gmx-mindist%E5%B7%A5%E5%85%B7-%E6%9B%B4%E9%80%9A%E7%94%A8">B. gmx mindist工具, 更通用</a>
 <ul>
 <li><a href="#1-gmx-make_ndx-%E5%BB%BA%E7%AB%8B%E6%89%80%E6%9C%89%E6%AE%8B%E5%9F%BA%E5%92%8C%E8%A1%A8%E9%9D%A2%E7%9A%84%E7%B4%A2%E5%BC%95">1. gmx make_ndx 建立所有残基和表面的索引</a></li>
 <li><a href="#2-%E8%AE%A1%E7%AE%97%E8%B7%9D%E8%A1%A8%E9%9D%A2%E7%9A%84%E6%9C%80%E5%B0%8F%E8%B7%9D%E7%A6%BB">2. 计算距表面的最小距离</a></li>
@@ -175,7 +175,7 @@ gmx select -f md.xtc -s md.tpr -select 'resid 9 to 506 and z &lt; 1.982' -tu ns 
 awk '{for(i=3;i&lt;=NF;i++) printf(&quot;%8.2f%6d\n&quot;,$1/1000,$i)}' index.dat &gt; resOrigin
 </code></pre>
 <p>用文件<code>resOrigin</code>导入origin画个散点图</p>
-<h3 id="b-gmx-minidist工具-更通用">B. gmx minidist工具, 更通用</h3>
+<h3 id="b-gmx-mindist工具-更通用">B. gmx mindist工具, 更通用</h3>
 <h4 id="1-gmx-make_ndx-建立所有残基和表面的索引">1. gmx make_ndx 建立所有残基和表面的索引</h4>
 <pre><code class="language-bash"># 先建立表面的索引, 如23和24为表面的原子
 echo &quot;23|24\nq\n&quot; | gmx make_ndx -f md.tpr
@@ -184,7 +184,7 @@ gmx select -f md.gro -s md.tpr -select 'group protein' -oi -seltype res_com
 # 输出蛋白质端基序号
 awk '{print $3 &quot; &quot; $NF}' index.dat
 # 输出蛋白质残基序号到resid, 用于gmx make_ndx输入
-awk '{for(i=3;i&lt;=NF;++i) print $i; print &quot;q&quot;}' index.dat &gt; resid
+awk '{for(i=3;i&lt;=NF;++i) print &quot;r  &quot; $i; print &quot;q&quot;}' index.dat &gt; resid
 # 生成单个的残基组
 gmx make_ndx -f md.tpr -n &lt; resid
 </code></pre>

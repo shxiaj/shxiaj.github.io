@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1664697231000"
+            <form id="gridea-search-form" style="position: relative" data-update="1664862342281"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -167,6 +167,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=指定安装目录 -DGMX_SIMD=AVX2_256 \
          -DCMAKE_PREFIX_PATH=fftw安装目录 \ 
          -DCMAKE_C_COMPILER=gcc文件全路径
          -DCMAKE_CXX_COMPILER=g++文件全路径 
+         -DGMX_GPU=off
          # gcc是自己安装的需要指定，系统自带则不需要
 # exmaple：cmake .. -DCMAKE_INSTALL_PREFIX=${HOME}/soft/gromacs \
 # -DGMX_SIMD=AVX_256 -DCMAKE_PREFIX_PATH=/public/home/DLA/soft/fftw \ 

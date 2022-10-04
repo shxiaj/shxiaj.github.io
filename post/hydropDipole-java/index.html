@@ -1,0 +1,420 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>计算蛋白疏水偶极 java | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1664862342281"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-gmx-%E5%AF%BC%E5%87%BA%E5%B8%A7">1. gmx 导出帧</a></li>
+<li><a href="#2-java-%E5%A4%84%E7%90%86">2. Java 处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    计算蛋白疏水偶极 java
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-10-04 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/iV4T-YtS58/" class="post-tags">
+                            # Java
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>重写了计算脚本, 在学习一下用java怎么处理这种数据吧, 尽管java不适合干这个</p>
+<!-- more -->
+<h3 id="1-gmx-导出帧">1. gmx 导出帧</h3>
+<pre><code class="language-bash"># 只能导出仅仅含有蛋白的gro文件, 如果是其他的后续处理没考虑会出问题
+# 默认导进新建hd文件夹
+gmx trjconv -f md.xtc -s md.tpr -sep -o ./hd/md.gro
+</code></pre>
+<h3 id="2-java-处理">2. Java 处理</h3>
+<p>Java确实看起来复杂的很, 写个简简单单的东西, 代码看起来像是敲锣打鼓通天响<br>
+处理步骤:</p>
+<ul>
+<li>处理gro文件,存为字符串二维数组</li>
+<li>将坐标的字符串数组转为double数组</li>
+<li>计算几何中心</li>
+<li>计算疏水偶极, cos值, 存为列表</li>
+<li>最终写入文件<br>
+默认处理文件名md0.gro - mdxxx.gro,不好用算了<br>
+服务器java8,自己用的java11, 经常写出来的1.8的不支持,脑壳疼,我全给服务器额外下载了java11<br>
+编译运行, 生成hdv.dat<br>
+javac xxx<br>
+java xxx &lt;? String&gt;<br>
+默认处理当前目录下的hd目录, 要改就输入 ./xxx<br>
+尽管一大串看起来巨繁琐, 不过竟然比Fortran还快, 是我没想到的</li>
+</ul>
+<pre><code class="language-bash">Ding@21:~/sx/1003&gt;&gt;$ javac HydrophobicDipoles.java 
+Ding@21:~/sx/1003&gt;&gt;$ time java HydrophobicDipoles
+
+real    0m20.839s
+user    0m24.568s
+sys 0m1.568s
+#####################################
+Ding@21:~/sx/1003/hd&gt;&gt;$ time ./a.out 
+At line 14 of file ./hm_side-all.f90 (unit = 47)
+Fortran runtime error: Cannot open file 'md2501.gro': No such file or directory
+
+Error termination. Backtrace:
+#0  0x7fc4ae9673dc in already_open
+    at ../../../libgfortran/io/open.c:719
+#1  0x40105b in ???
+#2  0x401974 in ???
+#3  0x7fc4adc2a554 in ???
+#4  0x400c38 in ???
+#5  0xffffffffffffffff in ???
+
+real    0m48.964s
+user    0m48.479s
+sys 0m0.484s
+</code></pre>
+<p><code>HydrophobicDipoles.java</code></p>
+<pre><code class="language-java">import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.regex.Pattern;
+
+public class HydrophobicDipoles {
+    private final String[] resName = new String[]{&quot;ILE&quot;, &quot;PHE&quot;, &quot;VAL&quot;, &quot;LEU&quot;, &quot;TRP&quot;, &quot;MET&quot;, &quot;ALA&quot;, &quot;GLY&quot;, &quot;CYS&quot;, &quot;TYR&quot;, &quot;PRO&quot;, &quot;THR&quot;, &quot;SER&quot;, &quot;HIS&quot;, &quot;GLU&quot;, &quot;ASN&quot;, &quot;GLN&quot;, &quot;ASP&quot;, &quot;LYS&quot;, &quot;ARG&quot;};
+    private final Double[] hydrophobicIndex = new Double[]{1.38, 1.19, 1.08, 1.06, 0.81, 0.64, 0.62, 0.48, 0.29, 0.26, 0.12, -0.05, -0.18, -0.4, -0.74, -0.78, -0.85, -0.9, -1.5, -2.53};
+    private final Map&lt;String, Double&gt; map = new HashMap&lt;&gt;();
+    private final File dir;
+
+    private final List&lt;double[]&gt; hdv = new ArrayList&lt;&gt;();
+
+    public HydrophobicDipoles(String path) {
+        for (int i = 0; i &lt; resName.length; i++) {
+            map.put(resName[i], hydrophobicIndex[i]);
+        }
+        dir = new File(path);
+    }
+
+    // public String[] getFiles() throws IOException {
+    //     String[] fileNames = dir.list();
+    //     Arrays.sort(fileNames);
+    //     return fileNames;
+    // }
+
+    public String[][] readFiles(File file) throws IOException {
+        List&lt;String&gt; lines = Files.readAllLines(Paths.get(file.getPath()), StandardCharsets.US_ASCII);
+        // 移除gro文件1,2,$行
+        // lines.remove(0);
+        // lines.remove(0);
+        // lines.remove(lines.size() - 1);
+        String[][] stringData = new String[lines.size() - 3][6];
+        for (int i = 2; i &lt; lines.size() - 1; i++) {
+            // 去掉前后空格才能正确的split
+            stringData[i - 2] = lines.get(i).trim().split(&quot;\\s+&quot;);
+            // 对于残基种类的赋值
+            stringData[i - 2][0] = lines.get(i).substring(5, 8);
+        }
+        return stringData;
+    }
+
+    public double[][] convertStringData(String[][] stringData) {
+        double[][] xyzData = new double[stringData.length][3];
+        for (int i = 0; i &lt; stringData.length; i++) {
+            for (int j = 3; j &lt; 6; j++) {
+                xyzData[i][j - 3] = Double.parseDouble(stringData[i][j]);
+            }
+        }
+        return xyzData;
+    }
+
+    public double[] calGeometricCenter(double[][] xyzData) {
+        double[] cog = new double[3];
+        for (double[] xyz : xyzData) {
+            cog[0] += xyz[0];
+            cog[1] += xyz[1];
+            cog[2] += xyz[2];
+        }
+        int len = xyzData.length;
+        cog[0] /= len;
+        cog[1] /= len;
+        cog[2] /= len;
+        return cog;
+    }
+
+    public void calHydrophobicDipole(double[] cog, String[][] stringData, double[][] xyzData) {
+        double[] dp = new double[5];
+        for (int i = 0; i &lt; stringData.length; i++) {
+            String res = stringData[i][0];
+            String at = stringData[i][1];
+            if (at.equals(&quot;CA&quot;) &amp;&amp; map.containsKey(res)) {
+                double hpi = map.get(res);
+                dp[0] += (xyzData[i][0] - cog[0]) * hpi;
+                dp[1] += (xyzData[i][1] - cog[1]) * hpi;
+                dp[2] += (xyzData[i][2] - cog[2]) * hpi;
+            }
+        }
+        dp[3] = Math.sqrt(dp[0] * dp[0] + dp[1] * dp[1] + dp[2] * dp[2]);
+        dp[4] = dp[2] / dp[3];
+        hdv.add(dp);
+    }
+
+    public void writerFile() throws IOException {
+        FileWriter fw = new FileWriter(&quot;hdv.dat&quot;, false);
+        String s1 = String.format(&quot;%-6s%9s%9s%9s%9s%9s&quot;, &quot;# Index&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;value&quot;, &quot;cos&quot;);
+        fw.write(s1);
+        fw.write(System.getProperty(&quot;line.separator&quot;));
+        for (int i = 0; i &lt; hdv.size(); i++) {
+            double[] h = hdv.get(i);
+            String s2 = String.format(&quot;%6d%9.3f%9.3f%9.3f%9.3f%9.3f&quot;, i, h[0], h[1], h[2], h[3], h[4]);
+            fw.write(s2);
+            fw.write(System.getProperty(&quot;line.separator&quot;));
+        }
+        fw.flush();
+        fw.close();
+    }
+
+    public void run() throws IOException {
+        for (int i = 0; i &lt; 50000; i++) {
+            String fn = &quot;md&quot; + i + &quot;.gro&quot;;
+            File file = new File(dir, fn);
+            if (file.exists()) {
+                String[][] stringData = readFiles(file);
+                double[][] xyzData = convertStringData(stringData);
+                double[] cog = calGeometricCenter(xyzData);
+                calHydrophobicDipole(cog, stringData, xyzData);
+            } else break;
+        }
+        writerFile();
+    }
+
+    public static void main(String[] args) {
+        HydrophobicDipoles hd = new HydrophobicDipoles(&quot;./hd&quot;);
+        try {
+            hd.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/patchDock/" class="post-title gt-a-link">
+                    PatchDock 使用
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/hydropDipole-java/" class="leancloud_visitors" data-flag-title="计算蛋白疏水偶极 java">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
