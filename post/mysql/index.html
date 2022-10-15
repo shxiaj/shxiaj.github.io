@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1664862342281"
+            <form id="gridea-search-form" style="position: relative" data-update="1665813260513"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -116,6 +116,7 @@
 <li><a href="#8update">8.update</a></li>
 </ul>
 </li>
+<li><a href="#%E5%AE%9E%E6%93%8D">实操</a></li>
 </ul>
 </li>
 </ul>
@@ -267,6 +268,17 @@ startIndex是起始下标，length是长度。<br>
 </code></pre>
 <h4 id="8update">8.update</h4>
 <pre><code class="language-sql">update 表名 set 字段名1=值1,字段名2=值2,字段名3=值3... where 条件;
+</code></pre>
+<h3 id="实操">实操</h3>
+<pre><code class="language-sql">create table avd(
+	id int primary key not null auto_increment,
+	fh varchar(40) not null,
+	name varchar(40),
+	subtitle char(1) not null,
+	size decimal,
+	store char(1),
+	create_time date,
+)
 </code></pre>
 
                 </div>

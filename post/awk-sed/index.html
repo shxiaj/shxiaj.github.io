@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1664862342281"
+            <form id="gridea-search-form" style="position: relative" data-update="1665813260513"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -108,7 +108,11 @@
 <li><a href="#4-sed%E7%94%A8%E6%B3%95">4. Sed用法</a></li>
 <li><a href="#3-ffmpeg">3. ffmpeg</a></li>
 <li><a href="#2-python">2. Python</a></li>
-<li><a href="#5-shell">5.  Shell</a></li>
+<li><a href="#5-shell">5.  Shell</a>
+<ul>
+<li><a href="#51-tail-tailf-tail-f">5.1 tail tailf tail -f</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -244,6 +248,30 @@ awk '{if($2&gt;0.2||$3&gt;0.2||$4&gt;0.2||$5&gt;0.2||$6&gt;0.2) printf(&quot;%d 
 awk '{if($2&gt;0.2||$3&gt;0.2||$4&gt;0.2||$5&gt;0.2||$6&gt;0.2) printf(&quot;%s &quot;,$1)}' rmsf.dat &gt; rmsfGreater2A
 # 破案了格式问题dos2unix即可，发现不正常的文件读取大概率都是这个原因
 </code></pre>
+<pre><code class="language-bash"># 统计蛋白质z轴坐标最小值随时间的变化
+function proMinz {
+  mkdir minz
+  # 2&gt;&amp;1 将gmx的错误输出到标准输出, 这样可以使用管道传递, 使用sed获取Protein组所在的id
+  proteinIdx=$(echo 3000 | gmx trjconv -f md.xtc -s md.tpr 2&gt;&amp;1 | sed -n 's/^Group *\(.*\)( *Protein).*$/\1/p')
+  echo $proteinIdx | gmx trjconv -f md.xtc -s md.tpr -skip 2 -o ./minz/protein.gro
+  # gro文件的第一行一般都不是空格开头, 所以可以判断文件是否读取到了下一帧的第一行
+  awk 'BEGIN {
+    FIELDWIDTHS=&quot;36 8&quot;;
+    min = 100;
+  } 
+  { if ($1 !~ /^ / &amp;&amp; NR != 1) {
+      print min;
+      min = 100;
+    }
+    if ($2 ~ /[0-9]\.[0-9]{3}$/ &amp;&amp; $2 &lt; min) {
+      min = $2;
+    }
+  }
+  END {
+    print min;
+  }' ./minz/protein.gro &gt; ./minz/minz.dat
+}
+</code></pre>
 <h2 id="4-sed用法">4. Sed用法</h2>
 <p>详细的教程，虽然没看过但是肯定有用<a href="https://www.twle.cn/c/yufei/sed/sed-basic-index.html">sed教程</a></p>
 <h2 id="3-ffmpeg">3. ffmpeg</h2>
@@ -282,6 +310,9 @@ isTop: false
 ' &gt; $1.md
 }
 </code></pre>
+<h3 id="51-tail-tailf-tail-f">5.1 tail tailf tail -f</h3>
+<p>md运行的nohup.out日志, 使用tail 或者 tail -f 查看都有大问题, 不知道为什么, 总是会默认读取所有的行<br>
+只有使用<code>tailf</code> 这样才比较正常, 以后就用这个了.</p>
 
                 </div>
             </article>

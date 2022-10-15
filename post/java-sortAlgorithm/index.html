@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Intellij Idea 创建动态Web项目&amp;配置Tomcat | ShXiaJ&#39;s Note</title>
+<title>sortJava | ShXiaJ&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
@@ -97,36 +97,16 @@
 </script>
     <div class="post-container">
         <div class="toc-container">
-            <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#1thymeleaf%E8%AD%A6%E5%91%8A">1.thymeleaf警告</a></li>
-<li><a href="#2idea-%E8%AE%BE%E7%BD%AE">2.idea 设置</a></li>
-<li><a href="#3tomcat%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81">3.tomcat控制台中文乱码</a></li>
-<li><a href="#4jdk18%E4%BF%9D%E5%B9%B3%E5%AE%89">4.JDK1.8保平安</a></li>
-<li><a href="#5springmvc%E8%A7%86%E5%9B%BE%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90">5.SpringMVC视图无法解析</a></li>
-<li><a href="#6bug%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BC%9A%E8%87%AA%E5%8A%A8%E5%8F%91%E9%80%81%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E7%9A%84%E9%93%BE%E6%8E%A5%E5%8A%A0%E4%B8%8Anull%E8%AF%B7%E6%B1%82">6.Bug浏览器会自动发送当前页面的链接加上/null请求</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+            
         </div>
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Intellij Idea 创建动态Web项目&amp;配置Tomcat
+                    sortJava
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-12-01 ·
+                        · 2021-06-22 ·
                     </time>
                     
                         <a href="https://shxiaj.github.io/tag/iV4T-YtS58/" class="post-tags">
@@ -135,37 +115,135 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>没有写，呼呼</p>
-<!-- more -->
-<h4 id="1thymeleaf警告">1.thymeleaf警告</h4>
-<p>[<a href="https://so.csdn.net/so/search?q=THYMELEAF&amp;spm=1001.2101.3001.7020">THYMELEAF</a>][restartedMain] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.</p>
-<h4 id="2idea-设置">2.idea 设置</h4>
-<p>下面两张图参数一致：</p>
-<figure data-type="image" tabindex="1"><img src="https://shxiaj.github.io/post-images/image-20220627133807185.png" alt="image-20220627133807185" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://shxiaj.github.io/post-images/image-20220627133837999.png" alt="image-20220627133837999" loading="lazy"></figure>
-<p>idea编译器设置字节码级别，重要！</p>
-<figure data-type="image" tabindex="3"><img src="https://shxiaj.github.io/post-images/image-20220627133922599.png" alt="image-20220627133922599" loading="lazy"></figure>
-<p><strong>jdk版本太高就会有各种bug</strong></p>
-<h4 id="3tomcat控制台中文乱码">3.tomcat控制台中文乱码</h4>
-<p>&quot;tomcat-9.0.64\conf\logging.properties&quot;程序目录下，修改配置文件里的UTF-8调整为GBK</p>
-<h4 id="4jdk18保平安">4.JDK1.8保平安</h4>
-<h4 id="5springmvc视图无法解析">5.SpringMVC视图无法解析</h4>
-<p>idea报错，但实际是可以用的。添加依赖可以解决，实测没有解决，不管了</p>
-<pre><code class="language-xml">&lt;!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.thymeleaf.extras&lt;/groupId&gt;
-    &lt;artifactId&gt;thymeleaf-extras-springsecurity5&lt;/artifactId&gt;
-    &lt;version&gt;3.0.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
+                    <pre><code class="language-java">public class SortDemo() {
+	public static void bubbleSort(int[] arr) {
+		int n = arr.length;
+		boolean flag;
+		for (int i = 0; i &lt; n; i++) {
+			flag = true;
+			for (int j = 0; j &lt; n - i - 1; j++) {
+				if (arr[j] &gt; arr[j + 1]) {
+					flag = false;
+					arr[j] ^= arr[j + 1];
+					arr[j + 1] ^= arr[j];
+					arr[j] ^= arr[j + 1];
+				}
+			}
+			if (flag) {
+				break;
+			}
+		}
+	}
+	public static void quickSort(int[] arr, int l, int r){
+		if (l &gt;= r) return;
+		int tar = arr[l];
+		int i = l;
+		int j = r;
+		while (i &lt; j) {
+			while (arr[j] &gt;= tar &amp;&amp; i &lt; j) j--;
+			if (i &lt; j) arr[i++] = arr[j];
+			while (arr[i] &lt;= tar &amp;&amp; i &lt; j) i++;
+			if (i &lt; j) arr[j--] = arr[i];
+		}
+		arr[i] = tar;
+		quickSort(arr, l, i - 1);
+		quickSort(arr, i + 1, r);
+	}
+	public static void insertSort(int[] arr) {
+		int n = arr.length;
+		for (int i = 1; i &lt; n; i++) {
+			int temp = arr[i];
+			int j = i - 1;
+			while (j &gt;= 0 &amp;&amp; arr[j] &gt; temp) {
+				arr[j + 1] = arr[j];
+				j--;
+			}
+			arr[j + 1] = temp;
+		}
+	}
+
+
+	public static void shellSort(int[] arr) {
+		int n = arr.length;
+		for (int step = n / 2; step &gt; 0; step /= 2) {
+			for (int i = step; i &lt; n; i++) {
+				int j = i - step;
+				int target = arr[i];
+				while (j &gt;=0 &amp;&amp; arr[j] &gt; target) {
+					arr[j + step] = arr[j];
+					j -= step;
+				}
+				arr[j + step] = target;
+			}
+		}
+	}
+	public static void selectionSort(int[] arr) {
+		int n = arr.length;
+		for (int i = 0; i &lt; n - 1; i++) {
+			int min = i;
+			for (int j = i + 1; j &lt; n - i; j++) {
+				if (arr[j] &lt; arr[min]) {
+					min = j;
+				}
+			}
+			if (min != i) {
+				int temp = arr[min];
+				arr[min] = arr[i];
+				arr[i] = temp;
+			}
+		}
+	}
+
+
+	public static void heapify(int[] arr, int n, int i) {
+		int max = i;
+		int lSon = i * 2 + 1;
+		int rSon = i * 2 + 2;
+		if (lSon &lt; n &amp;&amp; arr[lSon] &gt; arr[max]) max= lSon;
+		if (rSon &lt; n &amp;&amp; arr[rSon] &gt; arr[max]) max= rSon;
+		if (max != i) {
+			int temp = arr[max];
+			arr[max] = arr[i];
+			arr[i] = temp;
+		}
+		heapify(arr, n, max);
+	}
+
+	public static void heapSort(int[] arr) {
+		int n = arr.length;
+		for (int i = n / 2 - 1; i &gt;= 0; i--) {
+			heapify(arr, n, i);
+		}
+		for (int i = n - 1; i &gt; 0; i--) {
+			int temp = arr[0];
+			arr[0] = arr[i];
+			arr[i] = temp;
+			heapify(arr,i, 0);
+		}
+	}
+
+	public static void mergeSort(int[] arr, int l, int r) {
+		if (l &gt;= r) return;
+		int mid = (r - l) / 2 + l;
+		mergeSort(arr, l, mid);
+		mergeSort(arr, mid + 1, r);
+
+		int[] temp = new int[r - l + 1];
+		int i = l;
+		int j = mid + 1;
+		int k = 0;
+		while (i &lt;= mid &amp;&amp; j &lt;= r) {
+			if (arr[i] &lt;= arr[j]) temp[k++] = arr[i++];
+			else temp[k++] = arr[j++];
+		}
+		while (i &lt;= mid) temp[k++] = arr[i++];
+		while (j &lt;= r) temp[k++] = arr[j++];
+		for (i = 0; i &lt; k; i++) {
+			arr[l + i] = temp[i];
+		}
+	}
+}
 </code></pre>
-<h4 id="6bug浏览器会自动发送当前页面的链接加上null请求">6.Bug浏览器会自动发送当前页面的链接加上/null请求</h4>
-<pre><code class="language-log">[16:08:58.594 DEBUG] org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
-[16:08:58.824 DEBUG] org.springframework.web.servlet.DispatcherServlet - GET &quot;/c1/null&quot;, parameters={}
-[16:08:58.824 DEBUG] o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.atguigu.mvc.controller.HelloController#error404()
-[16:08:58.825 DEBUG] org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
-</code></pre>
-<p><a href="https://blog.csdn.net/lindir/article/details/123152626">Edge插件导致的</a></p>
-<p>禁用鼠标手势插件就行了，真是吐了</p>
 
                 </div>
             </article>
@@ -174,14 +252,14 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.github.io/post/java-MonotonousStack/" class="post-title gt-a-link">
-                    单调栈 LeetCode
+                <a href="https://shxiaj.github.io/post/sam/" class="post-title gt-a-link">
+                    SAM.sh
                 </a>
             </div>
         
 
         
-            <span id="/post/IdeaJ/" class="leancloud_visitors" data-flag-title="Intellij Idea 创建动态Web项目&amp;配置Tomcat">
+            <span id="/post/java-sortAlgorithm/" class="leancloud_visitors" data-flag-title="sortJava">
                 <em class="post-meta-item-text">阅读量 </em>
                 <i class="leancloud-visitors-count">0</i>
             </span>

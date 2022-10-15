@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1664862342281"
+            <form id="gridea-search-form" style="position: relative" data-update="1665813260513"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -138,19 +138,21 @@
                 <div class="post-content">
                     <h1 id="chox分析2-vmd">ChOx分析2-VMD</h1>
 <h3 id="一-处理trr轨迹文件">一、处理trr轨迹文件</h3>
-<p>防止蛋白质分子裂开，帧总数为1/3，提取最后一帧gro文件</p>
+<p>防止蛋白质分子裂开，帧总数为1/2，提取最后一帧gro文件</p>
 <pre><code class="language-bash"># -skip 间隔帧数输出
 echo 0 | gmx trjconv -s md.tpr -f md.trr -o md.xtc -pbc mol -ur compact -skip 2
 # 提取最后一帧，不带水分子
-echo 20 | gmx trjconv -s md.tpr -f md.xtc -o md.gro -dump 300000
+# echo 20 | gmx trjconv -s md.tpr -f md.xtc -o md.gro -dump 300000
+g_group 1 | gmx trjconv -s md.tpr -f md.xtc -o md.gro -dump 300000
 </code></pre>
 <h3 id="二-xtc中导出dipoles">二、xtc中导出dipoles</h3>
 <pre><code class="language-bash"># 建立索引，将蛋白质、FAD索引合并，否则分子不完整
-echo -e &quot;1 | 13\nq\n&quot; | gmx make_ndx -f ./md.tpr -n
+echo -e &quot;1 | 13\nq\n&quot; | gmx make_ndx -f ./md.tpr
 # gmx dipoles计算静电偶极、是物理意义
-echo 28 | gmx dipoles -s md.tpr -f md.xtc -n
+g_group 3 | gmx dipoles -s md.tpr -f md.xtc -n
+# echo 28 | gmx dipoles -s md.tpr -f md.xtc -n
 # 计算偶极与Z轴的夹角的余弦值，写入dipoles
-awk '!/^(#|@)/ {theta = $4 / $5; print $1 &quot;     &quot; theta}' Mtot.xvg &gt; dipoles.txt
+awk '!/^(#|@)/ {theta = $4 / $5; print $1 &quot;     &quot; theta}' Mtot.xvg &gt; dipoles.dat
 </code></pre>
 <h3 id="三-vmd画偶极">三、VMD画偶极</h3>
 <h5 id="1-蛋白质分子质心坐标">1. 蛋白质分子质心坐标</h5>
