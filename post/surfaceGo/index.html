@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1665813260513"
+            <form id="gridea-search-form" style="position: relative" data-update="1666161673488"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -350,8 +350,8 @@ awk 'BEGIN {i = 0}; {i++; \
      }' go.gro &gt; atomResData
      
 # 整合到一块 就是 [ atoms ]区域参数了
-echo &quot; [ atoms ]&quot; &gt;&gt; aminoacids.rtp
-paste atomMarkName atomResData &gt;&gt; aminoacids.rtp
+echo -e &quot;[ OGO ]\n [ atoms ]&quot; &gt;&gt; aminoacids.rtp
+paste -d &quot;  &quot; atomMarkName atomResData &gt;&gt; aminoacids.rtp
 </code></pre>
 <ul>
 <li>需要使用mol2格式里面的bond成键信息, 转换成键信息为自己所需的</li>

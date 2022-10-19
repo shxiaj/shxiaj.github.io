@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1665813260513"
+            <form id="gridea-search-form" style="position: relative" data-update="1666161673488"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -147,12 +147,16 @@ g_group 1 | gmx trjconv -s md.tpr -f md.xtc -o md.gro -dump 300000
 </code></pre>
 <h3 id="二-xtc中导出dipoles">二、xtc中导出dipoles</h3>
 <pre><code class="language-bash"># 建立索引，将蛋白质、FAD索引合并，否则分子不完整
-echo -e &quot;1 | 13\nq\n&quot; | gmx make_ndx -f ./md.tpr
+echo -e &quot;1 | 13\nq\n&quot; | gmx make_ndx -f ./md.tpr 
 # gmx dipoles计算静电偶极、是物理意义
 g_group 3 | gmx dipoles -s md.tpr -f md.xtc -n
+# 200ns过后的dp
+g_group 3 | gmx dipoles -s md.tpr -f md.xtc -b 200000 -n
 # echo 28 | gmx dipoles -s md.tpr -f md.xtc -n
 # 计算偶极与Z轴的夹角的余弦值，写入dipoles
 awk '!/^(#|@)/ {theta = $4 / $5; print $1 &quot;     &quot; theta}' Mtot.xvg &gt; dipoles.dat
+# 疏水偶极,200ns起始时间,100ns区间时间,2500区间
+awk '!/^(#|@)/ {printf(&quot;%5.2f\t%6.3f\n&quot;,200+100/2500*$1, $6)}' hdv.dat &gt; hpdpCos.dat
 </code></pre>
 <h3 id="三-vmd画偶极">三、VMD画偶极</h3>
 <h5 id="1-蛋白质分子质心坐标">1. 蛋白质分子质心坐标</h5>

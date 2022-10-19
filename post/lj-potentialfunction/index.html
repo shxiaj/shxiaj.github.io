@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>PatchDock 使用 | ShXiaJ&#39;s Note</title>
+<title>氨基酸粗粒化的Lennard-Jones势函数拟合-shell-python | ShXiaJ&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
@@ -102,9 +102,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#install-pacthdock">Install PacthDock</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#md-initial-orientation">MD Initial orientation</a></li>
+<li><a href="#1-%E6%B0%A8%E5%9F%BA%E9%85%B8%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%8A%9B%E5%9C%BA">1. 氨基酸模型与力场</a></li>
+<li><a href="#2-%E5%BB%BA%E7%AB%8B%E6%B0%A7%E5%8C%96%E7%9F%B3%E5%A2%A8%E7%83%AF%E5%8A%9B%E5%9C%BA">2. 建立氧化石墨烯力场</a></li>
+<li><a href="#3-%E6%B0%A8%E5%9F%BA%E9%85%B8%E6%AE%8B%E5%9F%BAmd%E6%A8%A1%E6%8B%9F">3. 氨基酸残基MD模拟</a></li>
+<li><a href="#4-%E5%9E%82%E7%9B%B4%E7%A7%BB%E5%8A%A8%E6%B0%A8%E5%9F%BA%E9%85%B8emanalysis">4. 垂直移动氨基酸+em+analysis</a></li>
 </ul>
 </li>
 </ul>
@@ -115,49 +116,174 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    PatchDock 使用
+                    氨基酸粗粒化的Lennard-Jones势函数拟合-shell-python
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2022-10-02 ·
+                        · 2022-10-18 ·
                     </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/y_nenYNzT/" class="post-tags">
+                            # python
+                        </a>
                     
                         <a href="https://shxiaj.github.io/tag/k6WWwAH4v/" class="post-tags">
                             # shell
                         </a>
                     
-                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
-                            # Gromacs
-                        </a>
-                    
                 </div>
                 <div class="post-content">
-                    <p>log</p>
+                    <p>终于把很久之前想做的给做了, 还是挺麻烦的</p>
 <!-- more -->
-<h3 id="install-pacthdock">Install PacthDock</h3>
-<pre><code class="language-bash">unzip xxx
-export PATH=/home/software/PatchDock:${PATH}
-# test
-buildParams.pl
+<p>整体思路很简单, 单个残基跑md, 然后上下移动残基, 跑em, 得vdw能量与distance, 最后拟合</p>
+<h3 id="1-氨基酸模型与力场">1. 氨基酸模型与力场</h3>
+<p>氨基酸使用的是Avogadro1.9程序share库文件夹里自带的单个残基分子构型,文件格式cml<br>
+使用obebal程序转化一下格式, 又又又重新记忆了字符串截取, 大小写</p>
+<pre><code class="language-bash"># 批量转格式 cml -&gt; pdb
+for i in `ls`; do
+  j=${i:0:-4}
+  obabel -icml $i -opdb -O ../pdb/$j.pdb
+done
+# 批量更改名字 eg. Ala.pdb Arg.pdb
+for i in `ls`; do
+  fn=`grep ATOM $i | awk 'END{print $4}'`
+  a=${fn:0:1}
+  b=${fn:1}
+  fn=${a}${b,,}
+  echo $fn
+  cp $i ../newname/$fn.pdb
+done
 </code></pre>
-<h3 id="usage">Usage</h3>
-<ul>
-<li>看看程序自带的README写的详细的很</li>
-</ul>
-<pre><code class="language-bash">gmx editconf -f em.gro -o go.pdb
-# 蛋白受体, 表面配体, 生成params.txt
-buildParams.pl 1b4v.pdb go.pdb
-# 直接运行 patch_dock.Linux &lt;params_file&gt; &lt;output_file&gt;
-patch_dock.Linux params.txt retData
-# 分析导出对接pdb transOutput.pl &lt;output file name&gt; &lt;first result&gt; &lt;last result&gt;
-transOutput.pl retData 1 5
+<p>再将每个氨基酸重新建个目录存起来, 开始建立力场<br>
+设置一下端基不解离,gmx2022 和 gmx2019没啥区别, 该报的bug一样不少<br>
+对于几个特殊侧链的氨基酸, 再手动设置一下侧链不解离</p>
+<pre><code class="language-bash">for i in `ls`; do
+  cd $i
+  echo -e &quot;15\n2\n2\n&quot;  | gmx2022 pdb2gmx -water tip3p -ter -ignh -f `basename ${PWD}`.pdb -o `basename ${PWD}`.gro
+  cd ../
+done
+# -ter 和 -inter 参数, 手册说明
+gmx2022 pdb2gmx -water tip3p -ter -ignh -inter -f `basename ${PWD}`.pdb -o `basename ${PWD}`.gro
 </code></pre>
-<h3 id="md-initial-orientation">MD Initial orientation</h3>
-<p>先叠加f2 到 f1 上</p>
-<pre><code class="language-bash">gmx confrms -f1 go.pdb -f2 retData.2.pdb
-sed '/TITLE/,/TITLE/d' fit.pdb &gt; dock.pdb
+<h3 id="2-建立氧化石墨烯力场">2. 建立氧化石墨烯力场</h3>
+<p>建立一个4x4的片层, 过程就跟之前一样<br>
+修改一下topol.top文件<br>
+准备开始跑模拟了</p>
+<h3 id="3-氨基酸残基md模拟">3. 氨基酸残基MD模拟</h3>
+<p>调节好表面文件的位置, box大小, 就直接开始跑<br>
+设置em.mdp 和 md.mdp 的能量组; 对于Lys, 比较特殊, 文件不一样, 需要单独的设置</p>
+<pre><code class="language-bash">function resmodel {
+  gmx editconf -f `basename ${PWD}`.gro -o ptw1.gro -box  3.87980   3.78000   3.6
+  g_adj
+  gmx editconf -f ptw2.gro -o ptw3.gro -translate 0 0 0.56
+  g_mer go.gro ptw3.gro
+  echo -e &quot;a CA CT CF &amp; 13\n name 14 GOC\n q&quot; | gmx make_ndx -f box.gro -o
+  mkdir em md
+}
+
+function resem {
+  gmx grompp -f em.mdp -c box.gro -p topol.top -o ./em/em.tpr -po ./em/emout.mdp -n
+  gmx mdrun -v -deffnm ./em/em
+}
+
+function resmd {
+  gmx grompp -f md.mdp -c ./em/em.gro -p topol.top -o ./md/md.tpr -po ./md/mdout.mdp -n -r ./em/em.gro
+  gmx mdrun -v -deffnm ./md/md -nt 14
+}
+
+for i in `ls`; do
+  cd $i
+  resmodel
+  resem
+  cd ../
+done
 </code></pre>
-<p>旋转删除,应该就行了</p>
+<p>具体的文件夹设置和目录<br>
+<img src="https://shxiaj.github.io/post-images/image-20221019135738123.png" alt="image-20221019135738123" loading="lazy"></p>
+<p>跑完了过后, 瞄瞄能量</p>
+<pre><code class="language-bash">resg=(Ala Arg Asn Asp Cys Gln Glu Gly His Ile Leu Lys Met Phe Pro Ser Thr Trp Tyr Val)
+alias enepy=&quot;python ~/ding/gopt/eneSingleRes.py&quot;
+for i in `ls`; do
+  cd $i/md
+  echo 45 46 | gmx energy -f md.edr -s md.tpr
+  enepy
+  cd ../../
+  cp $i/md/eneProSurf.png ./$i-ene.png
+done
+</code></pre>
+<p>看起来应该很稳定<br>
+<img src="https://shxiaj.github.io/post-images/image-20221019140040283.png" alt="image-20221019140040283" loading="lazy"></p>
+<h3 id="4-垂直移动氨基酸emanalysis">4. 垂直移动氨基酸+em+analysis</h3>
+<p>一堆坑, 一言难尽, 总之最后踩完了坑, 批处理就很简洁了<br>
+设置移动梯度, 固定System, 分析能量和距离<br>
+每一个梯度都放在./fit/文件夹下面, 很多但不至于太乱<br>
+eg ~/gopt/allres/Ala/fit/fit_0.02/fit.gro<br>
+~/gopt/allres/Arg/fit/fit_0.04/fit.gro<br>
+Lys需要单独判断处理一下</p>
+<pre><code class="language-bash">resg=(Ala Arg Asn Asp Cys Gln Glu Gly His Ile Leu Lys Met Phe Pro Ser Thr Trp Tyr Val)
+
+# 导出能量和距离
+function edist {
+  d=`awk 'END{print 10*$NF}' dist.xvg`
+  v=`awk 'END{print $NF}' energy.xvg`
+  echo $d $v
+}
+
+# 设置数据梯度
+grads=($(seq -0.64 0.02 0.8) $(seq 0.85 0.05 2) $(seq 2.4 0.4 12))
+
+function restrans {
+  for i in ${grads[@]}; do
+    mkdir -p ./fit/fit_$i
+    awk -v i=&quot;$i&quot; '{
+      if ($0 ~ / {4}1[A-Z]{3}/) {
+        $6 += 0.1*i;
+        printf(&quot;%8s%7s%5d%8.3f%8.3f%8.3f\n&quot;,$1,$2,$3,$4,$5,$6);
+      } else {print $0}
+    }' ./md/md.gro &gt; ./fit/fit_$i/fit.gro
+  done
+}
+
+
+function fitem {
+  for i in ${grads[@]}; do
+    i=&quot;fit_$i&quot;
+    gmx grompp -f fitem.mdp -c ./fit/$i/fit.gro -p topol.top -o ./fit/$i/fit.tpr -po ./fit/$i/fitout.mdp -n
+    gmx mdrun -v -deffnm ./fit/$i/fit
+  done
+}
+
+function vddat {
+  rm vdwdist.dat
+  for i in ${grads[@]}; do
+    i=&quot;fit_$i&quot;
+    cd ./fit/$i
+    echo 38 39 | gmx energy -f fit.edr -s fit.tpr
+    if [[ $wd != Lys ]]; then
+      gmx pairdist -s fit.tpr -f fit.trr -tu ns -ref &quot;group 13&quot; -sel &quot;com of group 1&quot;
+    else
+      gmx pairdist -s fit.tpr -f fit.trr -tu ns -ref &quot;group 3&quot; -sel &quot;com of group 2&quot;
+    fi
+    edist &gt;&gt; ../../vdwdist.dat
+    cd ../../
+  done
+}
+
+function sortdat {
+  sort -n -k 1 vdwdist.dat &gt; ../`basename $PWD`.dat
+}
+
+for wd in ${resg[@]}; do
+  cd $wd
+  # restrans
+  # fitem
+  # vddat
+  sortdat
+  cd ../
+done
+</code></pre>
+<p>最终结果加拟合<br>
+<img src="https://shxiaj.github.io/post-images/image-20221019141103022.png" alt="image-20221019141103022" loading="lazy"></p>
 
                 </div>
             </article>
@@ -166,14 +292,14 @@ sed '/TITLE/,/TITLE/d' fit.pdb &gt; dock.pdb
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.github.io/post/surfaceGo/" class="post-title gt-a-link">
-                    氧化石墨烯表面力场构建 opls
+                <a href="https://shxiaj.github.io/post/hydropDipole-java/" class="post-title gt-a-link">
+                    计算蛋白疏水偶极 java
                 </a>
             </div>
         
 
         
-            <span id="/post/patchDock/" class="leancloud_visitors" data-flag-title="PatchDock 使用">
+            <span id="/post/lj-potentialfunction/" class="leancloud_visitors" data-flag-title="氨基酸粗粒化的Lennard-Jones势函数拟合-shell-python">
                 <em class="post-meta-item-text">阅读量 </em>
                 <i class="leancloud-visitors-count">0</i>
             </span>

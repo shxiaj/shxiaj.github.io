@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1665813260513"
+            <form id="gridea-search-form" style="position: relative" data-update="1666161673488"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -214,14 +214,16 @@ gmx distance -s md.tpr -f md.xtc -oxyz -tu ns -n -select &quot;[0,0,1.519] plus 
 gmx distance -s md.tpr -f md.xtc -oxyz -tu ns -n -select &quot;[0,0,1.632] plus group 30&quot; # 1.632 正电
 </code></pre>
 <h3 id="四-rmsd-rmsf-回旋半径">四、RMSD &amp; RMSF &amp; 回旋半径</h3>
-<pre><code class="language-bash"># 计算均方根偏差，选择蛋白质组
+<pre><code class="language-bash"># 计算均方根偏差，选择蛋白质组 MainChain
 gmx rms -s md.tpr -f md.xtc -tu ns -n
 
 # 计算原子的均方根波动，选择蛋白质组
-gmx rmsf -s md.tpr -f md.xtc -res -n -b 100000
+echo 1 | gmx rmsf -s md.tpr -f md.xtc -res -n -b 200000
 
 # 计算回旋半径
-gmx gyrate -s md.tpr -f md.xtc -n
+echo 1 | gmx gyrate -s md.tpr -f md.xtc -n
+awk '!/^(#|@)/ {printf(&quot;%5.2f\t%6.3f\n&quot;,$1/1000,$2)}' gyrate.xvg &gt; gyrate.dat
+
 # 计算关于主轴的回旋半径
 gmx gyrate -s md.tpr -f md.xtc -n -p
 # 两个结果总值相同，xyz分量的值不同

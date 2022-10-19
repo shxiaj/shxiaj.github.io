@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>gromacs画蛋白质残基接触图 | ShXiaJ&#39;s Note</title>
+<title>gromacs绘制蛋白质残基接触图 | ShXiaJ&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1665813260513"
+            <form id="gridea-search-form" style="position: relative" data-update="1666161673488"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -125,7 +125,7 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    gromacs画蛋白质残基接触图
+                    gromacs绘制蛋白质残基接触图
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
@@ -178,9 +178,10 @@ awk '{for(i=3;i&lt;=NF;i++) printf(&quot;%8.2f%6d\n&quot;,$1/1000,$i)}' index.da
 <h3 id="b-gmx-mindist工具-更通用">B. gmx mindist工具, 更通用</h3>
 <h4 id="1-gmx-make_ndx-建立所有残基和表面的索引">1. gmx make_ndx 建立所有残基和表面的索引</h4>
 <pre><code class="language-bash"># 先建立表面的索引, 如23和24为表面的原子
-echo &quot;23|24\nq\n&quot; | gmx make_ndx -f md.tpr
-# 输出蛋白质所有残基的id到index.dat
-gmx select -f md.gro -s md.tpr -select 'group protein' -oi -seltype res_com
+echo -e &quot;23|24\nq\n&quot; | gmx make_ndx -f md.tpr # samsurface
+# echo -e &quot;15\nq\n&quot; | gmx make_ndx -f md.tpr # gosurface
+# 输出蛋白质所有残基的id到index.dat, 因为经常修改md.gro, 所以用完整的nvt.gro, 一般不会动
+gmx select -f ../nvt/nvt.gro -s md.tpr -select 'group protein' -oi -seltype res_com
 # 输出蛋白质端基序号
 awk '{print $3 &quot; &quot; $NF}' index.dat
 # 输出蛋白质残基序号到resid, 用于gmx make_ndx输入
@@ -193,12 +194,14 @@ gmx make_ndx -f md.tpr -n &lt; resid
 例如index.ndx索引的第26个是表面，27-524是残基组</p>
 <pre><code class="language-bash"># 首先准备要输入的表面组和残基组
 seq 26 524 &gt; minid
+# seq 24 528 &gt; minid # gosurface
 # 计算最小距离，-ng x 表示第一个组与后面x组做计算，例如27-524一共498个
-gmx mindist -f md.xtc -s md.tpr -n -od -tu ns -dt 0.1 -ng 498 &lt; mindid
+gmx mindist -f md.xtc -s md.tpr -n -od -tu ns -dt 0.1 -ng 498 &lt; minid
+# gmx mindist -f md.xtc -s md.tpr -n -od -tu ns -dt 0.1 -ng 504 &lt; minid
 </code></pre>
-<p><code>-od </code>输出的文件名默认是minidist.xvg</p>
+<p><code>-od </code>输出的文件名默认是mindist.xvg</p>
 <h4 id="3-python统计数据绘图">3. Python统计数据绘图</h4>
-<p>python分析minidist文件，举例总共300ns，1501帧。<br>
+<p>python分析mindist文件，举例总共300ns，1501帧。<br>
 默认端基以0输出，按照需要加某值，举例+9<br>
 <code>resContactCal.py</code>:</p>
 <pre><code class="language-python">import numpy as np
@@ -231,7 +234,7 @@ originData = np.empty((index[0].size, 2))
 originData[:, 0] = data[index[0], 0]
 originData[:, 1] = index[1] + 9
 
-np.savetxt('resOrigin', originData, fmt='%7.2f%5d')
+np.savetxt('resOrigin.dat', originData, fmt='%7.2f%5d')
 
 # 废弃的for循环方法，巨呆
 # for i in range(dist.shape[0]):
@@ -256,7 +259,7 @@ A方法不好用于曲面，写判断也能写，不方便，没试过能不能�
         
 
         
-            <span id="/post/resOrigin/" class="leancloud_visitors" data-flag-title="gromacs画蛋白质残基接触图">
+            <span id="/post/resOrigin/" class="leancloud_visitors" data-flag-title="gromacs绘制蛋白质残基接触图">
                 <em class="post-meta-item-text">阅读量 </em>
                 <i class="leancloud-visitors-count">0</i>
             </span>

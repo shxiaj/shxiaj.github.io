@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>ShXiaJ&apos;s Note</title>
-    <updated>2022-10-15T05:54:23.466Z</updated>
+    <updated>2022-10-19T06:41:18.609Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -10,6 +10,28 @@
     <logo>http://localhost:4000/images/avatar.png</logo>
     <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2022, ShXiaJ&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[自定义非线性函数拟合-python,originpro]]></title>
+        <id>http://localhost:4000/post/fitFunction/</id>
+        <link href="http://localhost:4000/post/fitFunction/">
+        </link>
+        <updated>2022-10-19T01:57:25.000Z</updated>
+        <summary type="html"><![CDATA[<p>虚接上文</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>虚接上文</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[氨基酸粗粒化的Lennard-Jones势函数拟合-shell-python]]></title>
+        <id>http://localhost:4000/post/lj-potentialfunction/</id>
+        <link href="http://localhost:4000/post/lj-potentialfunction/">
+        </link>
+        <updated>2022-10-18T11:57:25.000Z</updated>
+        <summary type="html"><![CDATA[<p>终于把很久之前想做的给做了, 还是挺麻烦的</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>终于把很久之前想做的给做了, 还是挺麻烦的</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[计算蛋白疏水偶极 java]]></title>
         <id>http://localhost:4000/post/hydropDipole-java/</id>
@@ -93,23 +115,5 @@
 ]]></summary>
         <content type="html"><![CDATA[<p>简洁美观，但是无比折腾</p>
 ]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[gromacs画蛋白质残基接触图]]></title>
-        <id>http://localhost:4000/post/resOrigin/</id>
-        <link href="http://localhost:4000/post/resOrigin/">
-        </link>
-        <updated>2022-06-13T13:24:14.000Z</updated>
-        <summary type="html"><![CDATA[<p>两种方法，一种感觉并不通用</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>两种方法，一种感觉并不通用</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[分子动力学模拟 Function]]></title>
-        <id>http://localhost:4000/post/mdFunction/</id>
-        <link href="http://localhost:4000/post/mdFunction/">
-        </link>
-        <updated>2022-06-08T06:07:53.000Z</updated>
     </entry>
 </feed>
