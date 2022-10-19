@@ -1,0 +1,319 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Pymol 计算蛋白质静电势，渲染导出动画 | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1666183835166"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85pymol%E5%BC%80%E6%BA%90%E7%89%88">安装Pymol开源版</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E9%9D%9E%E5%BC%80%E6%BA%90%E7%89%88pymol">安装非开源版Pymol</a></li>
+<li><a href="#%E7%94%BB%E9%9D%99%E7%94%B5%E5%8A%BF">画静电势</a></li>
+<li><a href="#%E6%B8%B2%E6%9F%93%E5%AF%BC%E5%87%BA%E4%BF%9D%E5%AD%98%E5%9B%BE%E7%89%87%E5%92%8C%E8%A7%86%E9%A2%91">渲染导出保存图片和视频</a></li>
+<li><a href="#%E5%A4%A7%E5%8A%9F%E5%91%8A%E6%88%90"><strong>大功告成</strong></a>
+<ul>
+<li><a href="#%E5%AE%8C%E7%BB%93%E6%92%92%E8%8A%B1"><strong>完结撒花</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E7%9B%B8%E5%85%B3%E7%9A%84%E6%9C%89%E7%94%A8%E7%9A%84%E6%95%99%E7%A8%8B">相关的有用的教程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Pymol 计算蛋白质静电势，渲染导出动画
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-06-08 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/0j5gxwHrJ/" class="post-tags">
+                            # pymol
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <!-- more -->
+<h3 id="安装pymol开源版">安装Pymol开源版</h3>
+<p>参考：https://blog.csdn.net/weixin_45564533/article/details/115671036</p>
+<pre><code class="language-bash">conda install -c conda-forge pymol-open-source
+</code></pre>
+<p>无语了，开源版没计算的工具，卸载吧</p>
+<pre><code class="language-bash">conda uninstall pymol-open-source
+</code></pre>
+<h3 id="安装非开源版pymol">安装非开源版Pymol</h3>
+<p>https://anaconda.org/schrodinger/pymol</p>
+<pre><code class="language-bash">conda install -c schrodinger pymol
+</code></pre>
+<p>申请教育用户证书，我已经申请过了，点连接下载，输入密码，下载2.0版本的<br>
+Thank you for your interest in PyMOL.<br>
+DOWNLOAD URL: https://pymol.org/ep<br>
+USERNAME: jun2021<br>
+PASSWORD: betabarrel</p>
+<p>或者直接点下面的连接<br>
+<strong>PyMOL 2.0 (September 2017)</strong><br>
+License File: <a href="https://pymol.org/ep/download-edu-lic-file.php">pymol-edu-license.lic</a></p>
+<p>然后导入</p>
+<figure data-type="image" tabindex="1"><img src="https://shxiaj.github.io/post-images/image-20220608130352036.png" alt="image-20220608130352036" loading="lazy"></figure>
+<p>搞定</p>
+<figure data-type="image" tabindex="2"><img src="https://shxiaj.github.io/post-images/image-20220608130513142.png" alt="image-20220608130513142" loading="lazy"></figure>
+<h3 id="画静电势">画静电势</h3>
+<p>导入蛋白质，点plugin---apbs---run，无脑下一步<br>
+<img src="https://shxiaj.github.io/post-images/image-20220608130628184.png" alt="image-20220608130628184" loading="lazy"></p>
+<p>完成后就这样<br>
+<img src="https://shxiaj.github.io/post-images/image-20220608130922073.png" alt="image-20220608130922073" loading="lazy"></p>
+<h3 id="渲染导出保存图片和视频">渲染导出保存图片和视频</h3>
+<pre><code class="language-bash"># 设置背景为白色
+bg_color white
+# 所有的图片都能保存为PNG格式，通过&quot;png&quot;命令或&quot;File&quot;菜单的&quot;Export Image As&quot;选项。图片通常被保存为和viewer 窗口一样的大小：
+ray
+cd desktop
+png my_image.png
+# 或者通过下面的命令可改变图片大小：语法 ray width,height
+# 宽和高都必须是整数，它们的默认是零或当前窗口大小
+# 例如 ray 1024,480
+# 更多关于ray的信息通过命令“help ray”获得。
+</code></pre>
+<p>渲染视频</p>
+<pre><code class="language-bash">mset 1 x120               #定义动画
+util.mroll 1,120,1         #mdo命令创建旋转360度的120帧动画 
+</code></pre>
+<p>点击播放图标即可预览<br>
+<img src="https://shxiaj.github.io/post-images/image-20220608132337545.png" alt="image-20220608132337545" loading="lazy"></p>
+<p>相关的教程：<br>
+<img src="https://shxiaj.github.io/post-images/image-20220608132210674.png" alt="image-20220608132210674" loading="lazy"></p>
+<p>保存视频</p>
+<figure data-type="image" tabindex="3"><img src="https://shxiaj.github.io/post-images/image-20220608132708735.png" alt="image-20220608132708735" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://shxiaj.github.io/post-images/image-20220608132733999.png" alt="image-20220608132733999" loading="lazy"></figure>
+<p>也可以先去掉底下的颜色标尺在保存，框里其中某一个点击关闭就行</p>
+<figure data-type="image" tabindex="5"><img src="https://shxiaj.github.io/post-images/image-20220608132925438.png" alt="image-20220608132925438" loading="lazy"></figure>
+<h3 id="大功告成"><strong>大功告成</strong></h3>
+<p><strong><a href="https://shxiaj.github.io/post-images/proteinRotate.mp4">渲染出来的视频.mp4</a></strong></p>
+<h4 id="完结撒花"><strong>完结撒花</strong></h4>
+<h3 id="相关的有用的教程">相关的有用的教程</h3>
+<p><a href="https://shxiaj.github.io/post-images/Pymol-CommandLine.pdf">Pymol-CommandLine</a><br>
+Frontiers | A script to highlight hydrophobicity and charge on protein surfaces | Molecular Biosciences<br>
+https://www.frontiersin.org/articles/10.3389/fmolb.2015.00056/full</p>
+<p>PyMOL中文教程 — PyMOL中文教程 2020.09 文档<br>
+http://pymol.chenzhaoqiang.com/index.html</p>
+<p><strong>pymol 教程<br>
+https://360ai.org/pymol 最相关的教程</strong></p>
+<p>PyMOL tutorial -Hydrophobicity-<br>
+http://www.protein.osaka-u.ac.jp/rcsfp/supracryst/suzuki/jpxtal/Katsutani/en/hydrophobicity.php</p>
+<p>Displaying Biochemical Properties - PyMOLWiki<br>
+https://pymolwiki.org/index.php/Displaying_Biochemical_Properties</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/soft-sublime-text/" class="post-title gt-a-link">
+                    Sublime Text 右键打开当前文件夹
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/python-pymolPlot/" class="leancloud_visitors" data-flag-title="Pymol 计算蛋白质静电势，渲染导出动画">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

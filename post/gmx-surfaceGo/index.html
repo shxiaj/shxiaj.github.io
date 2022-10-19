@@ -1,0 +1,598 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>氧化石墨烯表面力场构建 opls | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1666183835166"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-oplsaam-2015%E5%8A%9B%E5%9C%BA%E6%9E%84%E6%88%90">1.  oplsaam 2015力场构成</a></li>
+<li><a href="#2-fad%E5%8A%9B%E5%9C%BA%E7%94%9F%E6%88%90">2. FAD力场生成</a></li>
+<li><a href="#3-%E6%B0%A7%E5%8C%96%E7%9F%B3%E5%A2%A8%E7%83%AF%E5%8A%9B%E5%9C%BA%E7%94%9F%E6%88%90">3. 氧化石墨烯力场生成</a>
+<ul>
+<li><a href="#31-%E6%B0%A7%E5%8C%96%E7%9F%B3%E5%A2%A8%E7%83%AF">3.1 氧化石墨烯</a></li>
+<li><a href="#32-materials-studio-%E9%87%8E%E8%B7%AF%E5%AD%90%E6%94%B9%E5%90%8D">3.2 Materials Studio 野路子改名</a></li>
+<li><a href="#33-%E5%8D%8A%E6%AD%A3%E7%BB%8F%E8%B7%AF%E5%AD%90-python%E6%88%90%E9%94%AE%E5%88%A4%E6%96%AD%E6%94%B9%E5%90%8D">3.3 半正经路子 Python成键判断改名</a></li>
+<li><a href="#34-pdb2gmx">3.4 pdb2gmx</a></li>
+<li><a href="#35-grompp%E7%94%9F%E6%88%90%E5%8A%9B%E5%9C%BA-%E6%94%B9%E9%94%99">3.5 grompp生成力场, 改错</a></li>
+<li><a href="#36-%E5%AF%BB%E6%89%BE%E5%90%88%E9%80%82%E5%8F%82%E6%95%B0">3.6 寻找合适参数</a></li>
+<li><a href="#37-%E6%9D%A5%E4%B8%AAem">3.7 来个em</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    氧化石墨烯表面力场构建 opls
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-09-29 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/k6WWwAH4v/" class="post-tags">
+                            # shell
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <!-- more -->
+<h3 id="1-oplsaam-2015力场构成">1.  oplsaam 2015力场构成</h3>
+<p>Robertson M J, Tirado-Rives J, Jorgensen W L.Improved Peptide and Protein Torsional Energetics with the OPLS-AA Force Field[J].Journal of Chemical Theory and Computation,2015, 11 (7): 3499-3509.</p>
+<figure data-type="image" tabindex="1"><img src="https://shxiaj.github.io/post-images/oplsaam%202015.png" alt="oplsaam 2015" loading="lazy"></figure>
+<h3 id="2-fad力场生成">2. FAD力场生成</h3>
+<p>LigParGen程序自动生成, 搞出来FAD的单体 fad_full.pdb</p>
+<pre><code class="language-bash">ligpargen -i fad_full.pdb -n fad -p fad.ff -r FAD -c -2 -cgen CM1A-LBCC
+</code></pre>
+<p><code>生成出来的fad.gmx.itp:</code></p>
+<pre><code class="language-bash">[ atomtypes ]
+  opls_800     O    15.9990     0.000    A    2.96000E-01   8.78640E-01
+  opls_801     P    30.9740     0.000    A    3.74000E-01   8.36800E-01
+  opls_802     O    15.9990     0.000    A    2.96000E-01   8.78640E-01
+  opls_803    OS    15.9990     0.000    A    2.90000E-01   5.85760E-01
+  ...
+[ moleculetype ]
+; Name               nrexcl
+  FAD                  3
+[ atoms ]
+;   nr       type  resnr residue  atom   cgnr     charge       mass
+     1   opls_801      1    FAD   PO1      1     2.8236    30.9740 
+     2   opls_802      1    FAD   O1       1    -0.9868    15.9990 
+     3   opls_800      1    FAD   O15      1    -0.9868    15.9990 
+     4   opls_803      1    FAD   O2       1    -0.8361    15.9990 
+     ...
+</code></pre>
+<p>原子电荷使用的charmm27力场文献所提供的, 也就是第一个体系里面搞的</p>
+<p>后面在考虑要不要和Go表面的itp文件一起合并, 新的atomtype只能在一个文件里产生</p>
+<h3 id="3-氧化石墨烯力场生成">3. 氧化石墨烯力场生成</h3>
+<p>大的来了, 应该分几步走</p>
+<ul>
+<li>Jerkwin 在线生成石墨烯, 氧化石墨烯</li>
+<li>脚本或者MS, MS应该更好, 把文件里原子名改掉, 生成带有成键的mol2文件</li>
+<li>做成一个大残基放在aminoacids.rtp文件里, 把文献力场参数导进去</li>
+<li>gmx pdb2gmx生成itp文件</li>
+<li>使用脚本排错</li>
+</ul>
+<h4 id="31-氧化石墨烯">3.1 氧化石墨烯</h4>
+<figure data-type="image" tabindex="2"><img src="https://shxiaj.github.io/post-images/Graphite_oxide.svg" alt="Graphite_oxide" loading="lazy"></figure>
+<p><strong>A:</strong> <a href="https://en.wikipedia.org/wiki/Epoxide">Epoxy bridges</a>, <strong>B:</strong> <a href="https://en.wikipedia.org/wiki/Hydroxyl_group">Hydroxyl groups</a>, <strong>C:</strong> Pairwise <a href="https://en.wikipedia.org/wiki/Carboxyl_group">carboxyl groups</a>.</p>
+<pre><code class="language-bash">CA, SP2 carbon 石墨烯
+CT, C in epoxy 环氧基
+OS, O in epoxy 
+CF, C bonded with phenolic hydroxy 羟基
+OH, O in phenolic hydroxy
+HO, H in phenolic hydroxy
+C, C in carboxyl 羧基
+O_3, =O in carboxyl 羧基双键氧
+OH2, O of -0H in carboxyl 
+HO2, H of -OH in carcboxy1
+</code></pre>
+<p>有两种, 就选择没有羧基的吧.</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mn>10</mn></msub><msub><mi>O</mi><mn>1</mn></msub><mi>O</mi><msub><mi>H</mi><mn>1</mn></msub><mspace linebreak="newline"></mspace><msub><mi>C</mi><mn>10</mn></msub><msub><mi>O</mi><mn>1</mn></msub><mi>O</mi><msub><mi>H</mi><mn>1</mn></msub><mi>C</mi><mi>O</mi><mi>O</mi><msub><mi>H</mi><mn>0.5</mn></msub></mrow><annotation encoding="application/x-tex">C_{10}O_1OH_1 \\ C_{10}O_1OH_1COOH_{0.5}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">0</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">.</span><span class="mord mtight">5</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>创建一个10x10nm的氧化石墨烯gro, 转化成pdb</p>
+<figure data-type="image" tabindex="3"><img src="https://shxiaj.github.io/post-images/image-20220929194433740.png" alt="image-20220929194433740" loading="lazy"></figure>
+<p>总共5244个原子, 文件名go.gro</p>
+<h4 id="32-materials-studio-野路子改名">3.2 Materials Studio 野路子改名</h4>
+<p>失败 defeat 野路子终究是野路子</p>
+<ul>
+<li>计算成键</li>
+<li>分配力场, 删除不正常识别的成键</li>
+<li>选区某种原子, 改名, 保存成mol2格式 go.mol2</li>
+<li>保证不会因为某些原子距离太近, 而被识别成错误的成键</li>
+</ul>
+<h4 id="33-半正经路子-python成键判断改名">3.3 半正经路子 Python成键判断改名</h4>
+<p>或者使用Python判断原子类型, 但是成键mol2文件还是需要ms</p>
+<p><code>distJudge.py</code> 根据网页生成的石墨烯有特定的原子排序, 计算成键距离判断原子的种类</p>
+<ul>
+<li>a: 最后一个石墨烯平面C原子序号</li>
+<li>b: 最后一个环氧基O原子序号</li>
+<li>c: 最后一个羟基OH的H原子序号</li>
+<li>d: 最后一个羧基H序号, 也是最后一个原子序号</li>
+<li>awk 是shell用来生成itp的, 现在用不上了</li>
+<li>go.gro生成go.dat, 把go.dat搞成go.gro 原有go改名go-origin</li>
+</ul>
+<pre><code class="language-python">import numpy as np
+import os
+
+date = np.genfromtxt('go.gro', dtype=('&lt;U5', '&lt;U5', int, float, float, 
+                    float), skip_header=2, skip_footer=1)
+a = 4032
+b = 4436
+c = 5244
+d = 5244
+
+date['f0'] = &quot;1OGO&quot;
+atomtype = date['f1']
+atomnum = date['f2']
+x = date['f3']
+y = date['f4']
+z = date['f5']
+
+for i in range(a):
+    atomtype[i] = &quot;CA&quot;
+    for j in range(a,b):
+        dist_2 = (x[i]-x[j])**2 + (y[i]-y[j])**2 + (z[i]-z[j])**2
+        dist = dist_2**0.5
+        if dist &lt; 0.14:
+            # print(dist,i,j)
+            atomtype[i] = &quot;CT&quot;
+            atomtype[j] = &quot;OS&quot;
+
+    for j in range(b,c,2):
+        dist_2 = (x[i]-x[j])**2 + (y[i]-y[j])**2 + (z[i]-z[j])**2
+        dist = dist_2**0.5
+        if dist &lt; 0.15:
+            # print(dist,i,j)
+            atomtype[i] = &quot;CF&quot;
+            atomtype[j] = &quot;OH&quot;
+            atomtype[j+1] = &quot;HO&quot;
+
+    for j in range(c,d,4):
+        dist_2 = (x[i]-x[j])**2 + (y[i]-y[j])**2 + (z[i]-z[j])**2
+        dist = dist_2**0.5
+        if dist &lt; 0.16:
+            # print(dist,i,j)
+            # atomtype[i] = &quot;CF&quot;
+            atomtype[j] = &quot;C1&quot;
+            atomtype[j+1] = &quot;O3&quot;
+            atomtype[j+2] = &quot;O2&quot;
+            atomtype[j+3] = &quot;H4&quot;
+
+    pass
+np.savetxt('go.dat', date, fmt=['%8s', '%7s', '%5d', '%8.3f', '%8.3f', '%8.3f'], delimiter='')
+
+# awk 'BEGIN {i = 0}; {i = i + 1; \
+#      if ($2 == &quot;CA&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_ca&quot;, 1, &quot;OGO&quot;, $2, 1, 0); \
+#      if ($2 == &quot;CT&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_ct&quot;, 1, &quot;OGO&quot;, $2, 1, 0.14); \
+#      if ($2 == &quot;OS&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_os&quot;, 1, &quot;OGO&quot;, $2, 1, -0.28); \
+#      if ($2 == &quot;CF&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_cf&quot;, 1, &quot;OGO&quot;, $2, 1, 0.15); \
+#      if ($2 == &quot;OH&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_oh&quot;, 1, &quot;OGO&quot;, $2, 1, -0.585); \
+#      if ($2 == &quot;HO&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_ho&quot;, 1, &quot;OGO&quot;, $2, 1, 0.435); \
+#      if ($2 == &quot;C1&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_c1&quot;, 1, &quot;OGO&quot;, $2, 1, 0.52); \
+#      if ($2 == &quot;O2&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_o2&quot;, 1, &quot;OGO&quot;, $2, 1, -0.53); \
+#      if ($2 == &quot;O3&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_o3&quot;, 1, &quot;OGO&quot;, $2, 1, -0.44); \
+#      if ($2 == &quot;H4&quot;) printf(&quot;%5d%11s%6d%10s%8s%5s%10.3f\n&quot;, i, &quot;go_h4&quot;, 1, &quot;OGO&quot;, $2, 1, 0.45); \
+#      }' go_0.gro &gt; tt
+</code></pre>
+<h4 id="34-pdb2gmx">3.4 pdb2gmx</h4>
+<p>将石墨烯搞成一个大残基的形式写入aminoacids.rtp, pdb2gmx</p>
+<ul>
+<li>首先决定好原子的力场类型</li>
+</ul>
+<pre><code class="language-bash">; atomtypes.atp
+; OGO atomtypes
+ go_ca   12.01100  ; SP2 carbon
+ go_ct   12.01100  ; C in epoxy
+ go_os   15.99940  ; C in epoxy
+ go_cf   12.01100  ; C bonded with phenolic hydroxy
+ go_oh   15.99940  ; O in phenolic hydroxy
+ go_ho    1.00800  ; H in phenolic hydroxy
+ go_c1   12.01100  ; C in carboxyl
+ go_o2   15.99940  ; O of -OH in carboxyl
+ go_o3   15.99940  ; =O in carboxyl
+ go_h4    1.00800  ; H of -OH in carboxyl
+</code></pre>
+<ul>
+<li>先将gro文件每个原子改名, 因为rtp里面原子名称最多四个字符, 且不能重复; group分组代表该组电荷量为0,每一组不超过32个原子;</li>
+<li>最终结果如下</li>
+</ul>
+<pre><code class="language-bash">[ OGO ]
+ [ atoms ]
+A001    go_ca   0.000      1
+A002    go_ca   0.000      1
+A003    go_ca   0.000      1
+...
+ [ bonds ]
+A001   A002
+A002   A005
+A002   A003
+...
+</code></pre>
+<p>操作过程</p>
+<pre><code class="language-bash"># 先用ABCDEF0-999 造出来不重复的原子name, 选5244个
+
+# 数组赋值A-Z
+markChar=({A..Z})
+
+# 输出标记后的每个原子名, 数字补零
+for i in {1..5244}; do
+    let j=i/1000
+    let k=i%1000
+    printf &quot;%c%03d\n&quot; ${markChar[$j]} $k
+done &gt; atomMarkName
+
+# 过时方法
+# {
+# for (( i = 1; i &lt;= 999; i++ )); do  echo A$i; done
+# for (( i = 0; i &lt;= 999; i++ )); do  printf &quot;B%3d\n&quot; $i; done
+# for (( i = 0; i &lt;= 999; i++ )); do  printf &quot;C%3d\n&quot; $i; done
+# for (( i = 0; i &lt;= 999; i++ )); do  printf &quot;D%3d\n&quot; $i; done
+# for (( i = 0; i &lt;= 999; i++ )); do  printf &quot;E%3d\n&quot; $i; done
+# for (( i = 0; i &lt;= 999; i++ )); do  printf &quot;F%3d\n&quot; $i; done
+# } | head -5244 | sed 's/ /0/g' &gt; 1
+
+# 再把gro文件原子名称对应的力场类型搞定, 加上charge电荷量; j = i/30 表示: 30个原子一组, 
+awk 'BEGIN {i = 0}; {i++; \
+     j = (i-1)/30 + 1;
+     if ($2 == &quot;CA&quot;) printf(&quot;%7s%8.3f%7d\n&quot;, &quot;go_ca&quot;, 0, j); \
+     if ($2 == &quot;CT&quot;) printf(&quot;%7s%8.3f%7d\n&quot;, &quot;go_ct&quot;, 0.14, j); \
+     if ($2 == &quot;OS&quot;) printf(&quot;%7s%8.3f%7d\n&quot;, &quot;go_os&quot;, -0.28, j); \
+     if ($2 == &quot;CF&quot;) printf(&quot;%7s%8.3f%7d\n&quot;, &quot;go_cf&quot;, 0.15, j); \
+     if ($2 == &quot;OH&quot;) printf(&quot;%7s%8.3f%7d\n&quot;, &quot;go_oh&quot;, -0.585, j); \
+     if ($2 == &quot;HO&quot;) printf(&quot;%7s%8.3f%7d\n&quot;, &quot;go_ho&quot;, 0.435, j); \
+     }' go.gro &gt; atomResData
+     
+# 整合到一块 就是 [ atoms ]区域参数了
+echo -e &quot;[ OGO ]\n [ atoms ]&quot; &gt;&gt; aminoacids.rtp
+paste -d &quot;  &quot; atomMarkName atomResData &gt;&gt; aminoacids.rtp
+</code></pre>
+<ul>
+<li>需要使用mol2格式里面的bond成键信息, 转换成键信息为自己所需的</li>
+</ul>
+<pre><code class="language-bash"># 提取bond信息,再删除第一行与最后一行
+sed -n '/@&lt;TRIPOS&gt;BOND/,/@&lt;TRIPOS&gt;/p' go.mol2 | sed '1d; $d' &gt; goBond
+# 65是A的ascii码值, int()是awk内置取整的函数, 也是为了修改键序号转换成相应的atomMarkName
+awk '{
+  printf(&quot;%c%03d   %c%03d\n&quot;, 65+int($2/1000), $2%1000, 65+int($3/1000), $3%1000)
+}' goBond &gt; goBandMarkName
+
+# 将成键信息写入rtp
+echo &quot; [ bonds ]&quot; &gt;&gt; aminoacids.rtp
+cat goBandMarkName &gt;&gt; aminoacids.rtp
+</code></pre>
+<ul>
+<li>再将go.gro 中第二列的name全替换成ABCD0-999这种名字,按顺序, 列操作就用编辑器工具吧, 实在是不想写命令了, 存为go-new.gro</li>
+<li>没办法搞错了,我又重来了一遍, 而且还没有工具人帮我, 还是写个命令吧</li>
+</ul>
+<pre><code class="language-bash">head -2 go.gro &gt; go-new.gro
+sed '1,2d;$d' go.gro | awk '{ printf(&quot;%8s%4c%03d%5d%8.3f%8.3f%8.3f\n&quot;,$1,65+int($3/1000),$3%1000,$3,$4,$5,$6)}' &gt;&gt; go-new.gro
+tail -1 go.gro &gt;&gt; go-new.gro
+</code></pre>
+<pre><code class="language-bash">GoSurface
+5244
+    1OGO   A001    1   0.061   0.070   0.000
+    1OGO   A002    2   0.182   0.140   0.000
+    1OGO   A003    3   0.182   0.280   0.000
+... ...
+    1OGO   F242 5242   2.364   4.432  -0.176
+    1OGO   F243 5243   8.426   2.240   0.146
+    1OGO   F244 5244   8.347   2.286   0.176
+   10.184459    10.080000     0.280000
+</code></pre>
+<p><code>gmx pdb2gmx -f go-new.gro -o -water tip3p</code>最后一步</p>
+<h4 id="35-grompp生成力场-改错">3.5 grompp生成力场, 改错</h4>
+<pre><code class="language-bash"># 按照opls识别规律, 先把atomtypes写入到ffnobonded.itp 为了独一无二我在type字段里都加了一个_*
+[ atomtypes ]
+   go_ca     CA_*   6      12.0110      0.000     A     3.55000e-01     2.92880e-01 
+   go_ct     CT_*   6      12.0110      0.140     A     3.50000e-01     2.76144e-01 
+   go_os     OS_*   8      15.9994     -0.280     A     2.90000e-01     5.85760e-01 
+   go_cf     CF_*   6      12.0110      0.150     A     3.55000e-01     2.92880e-01 
+   go_oh     OH_*   8      15.9994     -0.585     A     3.07000e-01     7.11280e-01 
+   go_ho     HO_*   1       1.0080      0.435     A     0.00000e+00     0.00000e+00 
+...
+# 再把键,角信息写入ffbonded.itp
+[ bondtypes ]
+ CA_*    CA_*    1   0.14    392459.2
+ CA_*    CT_*    1   0.151   265265.6
+...
+[ angletypes ]
+ CA_*    CA_*    CA_*    1   120     527.184
+ CT_*    OS_*    CT_*    1   109.5   502.08
+ CA_*    CA_*    CT_*    1   120     585.76
+...
+[ dihedraltypes ]
+ CA_*    CA_*    CA_*    CA_*    3   30.334  0   -30.334 0   0   0
+ CA_*    CT_*    OS_*    CT_*    3   1.71544 2.84512 1.046   -5.60656    0   0
+ CA_*    CA_*    CT_*    OS_*    3   0   0   0   0   0   0
+...
+</code></pre>
+<p><code>gmx grompp -f em.mdp -c go-new.gro -p topol.top -o em.tpr</code> nohup 搞一下把报错地方找出来, 缺少的bonds等等参数一个个加上去</p>
+<ul>
+<li>处理错误数据</li>
+</ul>
+<pre><code class="language-bash">rm nohup.out
+nohup bash gmx.sh &amp;
+sleep 5s
+# 提取error里有用的信息, sed 圆括号匹配() 还有[]都需要转义, ()匹配的字符按照顺序存为\1 \2 \3
+# ERROR 7149 [file topol.top, line 86843]: 替换成 ERROR 7149 file topol.top, line 86843
+sed -n 's|\(^ERROR.*\)\[\(.*line.*\)\]:|\1\2|gp' nohup.out &gt; errlines
+
+# 将报错的top文件行号保存字符串
+errLinesStrings=$(awk '{print $6}' errlines)
+
+# 寻找到报错行的键,角队列
+awk -v elStr=&quot;$errLinesStrings&quot; '
+BEGIN {
+  # 分割字符串成为数组el
+  split(elStr, el);
+  i = 1;
+} {
+  if (NR == el[i]) {
+    i++;
+    for (j = 1; j &lt; NF; j++) {printf(&quot;%8d&quot;, $j)}
+    printf(&quot;\n&quot;);
+  }
+}
+' topol.top &gt; errData
+
+# 将原子存入数组,索引为序号,值为type类型, 0索引不用
+# 29就是原子类型开始的前一行
+atomType=($(awk 'NR==29,NR==5274 {print $2}' topol.top))
+
+# 将每一行的数据读出来-1, 当做索引, 获取值type, 打印出来
+cat errData | while read line; do
+  for i in $line; do
+    printf &quot;%8s&quot; ${atomType[$i]}
+  done
+  echo
+done &gt; errType
+
+# 排序后去重, 所留下来的就是力场文件里需要补充的参数,命令随意符合自己要求就行
+sort -u -k 1 -k 2 -k 3 -k 4 errType | tr a-z A-Z &gt; missType
+# 力场里没有CF, 小秦说力场里CT就是CF
+sed -i 's/GO_//g' missType
+
+</code></pre>
+<h4 id="36-寻找合适参数">3.6 寻找合适参数</h4>
+<p>问大佬们, 或者找找力场类似的, 或者使用ligpargen试试看有没有类似生成的, 或者直接全部设置成0;</p>
+<ul>
+<li>最终全部搞定, 把原子名MarkName改回来</li>
+</ul>
+<pre><code class="language-bash">atomTureNameStrings=$(sed '1,2d;$d' go.gro | awk '{print $2}')
+# 反人类的awk索引从1开始
+awk -v anStr=&quot;$atomTureNameStrings&quot; 'BEGIN {
+  split(anStr, an);
+} {
+  i = NR - 29;
+  if (i &gt; 0 &amp;&amp; i &lt;= 5244) { $5 = an[i] }
+  print $0;
+}' topol.top &gt; ogo.itp
+</code></pre>
+<h4 id="37-来个em">3.7 来个em</h4>
+<pre><code class="language-bash">gmx make_ndx -f box.gro &lt; 
+a CT CA CF &amp; &quot;OGO&quot;
+q
+gmx grompp -f em.mdp -c box.gro -p topol.top -o ./em/em.tpr -po ./em/emout.mdp -n
+gmx mdrun -v -deffnm ./em/em
+</code></pre>
+<p>搞定!</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/python-protposLearn/" class="post-title gt-a-link">
+                    ProtPos Learning Process
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/gmx-surfaceGo/" class="leancloud_visitors" data-flag-title="氧化石墨烯表面力场构建 opls">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

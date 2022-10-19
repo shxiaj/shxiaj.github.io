@@ -1,0 +1,281 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Intellij Idea 创建动态Web项目&amp;配置Tomcat | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1666183835166"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1thymeleaf%E8%AD%A6%E5%91%8A">1.thymeleaf警告</a></li>
+<li><a href="#2idea-%E8%AE%BE%E7%BD%AE">2.idea 设置</a></li>
+<li><a href="#3tomcat%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81">3.tomcat控制台中文乱码</a></li>
+<li><a href="#4jdk18%E4%BF%9D%E5%B9%B3%E5%AE%89">4.JDK1.8保平安</a></li>
+<li><a href="#5springmvc%E8%A7%86%E5%9B%BE%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90">5.SpringMVC视图无法解析</a></li>
+<li><a href="#6bug%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BC%9A%E8%87%AA%E5%8A%A8%E5%8F%91%E9%80%81%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E7%9A%84%E9%93%BE%E6%8E%A5%E5%8A%A0%E4%B8%8Anull%E8%AF%B7%E6%B1%82">6.Bug浏览器会自动发送当前页面的链接加上/null请求</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Intellij Idea 创建动态Web项目&amp;配置Tomcat
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-12-01 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/iV4T-YtS58/" class="post-tags">
+                            # Java
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>没有写，呼呼</p>
+<!-- more -->
+<h4 id="1thymeleaf警告">1.thymeleaf警告</h4>
+<p>[<a href="https://so.csdn.net/so/search?q=THYMELEAF&amp;spm=1001.2101.3001.7020">THYMELEAF</a>][restartedMain] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.</p>
+<h4 id="2idea-设置">2.idea 设置</h4>
+<p>下面两张图参数一致：</p>
+<figure data-type="image" tabindex="1"><img src="https://shxiaj.github.io/post-images/image-20220627133807185.png" alt="image-20220627133807185" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://shxiaj.github.io/post-images/image-20220627133837999.png" alt="image-20220627133837999" loading="lazy"></figure>
+<p>idea编译器设置字节码级别，重要！</p>
+<figure data-type="image" tabindex="3"><img src="https://shxiaj.github.io/post-images/image-20220627133922599.png" alt="image-20220627133922599" loading="lazy"></figure>
+<p><strong>jdk版本太高就会有各种bug</strong></p>
+<h4 id="3tomcat控制台中文乱码">3.tomcat控制台中文乱码</h4>
+<p>&quot;tomcat-9.0.64\conf\logging.properties&quot;程序目录下，修改配置文件里的UTF-8调整为GBK</p>
+<h4 id="4jdk18保平安">4.JDK1.8保平安</h4>
+<h4 id="5springmvc视图无法解析">5.SpringMVC视图无法解析</h4>
+<p>idea报错，但实际是可以用的。添加依赖可以解决，实测没有解决，不管了</p>
+<pre><code class="language-xml">&lt;!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.thymeleaf.extras&lt;/groupId&gt;
+    &lt;artifactId&gt;thymeleaf-extras-springsecurity5&lt;/artifactId&gt;
+    &lt;version&gt;3.0.4.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h4 id="6bug浏览器会自动发送当前页面的链接加上null请求">6.Bug浏览器会自动发送当前页面的链接加上/null请求</h4>
+<pre><code class="language-log">[16:08:58.594 DEBUG] org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
+[16:08:58.824 DEBUG] org.springframework.web.servlet.DispatcherServlet - GET &quot;/c1/null&quot;, parameters={}
+[16:08:58.824 DEBUG] o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.atguigu.mvc.controller.HelloController#error404()
+[16:08:58.825 DEBUG] org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
+</code></pre>
+<p><a href="https://blog.csdn.net/lindir/article/details/123152626">Edge插件导致的</a></p>
+<p>禁用鼠标手势插件就行了，真是吐了</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/java-MonotonousStack/" class="post-title gt-a-link">
+                    单调栈 LeetCode
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/soft-IdeaJ/" class="leancloud_visitors" data-flag-title="Intellij Idea 创建动态Web项目&amp;配置Tomcat">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>xsd文件提取坐标与成键信息,格式化处理 | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1666183835166"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    xsd文件提取坐标与成键信息,格式化处理
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-10-19 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/iPuGsSOHH/" class="post-tags">
+                            # soft
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/k6WWwAH4v/" class="post-tags">
+                            # shell
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/a2CEtg0rq2/" class="post-tags">
+                            # awk
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>练习活动</p>
+<!-- more -->
+<p>xsd文件粗粒化由Materials Studio软件产生, 提取所需要的信息, 用于galamost的模型建立.<br>
+用法:<code>xsd2bond &lt;filename&gt;</code><br>
+生成的文件包含坐标和成键信息</p>
+<pre><code class="language-bash">function xsd2bond {
+  sed -n 's/.*&lt;Bead ID=&quot;\(.*\)&quot; DisplayStyle.*XYZ=&quot;\(.*\)&quot; Connections.*/\1  \2/gp;
+          s/.*&lt;BeadConnector ID=.*Connects=&quot;\(.*\)&quot;.*/\1/gp' $1 |
+  sed 's/,/ /g' |
+  awk 'BEGIN {i = 1}
+  {
+    if (NF &gt; 2) {
+      dict[$1]=i;
+      printf(&quot;%8d%15.6f%15.6f%15.6f\n&quot;,i,$2,$3,$4)
+      i++;
+    } else {
+      printf(&quot;%d-%d\n&quot;,dict[$1],dict[$2]);
+    }
+  }' &gt; xsd2bond.dat
+}
+</code></pre>
+<p>部分xsd文件</p>
+<pre><code>......
+      &lt;LinearChain ID=&quot;3&quot; NumChildren=&quot;239&quot; Name=&quot;Polysingle&quot; Type=&quot;Homo Polymer&quot;&gt;
+        &lt;RepeatUnit ID=&quot;4&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;5&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-2.35863020903308,0.675381943611484,-0.0318846828407158&quot; Connections=&quot;6&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot;&gt;
+            &lt;BeadType ID=&quot;7&quot; Name=&quot;single1&quot; Color=&quot;191,243,109,255&quot; Radius=&quot;1.64818&quot; Mass=&quot;64.034&quot;/&gt;
+          &lt;/Bead&gt;
+        &lt;/RepeatUnit&gt;
+        &lt;RepeatUnit ID=&quot;8&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;9&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-4.12676396790725,0.832789669512051,-1.81318078989391&quot; Connections=&quot;6,10&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot; BeadType=&quot;7&quot;/&gt;
+        &lt;/RepeatUnit&gt;
+        &lt;RepeatUnit ID=&quot;11&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;12&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-5.89495245989443,0.990005093584606,-3.59443954978225&quot; Connections=&quot;10,13&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot; BeadType=&quot;7&quot;/&gt;
+        &lt;/RepeatUnit&gt;
+        &lt;RepeatUnit ID=&quot;14&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;15&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-7.66319568752081,1.14702822166417,-5.37566093625769&quot; Connections=&quot;13,16&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot; BeadType=&quot;7&quot;/&gt;
+        &lt;/RepeatUnit&gt;
+        &lt;RepeatUnit ID=&quot;17&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;18&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-9.43149365331179,1.30385905959077,-7.15684492307246&quot; Connections=&quot;16,19&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot; BeadType=&quot;7&quot;/&gt;
+        &lt;/RepeatUnit&gt;
+        &lt;RepeatUnit ID=&quot;20&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;21&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-11.1998463597917,1.46049761320381,-8.93799148397996&quot; Connections=&quot;19,22&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot; BeadType=&quot;7&quot;/&gt;
+        &lt;/RepeatUnit&gt;
+        &lt;RepeatUnit ID=&quot;23&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;24&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-12.9682538094838,1.61694388835072,-10.7191005927338&quot; Connections=&quot;22,25&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot; BeadType=&quot;7&quot;/&gt;
+        &lt;/RepeatUnit&gt;
+        &lt;RepeatUnit ID=&quot;26&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;27&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-14.7367160049105,1.77319789088334,-12.5001722230883&quot; Connections=&quot;25,28&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot; BeadType=&quot;7&quot;/&gt;
+        &lt;/RepeatUnit&gt;
+        &lt;RepeatUnit ID=&quot;29&quot; NumChildren=&quot;1&quot; FlipProbability=&quot;0&quot; ChiralInversionProbability=&quot;0&quot;&gt;
+          &lt;Bead ID=&quot;30&quot; DisplayStyle=&quot;Ball and Stick&quot; XYZ=&quot;-16.5052329485932,1.92925962665385,-14.2812063487986&quot; Connections=&quot;28,31&quot; BallSize=&quot;90&quot; StickRadius=&quot;50&quot; BeadType=&quot;7&quot;/&gt;
+......
+</code></pre>
+<p>生成的dat文件(部分)</p>
+<pre><code>       1      -2.358630       0.675382      -0.031885
+       2      -4.126764       0.832790      -1.813181
+       3      -5.894952       0.990005      -3.594440
+       4      -7.663196       1.147028      -5.375661
+       5      -9.431494       1.303859      -7.156845
+       6     -11.199846       1.460498      -8.937991
+       7     -12.968254       1.616944     -10.719101
+...
+2-1
+3-2
+4-3
+5-4
+6-5
+7-6
+8-7
+9-8
+10-9
+11-10
+12-11
+13-12
+...
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/python-fitFunction/" class="post-title gt-a-link">
+                    自定义非线性函数拟合-python,originpro
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/shell-xsd2bond/" class="leancloud_visitors" data-flag-title="xsd文件提取坐标与成键信息,格式化处理">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

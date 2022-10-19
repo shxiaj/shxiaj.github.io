@@ -1,0 +1,428 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Awk，Python与各种小工具 | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1666183835166"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-awk">1. Awk</a>
+<ul>
+<li><a href="#%E4%BC%A0%E9%80%92%E6%95%B0%E7%BB%84">传递数组</a></li>
+</ul>
+</li>
+<li><a href="#4-sed%E7%94%A8%E6%B3%95">4. Sed用法</a></li>
+<li><a href="#3-ffmpeg">3. ffmpeg</a></li>
+<li><a href="#2-python">2. Python</a></li>
+<li><a href="#5-shell">5.  Shell</a>
+<ul>
+<li><a href="#51-tail-tailf-tail-f">5.1 tail tailf tail -f</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    Awk，Python与各种小工具
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-12-16 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/k6WWwAH4v/" class="post-tags">
+                            # shell
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>一个学习记录的过程</p>
+<!-- more -->
+<h2 id="1-awk">1. Awk</h2>
+<p>awk 正则匹配语法：regexp[https://www.runoob.com/regexp/regexp-syntax.html]</p>
+<p>awk BEGIN+过滤+主体{}+END 语法编写顺序</p>
+<pre><code class="language-bash">awk 'BEGIN{i = 1} !/^(#|@)/ {theta = $4 / $5; print $1 &quot;     &quot; theta}' Mtot.xvg &gt; dipoles
+</code></pre>
+<p>awk 命令行与脚本实例对比</p>
+<pre><code class="language-bash">awk '!/^(#|@)/ {for (i = 2; i &lt;= NF; ++i) {freq[i] += $i; print freq[i] &quot;  &quot; $i &quot;  &quot; i}} END {print NR; for(i in freq) printf(&quot;%8.3f\n&quot;,freq[i]/NR*2)}'
+</code></pre>
+<pre><code class="language-c">#!/usr/bin/awk -f
+# awk解释器位置
+
+
+BEGIN {
+    T = 2;
+    printf(&quot;ok\n&quot;);
+}
+
+# 正则匹配模式，必须连接在一起
+!/^(#|@)/ {
+    for (i = 2; i &lt;= NF; ++i) {
+        freq[i] += $i;
+        #print $0;
+    }
+}
+
+END {
+    print NR;
+    for(i in freq)
+        printf(&quot;%15.3f&quot;, freq[i] / NR * T);
+    printf(&quot;\n&quot;);
+}
+
+# 数组索引并非是连续的
+!/^(#|@)/ {
+    if(bg == 0) {bg = FNR;}
+    if(NR == FNR) {
+        v1[FNR] = $2;
+    } else {
+        v2[FNR] = $2;
+    }
+} 
+END {
+    len = length(v1);
+    for (i = bg; i &lt; len + bg; ++i) {
+        printf(&quot;%12.4f%12.4f%12.4f\n&quot;, v1[i], v2[i], (v1[i]+v2[i])/2);
+    }
+}
+
+# awk 文件行列转置，列转行
+{
+    for(i=1;i&lt;=NF;i++) 
+        a[i,NR]=$i
+}
+END {
+    for(i=1;i&lt;=NF;i++) {
+        for(j=1;j&lt;=NR;j++) printf(&quot;%10.4f &quot;,a[i,j]);
+        printf(&quot;\n&quot;);
+        }
+}
+</code></pre>
+<h3 id="传递数组">传递数组</h3>
+<p>当需要shell的数组时，把shell当成字符串输入，awk里在使用split()函数将其分解；<br>
+awk使用的是扩展的正则表达式；awk字符串函数说明<br>
+<a href="https://www.twle.cn/c/yufei/awk/awk-basic-string-functions.html">字符串函数教程</a><br>
+<a href="https://www.cnblogs.com/chengmo/archive/2010/10/10/1847287.html">正则表达式语法</a></p>
+<ul>
+<li>在使用if语句的时候，<strong>一定要加{}，就算后面只有一条语句也得加</strong>，否则不会执行。大大的教训</li>
+<li>改变$1 $2的结果时，同时也会改变$0的值，<strong>但是这时候的$0，会自作多情的给你在每列值之间添加上空格分隔符</strong>。所以当改变列值时，要么使用printf格式化输出每列值，要么就$1 $2 $3....一个个打出来</li>
+</ul>
+<pre><code class="language-bash"># substr 提取字符串，awk字符串索引竟然是从1开始的
+awk '{atomName=substr($12,1,1) substr($3,2);print atomName}' unit.pdb &gt; unit
+# awk筛选行, gsub替换字符串
+awk -v arr=&quot;$(cat unit)&quot; '
+BEGIN {
+    FIELDWIDTHS=&quot;8 7 53&quot;;
+    split(arr,atomName);
+    i=-1;
+    len=length(atomName)
+}
+{   if (i &gt; len) {i -= len};
+    if (NR &gt; 2 &amp;&amp; NR &lt; 45723) {gsub(&quot;[^[:space:]].*$&quot;, atomName[i], $2)};
+    print $1 $2 $3;
+    i++;}' nvt.gro &gt; tt.gro
+
+# 简单的方法就可以完成，根本用不着替换字符串，方向错了
+# linux适用
+awk '{atomName=substr($12,1,1) substr($3,2);print atomName}' unit.pdb &gt; unit
+awk -v arr=&quot;$(cat unit)&quot; 'BEGIN {FIELDWIDTHS=&quot;8 7 53&quot;;
+split(arr,atomName);i=-1;len=length(atomName)}
+{if (i &gt; len) {i -= len} if ($1 ~ /PCA/) {printf(&quot;%s%7s%s\n&quot;,$1,atomName[i],$3)}
+else {print $0} i++;}' nvt.gro &gt; tt.gro
+
+# linux上显示参数过多，win可以
+awk '{atomName=substr($12,1,1) substr($3,2);print atomName}' pc.pdb &gt; pc
+awk -v arr=&quot;$(awk '{atomName=substr($12,1,1) substr($3,2);print atomName}' pc.pdb)&quot; 'BEGIN {
+    FIELDWIDTHS=&quot;8 7 53&quot;;
+    split(arr,atomName);}
+    {if ($1 ~ /PCA/) {printf(&quot;%s%7s%s\n&quot;,$1,atomName[NR-2],$3)}
+    else {print $0}
+    }' nvt.gro &gt; tt.gro
+</code></pre>
+<p>统计一下下rmsd&gt;0.2的resid</p>
+<pre><code class="language-bash">awk '{if($2&gt;0.2||$3&gt;0.2||$4&gt;0.2||$5&gt;0.2||$6&gt;0.2) {print $0}}' rmsf.dat
+# 打印数字时，第一个数字出现了bug显示为0，不知道为什么还是使用%s吧
+awk '{if($2&gt;0.2||$3&gt;0.2||$4&gt;0.2||$5&gt;0.2||$6&gt;0.2) printf(&quot;%d &quot;,$1)}' rmsf.dat
+awk '{if($2&gt;0.2||$3&gt;0.2||$4&gt;0.2||$5&gt;0.2||$6&gt;0.2) printf(&quot;%s &quot;,$1)}' rmsf.dat &gt; rmsfGreater2A
+# 破案了格式问题dos2unix即可，发现不正常的文件读取大概率都是这个原因
+</code></pre>
+<pre><code class="language-bash"># 统计蛋白质z轴坐标最小值随时间的变化
+function proMinz {
+  mkdir minz
+  # 2&gt;&amp;1 将gmx的错误输出到标准输出, 这样可以使用管道传递, 使用sed获取Protein组所在的id
+  proteinIdx=$(echo 3000 | gmx trjconv -f md.xtc -s md.tpr 2&gt;&amp;1 | sed -n 's/^Group *\(.*\)( *Protein).*$/\1/p')
+  echo $proteinIdx | gmx trjconv -f md.xtc -s md.tpr -skip 2 -o ./minz/protein.gro
+  # gro文件的第一行一般都不是空格开头, 所以可以判断文件是否读取到了下一帧的第一行
+  awk 'BEGIN {
+    FIELDWIDTHS=&quot;36 8&quot;;
+    min = 100;
+  } 
+  { if ($1 !~ /^ / &amp;&amp; NR != 1) {
+      print min;
+      min = 100;
+    }
+    if ($2 ~ /[0-9]\.[0-9]{3}$/ &amp;&amp; $2 &lt; min) {
+      min = $2;
+    }
+  }
+  END {
+    print min;
+  }' ./minz/protein.gro &gt; ./minz/minz.dat
+}
+</code></pre>
+<h2 id="4-sed用法">4. Sed用法</h2>
+<p>详细的教程，虽然没看过但是肯定有用<a href="https://www.twle.cn/c/yufei/sed/sed-basic-index.html">sed教程</a></p>
+<h2 id="3-ffmpeg">3. ffmpeg</h2>
+<p>转换图片格式</p>
+<pre><code class="language-bash">ffmpeg -hide_baatomNameer -y -i $fileName.bmp -pix_fmt rgb24 -c tiff -compression_algo lzw $fileName.tif
+</code></pre>
+<h2 id="2-python">2. Python</h2>
+<pre><code class="language-python">import matplotlib
+# 使用非交互后端，加速运行速度
+matplotlib.use('Agg')
+</code></pre>
+<pre><code class="language-bash">conda clean -p      #删除没有用的包
+conda clean -t       #tar打包
+conda clean -y -a   #删除所有的安装包及cache
+conda config --set changeps1 false #关闭conda的环境提示
+</code></pre>
+<h2 id="5-shell">5.  Shell</h2>
+<ul>
+<li>搞一个生成md模板的函数</li>
+<li>gitbash初始化文件位置&quot;H:\Software\PortableGit\etc\bash.bashrc&quot;</li>
+<li><code>mdblog filename</code></li>
+</ul>
+<pre><code class="language-bash">function mdblog {
+  echo \
+'---
+title: '标题'
+date: 2022-01-08 15:55:55
+tags: [Gromacs, shell]
+published: true
+hideInList: false
+feature: 
+isTop: false
+---
+
+&lt;!-- more --&gt;
+' &gt; $1.md
+}
+</code></pre>
+<h3 id="51-tail-tailf-tail-f">5.1 tail tailf tail -f</h3>
+<p>md运行的nohup.out日志, 使用tail 或者 tail -f 查看都有大问题, 不知道为什么, 总是会默认读取所有的行<br>
+只有使用<code>tailf</code> 这样才比较正常, 以后就用这个了.</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/java-mysql/" class="post-title gt-a-link">
+                    MySQL-笔记
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/shell-awk-sed/" class="leancloud_visitors" data-flag-title="Awk，Python与各种小工具">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

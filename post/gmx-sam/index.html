@@ -1,0 +1,414 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>SAM.sh | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1666183835166"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%A5%BD%E5%A4%9A%E7%9A%84%E9%85%B6">好多的酶</a></li>
+</ul>
+</li>
+<li><a href="#ptmc">PTMC</a>
+<ul>
+<li><a href="#md">MD</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E9%9D%A2">创建表面</a></li>
+<li><a href="#%E6%94%B9%E4%B8%8Bcu%E6%A0%87%E8%AF%86">改下CU标识</a></li>
+<li><a href="#%E7%95%99%E4%B8%AA%E5%8A%A0%E5%A2%99%E7%9A%84%E7%A9%BA02nm">留个加墙的空0.2nm</a></li>
+<li><a href="#%E8%9B%8B%E7%99%BD%E8%B0%83%E5%88%B0%E5%BA%95%E8%BE%B9">蛋白调到底边</a></li>
+<li><a href="#%E5%90%88%E5%B9%B6%E7%9B%92%E5%AD%90">合并盒子</a></li>
+<li><a href="#%E6%8F%92%E7%A6%BB%E5%AD%90">插离子</a></li>
+<li><a href="#%E7%B4%A2%E5%BC%95">索引</a></li>
+<li><a href="#ionsgro%E7%95%99%E7%A9%BA%E5%8A%A003nm%E7%9C%9F%E7%A9%BA">ions.gro留空加0.3nm真空</a></li>
+<li><a href="#em-nvt-md">em nvt md</a></li>
+<li><a href="#%E5%88%86%E6%9E%90">分析</a></li>
+<li><a href="#vmd">VMD</a></li>
+<li><a href="#fad%E5%88%86%E6%9E%90">FAD分析</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    SAM.sh
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-12-16 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h4 id="好多的酶">好多的酶</h4>
+<h3 id="ptmc">PTMC</h3>
+<pre><code class="language-bash">sed -i '/ANISOU/d' 5z0f-single.pdb
+</code></pre>
+<h4 id="md">MD</h4>
+<p>#######################################################################</p>
+<h4 id="创建表面">创建表面</h4>
+<pre><code class="language-bash">gmx genconf -f COOH_25%_UnitCell.gro -o sam_cooh.gro -nbox 8 9 1
+gmx genconf -f NH2_25%_UnitCell.gro -o sam_cooh.gro -nbox 8 9 1
+
+sed -e '/SBM/d' sam_cooh.gro &gt; sam
+sed -n -e '/SBM/p' sam_cooh.gro &gt; sbm
+cat sam sbm &gt; sam_cooh.gro
+
+sed -e '/SEM/d' sam_nh2.gro.bak &gt; sdm
+sed -n -e '/SEM/p' sam_nh2.gro.bak &gt; sem
+cat sdm sem &gt; sam_nh2.gro
+</code></pre>
+<p>######################################################################</p>
+<h4 id="改下cu标识">改下CU标识</h4>
+<pre><code class="language-bash">echo 1 | gmx pdb2gmx -o protein.gro -water tip3p -f -ignh 
+</code></pre>
+<h4 id="留个加墙的空02nm">留个加墙的空0.2nm</h4>
+<pre><code class="language-bash">gmx editconf -f protein.gro -d 1.2 &amp;&amp; rm out.gro
+gmx editconf -o protein.gro -d 1.2 -f md_
+
+gmx editconf -f protein.gro -o ptw1.gro -box  7.99184  7.78626  
+gmx editconf -f protein.gro -o ptw1.gro -box  9.98980  8.65140  
+gmx editconf -f protein.gro -o ptw1.gro -box  10.98867  10.38168 
+
+g_min
+g_max
+</code></pre>
+<h4 id="蛋白调到底边">蛋白调到底边</h4>
+<pre><code class="language-bash">g_adj ptw1.gro ptw2.gro
+gmx editconf -f ptw2.gro -o ptw2.gro -translate 0 0 -0.1
+
+gmx solvate -cp ptw2.gro -cs spc216.gro -o ptw3.gro -p topol.top
+
+## SAMs 负电厚度1.316nm正电厚度1.432 加0.2nm用墙
+gmx editconf -f ptw3.gro -o ptw4.gro -translate 0 0 1.539 # 负电
+gmx editconf -f ptw3.gro -o ptw4.gro -translate 0 0 1.652 # 正电
+</code></pre>
+<h4 id="合并盒子">合并盒子</h4>
+<pre><code class="language-bash">g_mer sam_nh3.gro
+</code></pre>
+<pre><code class="language-bash">## 修改top，SAM268 SBM20 建立CU的键 写入AB DE.itp
+## 修改top，SAM216 SBM72 建立CA,FE的键 写入AB DE.itp  492 36
+
+ # 4563 944  1 0.198 500000.0
+ # 4563 704  1 0.217 500000.0
+ # 4564 3608 1 0.191 500000.0
+ # 4564 3185 1 0.196 500000.0
+ # 4564 3257 1 0.199 500000.0
+
+// ## 2p3x //
+ # 5330   1322   1   0.207   500000.0
+ # 5330   1636   1   0.216   500000.0
+ # 5330   1790   1   0.234   500000.0
+ # 5331   3696   1   0.204   500000.0
+ # 5331   3763   1   0.215   500000.0
+ # 5331   4204   1   0.202   500000.0
+
+// ## 6atj //
+  687  4695     1   0.232  500000.0
+  733  4695     1   0.235  500000.0
+  794  4695     1   0.251  500000.0
+ 2580  4696     1   0.239  500000.0
+ 3434  4696     1   0.248  500000.0
+ 3481  4696     1   0.243  500000.0
+ 2562  4697     1   0.206  500000.0
+ #  582  4697     1   0.647  500000.0
+ # 2548  4697     1   0.611  500000.0
+ 
+mkdir ion em nvt md energy energy1
+update user set authentication_string=password(&quot;dingliang&quot;) where user='root';
+</code></pre>
+<h4 id="插离子">插离子</h4>
+<pre><code class="language-bash">gmx grompp -f ion.mdp -c box.gro -p topol.top -o ./ion/ions.tpr -po ./ion/ionout.mdp -maxwarn 1
+gmx genion -s ./ion/ions.tpr -o ions.gro -p topol.top -np 31 -pname NA -pq 1 -nn 0 -nname CL -nq -1
+gmx genion -s ./ion/ions.tpr -o ions.gro -p topol.top -np 3 -pname NA -pq 1 -nn 28 -nname CL -nq -1
+# cat ions.gro surf-cooh.gro &gt; box.gro
+</code></pre>
+<h4 id="索引">索引</h4>
+<pre><code class="language-bash">echo -e &quot;a S\n q&quot; | gmx make_ndx -f ions.gro -o
+a S q
+</code></pre>
+<h4 id="ionsgro留空加03nm真空">ions.gro留空加0.3nm真空</h4>
+<pre><code class="language-bash">g_zev ions.gro 
+</code></pre>
+<h4 id="em-nvt-md">em nvt md</h4>
+<pre><code class="language-bash">g_free
+gmx grompp -f em.mdp -c ions.gro -p topol.top -o ./em/em.tpr -po ./em/emout.mdp -n
+gmx mdrun -v -deffnm ./em/em $logogram2
+
+gmx grompp -f nvt.mdp -c ./em/em.gro -p topol.top -o ./nvt/nvt.tpr -po ./nvt/nvtout.mdp -n -r ./em/em.gro
+gmx mdrun -v -deffnm ./nvt/nvt -cpi ./nvt/nvt.cpt $logogram 
+
+gmx grompp -f md.mdp -c ./nvt/nvt.gro -p topol.top -o ./md/md.tpr -po ./md/mdout.mdp -n -r ./nvt/nvt.gro
+gmx mdrun -v -deffnm ./md/md -cpi ./md/md.cpt $logogram 
+===================================================================================
+gmx grompp -f em.mdp -c ions.gro -p topol.top -o ./em/em.tpr -po ./em/emout.mdp -n
+gmx mdrun -v -deffnm ./em/em
+
+gmx grompp -f nvt.mdp -c ./em/em.gro -p topol.top -o ./nvt/nvt.tpr -po ./nvt/nvtout.mdp -n
+gmx mdrun -v -deffnm ./nvt/nvt
+
+# Segmentation fault 能量最小化出问题，重新跑
+gmx grompp -f md.mdp -c ./nvt/nvt.gro -p topol.top -o ./md/md.tpr -po ./md/mdout.mdp -n
+gmx mdrun -v -deffnm ./md/md
+</code></pre>
+<h4 id="分析">分析</h4>
+<pre><code class="language-bash">gmx trjconv -s md.tpr -f md.xtc -o md_1.xtc -pbc mol -ur compact
+gmx rms -s md.tpr -f md_1.xtc -o rmsd.xvg -tu ns
+gmx rmsf -s md.tpr -f md_1.xtc -res -o rmsf.xvg
+gmx dipoles -f md.xtc -s md.tpr -o -b 0 -e 100000 -a aver.xvg -cos cosaver.xvg
+gmx distance -s md.tpr -f md_1.xtc -oall -oav -tu ns -select &quot;com of group 1 plus com of group 18&quot;
+gmx mindist -s md.tpr -f md_1.xtc -od -tu ns
+
+# 低版本不支持指定单位 归一化用不上
+gmx rdf -s md.tpr -f md_1.xtc -tu ns -o rdf.xvg -cn rdf-cn.xvg
+echo -e '27\n30\n'| gmx rdf -s md.tpr -f md_1.xtc -n ../index.ndx -o -cn -b 80000
+
+# rerun 重跑能量
+gmx grompp -f md.mdp -n -c ./nvt/nvt.gro -p topol.top -o ./energy/energy.tpr -po ./energy/energy.mdp
+gmx mdrun -v -rerun ./md/md.trr -deffnm ./energy/energy
+
+gmx energy -s energy.tpr -f energy.edr -o ene-HAP-Cal.xvg
+
+awk '! {if ($2 ~ /^[0-9]/ &amp;&amp; \
+     $2 &lt; min) min = $2} END {print min}' surf-NH2.gro
+awk '!/^(#|@)/ {ecc = 1 - (($2 + $3 + $4 ) / 3) / $1; print $0 &quot;      &quot; res}' moi.xvg
+awk '!/^(#|@)/ {ecc = 1 - (($2 + $3 + $4 ) / 3) / $2; print $0 &quot;      &quot; ecc}' moi.xvg &gt; tt
+export PATH=/home/dila/soft/gawk/bin:$PATH
+  
+awk 'BEGIN {FIELDWIDTHS=&quot;36 8&quot;; min = 100} {if ($2 ~ / [0-9]/) print $2}' ptw1.gro
+
+awk '!/^(#|@)/ { print $0 &quot;  &quot;}' Mtot.xvg &gt; tt
+
+awk '!/^(#|@)/ {cos = $4 / $5; print $0 &quot;     &quot; cos}' Mtot.xvg
+</code></pre>
+<hr>
+<h4 id="vmd">VMD</h4>
+<pre><code>atomselect 0 {protein within 3.5 of resname SDM SEM SAM SBM}
+atomselect0 writepdb connect_res.pdb
+set aid [atomselect 0 same residue as {protein within 3.5 of {resname SDM SEM SAM SBM}}]
+$aid get resid &gt; tt 
+</code></pre>
+<h4 id="fad分析">FAD分析</h4>
+<pre><code class="language-bash">gmx make_ndx -f ./md/md.gro -n
+echo 0 | gmx trjconv -s md.tpr -f md.trr -o md.xtc -pbc mol -ur compact -skip 3
+echo 26 | gmx dipoles -s *.tpr -f *.xtc -n 
+
+gmx grompp -f energy.mdp -n -c ./nvt/nvt.gro -p topol.top -o ./energy/energy.tpr -po ./energy/energy.mdp
+gmx mdrun -v -rerun ./md/md.trr -deffnm ./energy/energy $logogram3
+
+gmx energy -s energy.tpr -f energy.edr
+gmx distance -s md.tpr -f md.xtc -oxyz -tu ns -n -select &quot;[0,0,1.520] plus group 27&quot;
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+            <span id="/post/gmx-sam/" class="leancloud_visitors" data-flag-title="SAM.sh">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
