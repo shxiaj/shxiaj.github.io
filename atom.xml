@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>ShXiaJ&apos;s Note</title>
-    <updated>2022-10-19T12:51:26.571Z</updated>
+    <updated>2022-10-21T03:35:57.020Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>http://localhost:4000/images/avatar.png</logo>
     <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2022, ShXiaJ&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[shell中实现并行控制执行-ptmc的运行]]></title>
+        <id>http://localhost:4000/post/shell-mpirun/</id>
+        <link href="http://localhost:4000/post/shell-mpirun/">
+        </link>
+        <updated>2022-10-20T07:55:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>运行ptmc程序的批处理脚本</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>运行ptmc程序的批处理脚本</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[xsd文件提取坐标与成键信息,格式化处理]]></title>
         <id>http://localhost:4000/post/shell-xsd2bond/</id>
@@ -27,9 +38,9 @@
         <link href="http://localhost:4000/post/python-fitFunction/">
         </link>
         <updated>2022-10-19T01:57:25.000Z</updated>
-        <summary type="html"><![CDATA[<p>虚接上文</p>
+        <summary type="html"><![CDATA[<p>续接上文</p>
 ]]></summary>
-        <content type="html"><![CDATA[<p>虚接上文</p>
+        <content type="html"><![CDATA[<p>续接上文</p>
 ]]></content>
     </entry>
     <entry>
@@ -103,17 +114,6 @@
         <summary type="html"><![CDATA[<p>形形色色的，仿佛是bug的</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>形形色色的，仿佛是bug的</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[gmx do_dssp & xpm2ps 蛋白二级结构图绘制]]></title>
-        <id>http://localhost:4000/post/gmx-do_dssp/</id>
-        <link href="http://localhost:4000/post/gmx-do_dssp/">
-        </link>
-        <updated>2022-06-18T18:06:59.000Z</updated>
-        <summary type="html"><![CDATA[<p>又是无比折腾的一次体验，用到的文件都在最后可以下载</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>又是无比折腾的一次体验，用到的文件都在最后可以下载</p>
 ]]></content>
     </entry>
 </feed>
