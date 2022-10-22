@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1666442033019"
+            <form id="gridea-search-form" style="position: relative" data-update="1666444122636"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -146,12 +146,16 @@
 按照距离大小给予权重 0.35 0.8 1.6 .. (nm)</p>
 <pre><code class="language-bash">awk '!/^(#|@)/ &amp;&amp; $1 &gt;= 200 {
   for (j = 2; j &lt;= NF; j++) {
-    if ($j &lt; 0.35) {
+    if ($j &lt; 0.2) {
       freq[j] += 1;
-    } else if ($j &lt; 0.8) {
-      freq[j] += 0.8;
+    } else if ($j &lt; 0.35) {
+      freq[j] += 0.9;
+    } else if ($j &lt; 0.5) {
+      freq[j] += 0.7;
+    } else if ($j &lt; 0.9) {
+      freq[j] += 0.5;
     } else if ($j &lt; 1.6) {
-      freq[j] += 0.2;
+      freq[j] += 0.3;
     } else {
       freq[j] += 0;
     }
@@ -159,10 +163,9 @@
   count++;
 } END {
   for (i in freq) {
-    printf(&quot;%5.2f\n&quot;, freq[i] / (count - 1));
+    printf(&quot;%5.2f\n&quot;, freq[i] / count);
   }
-}
-' mindist.xvg &gt; occ.dat
+}' mindist.xvg &gt; occ.dat
 </code></pre>
 <p>pdb文件格式</p>
 <pre><code>ATOM      1 N    ASP     6       1.914  52.857 -32.006  1.00150.00           N
@@ -174,8 +177,8 @@ ATOM      6 HA   ASP     6       1.294  53.255 -33.954  1.00150.00
 ATOM      7 CB   ASP     6       3.309  52.515 -33.994  1.00150.00           C
 .............
 </code></pre>
-<p>不相同的无法正确的格式化<br>
-占比: x150 倍扩大差异; -5:残基第一个ID值 - 1</p>
+<p>pdb格式如果与上面不相同的, 无法正确的格式化</p>
+<p>占比: x150 倍扩大差异; -5:残基第一个ID值 - 1</p>
 <pre><code class="language-bash">awk -v bs=&quot;`cat occ.dat`&quot; '
 BEGIN { split(bs, b); }
 {
@@ -186,7 +189,7 @@ BEGIN { split(bs, b); }
 </code></pre>
 <h3 id="3-绘制图">3. 绘制图</h3>
 <p>VMD -&gt; beta -&gt; surf<br>
-<img src="https://shxiaj.github.io/post-images/image-20221022203056153.png" alt="image-20221022203056153" loading="lazy"></p>
+<img src="https://shxiaj.github.io/post-images/image-20221022210819547.png" alt="image-20221022210819547" loading="lazy"></p>
 
                 </div>
             </article>
