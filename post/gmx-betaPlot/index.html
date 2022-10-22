@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>ProtPos Learning Process | ShXiaJ&#39;s Note</title>
+<title>根据距离绘制接触残基梯度-gmx-shell | ShXiaJ&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
@@ -102,7 +102,9 @@
 <ul>
 <li>
 <ul>
-<li><a href="#1-simplemovepy">1. simpleMOVE.py</a></li>
+<li><a href="#1-%E6%80%9D%E8%B7%AF">1. 思路</a></li>
+<li><a href="#2-%E5%8D%A0%E6%AF%94%E5%8A%A0%E4%BF%AE%E6%94%B9">2. 占比加修改</a></li>
+<li><a href="#3-%E7%BB%98%E5%88%B6%E5%9B%BE">3. 绘制图</a></li>
 </ul>
 </li>
 </ul>
@@ -113,28 +115,78 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    ProtPos Learning Process
+                    根据距离绘制接触残基梯度-gmx-shell
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2022-09-26 ·
+                        · 2022-10-22 ·
                     </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/k6WWwAH4v/" class="post-tags">
+                            # shell
+                        </a>
+                    
+                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>记录一下</p>
+                    <p>多样化绘图接触残基</p>
 <!-- more -->
-<h3 id="1-simplemovepy">1. simpleMOVE.py</h3>
-<pre><code class="language-python"># pymol 调用时主要是通过cmd+功能（文件）的形式。
-# 例如下载pdb文件
-cmd.fetch(‘z2kp’, async='0')
-
-# python之parser.add_argument()用法——命令行选项、参数和子命令解析器
-# 参数互斥
-self.parser.add_mutually_exclusive_group()
-# resn = resname
-aw
+<h3 id="1-思路">1. 思路</h3>
+<ul>
+<li>VMD 可以根据beta的值着色</li>
+<li>根据残基接触距离区间帧占比,修改beta</li>
+<li>VMD 画图</li>
+</ul>
+<h3 id="2-占比加修改">2. 占比加修改</h3>
+<p>残基与表面的最小距离gmx mindist<br>
+分析最后100ns的占比 ($1 &gt;= 200) 可以修改<br>
+按照距离大小给予权重 0.35 0.8 1.6 .. (nm)</p>
+<pre><code class="language-bash">awk '!/^(#|@)/ &amp;&amp; $1 &gt;= 200 {
+  for (j = 2; j &lt;= NF; j++) {
+    if ($j &lt; 0.35) {
+      freq[j] += 1;
+    } else if ($j &lt; 0.8) {
+      freq[j] += 0.8;
+    } else if ($j &lt; 1.6) {
+      freq[j] += 0.2;
+    } else {
+      freq[j] += 0;
+    }
+  }
+  count++;
+} END {
+  for (i in freq) {
+    printf(&quot;%5.2f\n&quot;, freq[i] / (count - 1));
+  }
+}
+' mindist.xvg &gt; occ.dat
 </code></pre>
+<p>pdb文件格式</p>
+<pre><code>ATOM      1 N    ASP     6       1.914  52.857 -32.006  1.00150.00           N
+ATOM      2 H1   ASP     6       2.466  53.680 -31.871  1.00150.00            
+ATOM      3 H2   ASP     6       0.996  53.009 -31.640  1.00150.00            
+ATOM      4 H3   ASP     6       2.340  52.088 -31.530  1.00150.00            
+ATOM      5 CA   ASP     6       1.823  52.546 -33.488  1.00150.00           C
+ATOM      6 HA   ASP     6       1.294  53.255 -33.954  1.00150.00            
+ATOM      7 CB   ASP     6       3.309  52.515 -33.994  1.00150.00           C
+.............
+</code></pre>
+<p>不相同的无法正确的格式化<br>
+占比: x150 倍扩大差异; -5:残基第一个ID值 - 1</p>
+<pre><code class="language-bash">awk -v bs=&quot;`cat occ.dat`&quot; '
+BEGIN { split(bs, b); }
+{
+  $10 = b[$5 - 5] * 150;
+  printf(&quot;%-6s%5d %-4s %3s A%4d    %8.3f%8.3f%8.3f%6.2f%6.2f          %2s\n&quot;,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11);
+}' proFad.pdb &gt; res.pdb
+
+</code></pre>
+<h3 id="3-绘制图">3. 绘制图</h3>
+<p>VMD -&gt; beta -&gt; surf<br>
+<img src="https://shxiaj.github.io/post-images/image-20221022203056153.png" alt="image-20221022203056153" loading="lazy"></p>
 
                 </div>
             </article>
@@ -143,14 +195,14 @@ aw
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.github.io/post/java-replaceMol/" class="post-title gt-a-link">
-                    按比率随机替换大文件行中指定字符 Java-ReplaceMol
+                <a href="https://shxiaj.github.io/post/shell-mpirun/" class="post-title gt-a-link">
+                    shell中实现并行控制执行-ptmc的运行
                 </a>
             </div>
         
 
         
-            <span id="/post/python-protposLearn/" class="leancloud_visitors" data-flag-title="ProtPos Learning Process">
+            <span id="/post/gmx-betaPlot/" class="leancloud_visitors" data-flag-title="根据距离绘制接触残基梯度-gmx-shell">
                 <em class="post-meta-item-text">阅读量 </em>
                 <i class="leancloud-visitors-count">0</i>
             </span>

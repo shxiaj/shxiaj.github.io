@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>ShXiaJ&apos;s Note</title>
-    <updated>2022-10-21T03:35:57.020Z</updated>
+    <updated>2022-10-22T12:33:57.614Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -10,6 +10,17 @@
     <logo>http://localhost:4000/images/avatar.png</logo>
     <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2022, ShXiaJ&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[根据距离绘制接触残基梯度-gmx-shell]]></title>
+        <id>http://localhost:4000/post/gmx-betaPlot/</id>
+        <link href="http://localhost:4000/post/gmx-betaPlot/">
+        </link>
+        <updated>2022-10-22T11:00:09.000Z</updated>
+        <summary type="html"><![CDATA[<p>多样化绘图接触残基</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>多样化绘图接触残基</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[shell中实现并行控制执行-ptmc的运行]]></title>
         <id>http://localhost:4000/post/shell-mpirun/</id>
@@ -103,17 +114,6 @@
         <summary type="html"><![CDATA[<p>在一定比率下的随机替换指定行中的大文本字符串 java i/o 实现方法</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>在一定比率下的随机替换指定行中的大文本字符串 java i/o 实现方法</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Ps中索引色、RGB色 | Origin中导出RGB256色]]></title>
-        <id>http://localhost:4000/post/origin-ps-256&amp;rgb24/</id>
-        <link href="http://localhost:4000/post/origin-ps-256&amp;rgb24/">
-        </link>
-        <updated>2022-06-22T05:12:39.000Z</updated>
-        <summary type="html"><![CDATA[<p>形形色色的，仿佛是bug的</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>形形色色的，仿佛是bug的</p>
 ]]></content>
     </entry>
 </feed>
