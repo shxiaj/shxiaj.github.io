@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>ShXiaJ&apos;s Note</title>
-    <updated>2022-10-22T13:08:44.928Z</updated>
+    <updated>2022-10-26T12:49:36.986Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>http://localhost:4000/images/avatar.png</logo>
     <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2022, ShXiaJ&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[线性权值递减的粒子群优化算法寻找蛋白质最优吸附取向-java]]></title>
+        <id>http://localhost:4000/post/java-pso/</id>
+        <link href="http://localhost:4000/post/java-pso/">
+        </link>
+        <updated>2022-10-26T12:55:09.000Z</updated>
+        <summary type="html"><![CDATA[<p>一点点的改进</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>一点点的改进</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[运行linux, shell命令和脚本-java]]></title>
+        <id>http://localhost:4000/post/java-processbuild/</id>
+        <link href="http://localhost:4000/post/java-processbuild/">
+        </link>
+        <updated>2022-10-25T07:55:09.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux命令行下手动编译java工程]]></title>
+        <id>http://localhost:4000/post/java-buildProject/</id>
+        <link href="http://localhost:4000/post/java-buildProject/">
+        </link>
+        <updated>2022-10-24T07:55:09.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[根据距离绘制接触残基梯度-gmx-shell]]></title>
         <id>http://localhost:4000/post/gmx-betaPlot/</id>
@@ -85,35 +110,6 @@
         <summary type="html"><![CDATA[<p>log</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>log</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[氧化石墨烯表面力场构建 opls]]></title>
-        <id>http://localhost:4000/post/gmx-surfaceGo/</id>
-        <link href="http://localhost:4000/post/gmx-surfaceGo/">
-        </link>
-        <updated>2022-09-29T07:55:55.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ProtPos Learning Process]]></title>
-        <id>http://localhost:4000/post/python-protposLearn/</id>
-        <link href="http://localhost:4000/post/python-protposLearn/">
-        </link>
-        <updated>2022-09-26T12:45:07.000Z</updated>
-        <summary type="html"><![CDATA[<p>记录一下</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>记录一下</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[按比率随机替换大文件行中指定字符 Java-ReplaceMol]]></title>
-        <id>http://localhost:4000/post/java-replaceMol/</id>
-        <link href="http://localhost:4000/post/java-replaceMol/">
-        </link>
-        <updated>2022-09-26T04:51:50.000Z</updated>
-        <summary type="html"><![CDATA[<p>在一定比率下的随机替换指定行中的大文本字符串 java i/o 实现方法</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>在一定比率下的随机替换指定行中的大文本字符串 java i/o 实现方法</p>
 ]]></content>
     </entry>
 </feed>

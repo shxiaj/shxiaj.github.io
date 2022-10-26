@@ -1,0 +1,669 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>线性权值递减的粒子群优化算法寻找蛋白质最优吸附取向-java | ShXiaJ&#39;s Note</title>
+
+<link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
+
+<link rel="stylesheet"
+      href="/post-images/highlight/styles/lioshi.min.css">
+<script src="/post-images/highlight/highlight.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shxiaj.github.io/styles/main.css">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShXiaJ&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="changeNavbar">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    首页
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/archives" class="menu gt-a-link">
+                    归档
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/tags" class="menu gt-a-link">
+                    标签
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/post/about" class="menu gt-a-link">
+                    关于
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1666788574481"
+                action="/search/">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+<script>
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = () => {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+    <div class="post-container">
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-%E7%AE%80%E4%BB%8B">1. 简介</a></li>
+<li><a href="#2-%E7%BA%BF%E6%80%A7%E6%9D%83%E5%80%BC%E9%80%92%E5%87%8F">2. 线性权值递减</a></li>
+<li><a href="#3%E7%AE%97%E6%B3%95">3.算法</a>
+<ul>
+<li><a href="#31-bash%E5%BB%BA%E6%A8%A1">3.1 Bash建模</a></li>
+<li><a href="#32-%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC">3.2 执行脚本</a></li>
+<li><a href="#33-pso%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B">3.3 pso算法过程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    线性权值递减的粒子群优化算法寻找蛋白质最优吸附取向-java
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-10-26 ·
+                    </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/iV4T-YtS58/" class="post-tags">
+                            # Java
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <p>一点点的改进</p>
+<!-- more -->
+<h3 id="1-简介">1. 简介</h3>
+<p>粒子群优化（Particle Swarm Optimization, PSO），又称粒子群演算法、微粒群算法，是由 J. Kennedy 和 R. C. Eberhart 等[1]于1995年开发的一种演化计算技术，来源于对一个简化社会模型的模拟。其中“群（swarm）”来源于微粒群符合 M. M. Millonas 在开发应用于人工生命（artificial life）的模型时所提出的群体智能的5个基本原则。“粒子（particle）”是一个折衷的选择，因为既需要将群体中的成员描述为没有质量、没有体积的，同时也需要描述它的速度和加速状态。</p>
+<p>PSO 算法最初是为了图形化地模拟鸟群优美而不可预测的运动。而通过对动物社会行为的观察，发现在群体中对信息的社会共享提供一个演化的优势，并以此作为开发算法的基础[1]。通过加入近邻的速度匹配、并考虑了多维搜索和根据距离的加速，形成了 PSO 的最初版本。之后引入了惯性权重w来更好的控制开发（exploitation）和探索（exploration），形成了标准版本。为了提高粒群算法的性能和实用性，中山大学、（英国）格拉斯哥大学等又开发了自适应（Adaptive PSO）版本[2]和离散（discrete）版本[3]</p>
+<p>PSO 算法属于一种万能启发式演算法，能够在没有得知太多问题资讯的情况下，有效的搜寻具有庞大解空间的问题并找到候选解，但同时不保证其找到的最佳解为真实的最佳解。</p>
+<figure data-type="image" tabindex="1"><img src="https://shxiaj.github.io/post-images/image-20221026194821391.png" alt="image-20221026194821391" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://shxiaj.github.io/post-images/image-20221026194927307.png" alt="image-20221026194927307" loading="lazy"></figure>
+<h3 id="2-线性权值递减">2. 线性权值递减</h3>
+<p>对于w(惯性权重), 开始时倾向寻找全局最大值, 结束时寻找局部最优值</p>
+<figure data-type="image" tabindex="3"><img src="https://shxiaj.github.io/post-images/image-20221026200716578.png" alt="image-20221026200716578" loading="lazy"></figure>
+<p>对于c1(自我认知), 开始时权重较大, 结束时权重较小; 值越大越自我<br>
+对于c2(社会认知), 开始时权重较小, 结束时权重较大; 值越大越社会</p>
+<figure data-type="image" tabindex="4"><img src="https://shxiaj.github.io/post-images/image-20221026200647655.png" alt="image-20221026200647655" loading="lazy"></figure>
+<p>Self-Organizing Hierarchical Particle Swarm Optimizer With Time-Varying Acceleration Coefficients<br>
+论文推荐参数:<br>
+w: 0.9-0.4;<br>
+c1: 2.5-0.5;<br>
+c2: 0.5-2.5;</p>
+<h3 id="3算法">3.算法</h3>
+<p>分为2个部分: Bash脚本调用自定义函数和gromacs建模, java计算部分<br>
+每一步保存所有粒子的当前值, step-id.dat<br>
+最后保存每一步的最优值, gene.dat<br>
+迭代终止条件:运行200次, 或者连续10次最优值相差0.000001; 即认为迭代终止</p>
+<p>对于运行em过程, 使用队列控制并行进程数</p>
+<p>源码:<a href="https://github.com/shxiaj/javaPso">https://github.com/shxiaj/javaPso</a><br>
+java计算工程文件+bash建模运行脚本</p>
+<h4 id="31-bash建模">3.1 Bash建模</h4>
+<pre><code class="language-bash">#!/usr/bin/bash
+
+surfaceFile=sam_cooh.gro
+proteinFile=protein.gro
+
+dist2Bottom=0.05
+distPro2Surf=0.25
+
+surfTopArgs=(&quot;SAM  372&quot;   &quot;SBM  28&quot;)
+surfName=&quot;SAM SBM&quot;
+
+postiveCharges=0
+negativeCharges=32
+
+X0=$1
+X1=$2
+X2=$3
+X3=$4
+X4=$5
+
+wd=$PWD
+
+if [ ! -d &quot;$wd/part/p$6/&quot; ]; then
+  mkdir -p $wd/part/p$6/
+  cp -rf $wd/model/* $wd/part/p$6/
+else
+  rm $wd/part/p$6/\#*\#
+  rm $wd/part/p$6/*/\#*\#
+  cp -f $wd/model/topol.top $wd/part/p$6/
+fi
+
+cd $wd/part/p$6/
+########################################################################
+
+# $1 输入文件名; $2 输出文件名; $3 移动后到底边距离(nm)
+function g_adjPlus {
+  trans=`sed '$d' $1 | awk -v dist=&quot;$3&quot; 'BEGIN {FIELDWIDTHS=&quot;36 8&quot;; min = 100;} 
+    NR &gt; 2 { if ($2 &lt; min) { min = $2; } }
+    END { trans = dist - min; print trans; }'`
+  gmx editconf -f $1 -o $2 -translate 0 0 $trans
+}
+
+# $1 输入文件名; $2 额外厚度默认为0; return 高度+额外
+function g_height {
+  sed '$d' $1 |
+  awk -v dist=&quot;$2&quot; '
+    BEGIN {
+      FIELDWIDTHS=&quot;36 8&quot;;
+      min = 100;
+      max = -100;
+    } 
+    NR &gt; 2 {
+      if ($2 &lt; min) {
+        min = $2;
+      } else if ($2 &gt; max) {
+        max = $2;
+      }
+    }
+    END {
+      thickness = max - min + dist + 0.02;
+      print thickness;
+    }'
+}
+
+# 获取gro文件的box大小, 输入文件名
+function g_boxSize {
+  awk 'END {printf(&quot;%10.5f%10.5f%10.5f&quot;,$1,$2,$3)}' $1
+}
+
+# $1 组名; $2 gro文件名
+function g_findIndex {
+  echo q | gmx make_ndx -f $2 -o 2&gt;/dev/null |
+  awk -v resName=&quot;$1&quot; '
+    BEGIN{ FIELDWIDTHS = &quot;3 1 20&quot;; split(resName, s);} 
+    { 
+      for (i in s) {
+        if ($3 ~ s[i]) { idx[s[i]]=$1;}
+      }
+    } END {for (i in idx) {print idx[i]}}'
+}
+
+# 获取能量组, 不可调
+function getEneGroup {
+  echo -e &quot;\n\n&quot; | gmx energy -f ./em/em.edr -sum 2&gt;&amp;1 | 
+  awk 'NF == 4 {
+        for(i=1;i&lt;=NF;i++) {
+          if ($i ~ &quot;Coul-SR:Protein-Surface&quot;) {print $(i-1);} 
+          else if($i ~ &quot;LJ-SR:Protein-Surface&quot;) {print $(i-1);}
+        }
+      }'
+}
+
+# $1 fileName; $2 dist(nm)
+function g_boxzPlus {
+  boxz=`sed '$d' $1 | awk -v dist=&quot;$2&quot; 'BEGIN {FIELDWIDTHS=&quot;36 8&quot;; max = -50} 
+  NR &gt; 2 {if ($2 &gt; max) max = $2} END {print max+dist}' $1`
+  sed -i -e &quot;\$s/[0-9]*.[0-9]*\$/${boxz}/&quot; $1
+}
+
+function gmxem {
+  gmx grompp -f em.mdp -c ions.gro -p topol.top -o ./em/em.tpr -po ./em/emout.mdp -n
+  gmx mdrun -v -deffnm ./em/em -nt 1
+}
+
+function g_mer {
+  if [ -z $2 ]; then p4=&quot;ptw4.gro&quot;; else p4=$2; fi
+  if [ -z $1 ]; then echo &quot;No surface's .gro file&quot;; return; else surf=$1; fi
+  sed '$d' $p4 &gt; box.gro
+  sed '1,2d' $surf &gt;&gt; box.gro
+  line_number=$((`cat box.gro|wc -l` - 3))
+  sed -i -e &quot;2s/.*/${line_number}/1&quot; box.gro
+}
+
+########################################################################
+
+# type gmx5 &gt;/dev/null 2&gt;&amp;1 || { echo &gt;&amp;2 &quot;Gromacs5.0 version not exist! Use System defalut version&quot;; alias gmx5=&quot;gmx&quot;; }
+
+# surface preparation
+
+g_adjPlus $surfaceFile surf.gro $dist2Bottom
+
+surfBoxThickness=`g_height surf.gro $dist2Bottom`
+
+surfBoxEdges=($(g_boxSize $surfaceFile))
+
+
+
+# protein preparation
+
+gmx editconf -f $proteinFile -o ptw1-1.gro -rotate $X0 $X1 $X2
+
+proBoxThickness=`g_height ptw1-1.gro 1.78`
+
+gmx editconf -f ptw1-1.gro -o ptw1-2.gro -box ${surfBoxEdges[0]} ${surfBoxEdges[1]} $proBoxThickness
+
+gmx editconf -f ptw1-2.gro -o ptw1-3.gro -translate $X3 $X4 0
+
+g_adjPlus ptw1-3.gro ptw2.gro $distPro2Surf
+
+gmx solvate -cp ptw2.gro -cs spc216.gro -o ptw3.gro -p topol.top
+
+# box Setting
+
+gmx editconf -f ptw3.gro -o ptw4.gro -translate 0 0 $surfBoxThickness
+
+g_mer surf.gro ptw4.gro
+
+
+for (( i = 0; i &lt; ${#surfTopArgs[@]}; i++ )); do
+  echo -e ${surfTopArgs[$i]} &gt;&gt; topol.top
+done
+
+
+# ions and em
+
+mkdir ion em
+gmx grompp -f ion.mdp -c box.gro -p topol.top -o ./ion/ions.tpr -po ./ion/ionout.mdp -maxwarn 1
+g_findIndex SOL box.gro | gmx genion -s ./ion/ions.tpr -o ions.gro -p topol.top -np $negativeCharges -pname NA -pq 1 -nn $postiveCharges -nname CL -nq -1
+g_boxzPlus ions.gro 0.05
+
+surfId=($(g_findIndex &quot;$surfName&quot; ions.gro))
+idxSelect=`for i in ${surfId[@]}; do printf &quot;%d | &quot; $i;done`
+idxSelect=${idxSelect::-2}
+echo -e &quot;$idxSelect \n q&quot; | gmx make_ndx -f ions.gro -o
+lastId=$(($(grep -e &quot;\[.*\]&quot; index.ndx | wc -l) - 1))
+echo -e &quot;name $lastId Surface\n q&quot; | gmx make_ndx -f ions.gro -o -n
+
+gmxem
+
+echo -e &quot;`getEneGroup`\n\n&quot; | gmx energy -f ./em/em.edr -sum
+
+awk 'END{print $2}' energy.xvg &gt; ene.dat
+
+</code></pre>
+<h4 id="32-执行脚本">3.2 执行脚本</h4>
+<pre><code class="language-java">package xyz.shxiaj.pso;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @Author shxiaj.github.io
+ * @Date 2022/10/26 13:40
+ */
+public class ScriptOperation {
+    public static final String BASH = &quot;bash&quot;;
+    public static final String SCRIPTFILE = &quot;psoem.sh&quot;;
+    public static final String LOGDIR = &quot;./runLog/%d.log&quot;;
+    public static final String ENEDAT = &quot;./part/p%d/ene.dat&quot;;
+
+    public static Process runEm(double[] variable, int id) throws IOException {
+        List&lt;String&gt; scriptArgs = new ArrayList&lt;&gt;();
+        scriptArgs.add(BASH);
+        scriptArgs.add(SCRIPTFILE);
+        for (double var : variable) {
+            scriptArgs.add(String.valueOf(var));
+        }
+        scriptArgs.add(String.valueOf(id));
+        File logFile = new File(String.format(LOGDIR, id));
+        ProcessBuilder processBuilder = new ProcessBuilder(scriptArgs);
+        processBuilder.redirectOutput(logFile);
+        // processBuilder.redirectInput(logFile);
+        processBuilder.redirectError(logFile);
+        return processBuilder.start();
+    }
+
+    public static double readDat(int id) throws IOException {
+        String filePath = String.format(ENEDAT, id);
+        String datString = Files.readString(Paths.get(filePath));
+        return Double.parseDouble(datString);
+    }
+}
+</code></pre>
+<h4 id="33-pso算法过程">3.3 pso算法过程</h4>
+<pre><code class="language-java">package xyz.shxiaj.pso;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * @Author shxiaj.github.io
+ * @Date 2022/10/26 10:03
+ */
+public class Pso {
+
+    private double[] gX = new double[Particle.DIMENSION];
+    private double gFitness;
+
+    // setting args for PSO
+    public static final int CORES = 28;
+    public static final double PRECISION = 0.000001;
+    private static final int particleNum = 200;
+    private static final int N = 200;
+    private static final double c1i = 2.5;
+    private static final double c1f = 0.5;
+    private static final double c2i = 0.5;
+    private static final double c2f = 2.5;
+    private static final double wmax = 0.9;
+    private static final double wmin = 0.4;
+    private static final String fitDat = &quot;./dat/gene.dat&quot;;
+    private static final String stepDat = &quot;./dat/step-%d.dat&quot;;
+
+    private final Random random = new Random();
+    private final List&lt;Particle&gt; parts = new ArrayList&lt;&gt;();
+    private final List&lt;double[]&gt; allgX = new ArrayList&lt;&gt;();
+    private final List&lt;Double&gt; allgFitness = new ArrayList&lt;&gt;();
+
+    /**
+     * initial all particle
+     */
+    public void initialParts() {
+        for (int i = 0; i &lt; particleNum; i++) {
+            Particle p = new Particle(i);
+            parts.add(p);
+        }
+    }
+
+    /**
+     * update partBest and run em
+     */
+    public void updatePartBest() throws Exception {
+        Deque&lt;Particle&gt; queue = new ArrayDeque&lt;&gt;();
+        int i = 0;
+        while (i &lt; particleNum) {
+            while (queue.size() &lt; CORES) {
+                Particle p = parts.get(i);
+                p.execFitness();
+                queue.offer(p);
+                i++;
+            }
+            Particle p = queue.poll();
+            p.process.waitFor();
+            p.updatePartBest();
+        }
+        while (!queue.isEmpty()) {
+            Particle p = queue.poll();
+            p.process.waitFor();
+            p.updatePartBest();
+        }
+    }
+
+    /**
+     * update globalBest
+     */
+    public void updateGlobalBest() {
+        double currBestFitness = Double.MAX_VALUE;
+        int bestIndex = 0;
+        // find bestValue and log bestIndex
+        for (int i = 0; i &lt; particleNum; i++) {
+            if (parts.get(i).pFitness &lt; currBestFitness) {
+                currBestFitness = parts.get(i).pFitness;
+                bestIndex = i;
+            }
+        }
+        // update globalBestValue and globalBest
+        if (currBestFitness &lt; gFitness) {
+            gFitness = currBestFitness;
+            gX = parts.get(bestIndex).pX.clone();
+        }
+        allgFitness.add(gFitness);
+        allgX.add(gX.clone());
+    }
+
+    /**
+     * update particle Velocity and coord
+     */
+    public void updateVAndX(int n) {
+        for (Particle p : parts) {
+            // update velocity for every dimension
+            for (int i = 0; i &lt; Particle.DIMENSION; i++) {
+                // Linearly-Decreasing Inertia Weight
+                double w = wmax - (wmax - wmin) * n / N;
+                // Time-Varying Acceleration Coefficients
+                double c1 = c1i + (c1f - c1i) * n / N;
+                double c2 = c2i + (c2f - c2i) * n / N;
+
+                double v = w * p.V[i] + c1 * random.nextDouble() * (p.pX[i] - p.X[i])
+                        + c2 * random.nextDouble() * (gX[i] - p.X[i]);
+
+                p.updatePartVAndV(i, v);
+            }
+        }
+    }
+
+    public boolean isConverge() {
+        int size = allgFitness.size();
+        if (size &gt;= 10) {
+            for (int i = size - 2; i &gt; size - 11; i--) {
+                if (Math.abs(allgFitness.get(i) - allgFitness.get(i + 1)) &gt;= PRECISION) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void writerFile() throws IOException {
+        FileWriter fw = new FileWriter(fitDat, false);
+        for (int i = 0; i &lt; allgFitness.size(); i++) {
+            String s = String.format(&quot;%5d%15.6f%10.3f%10.3f%10.3f%8.3f%8.3f&quot;, i, allgFitness.get(i),
+                    allgX.get(i)[0], allgX.get(i)[1], allgX.get(i)[2], allgX.get(i)[3], allgX.get(i)[4]);
+            fw.write(s);
+            fw.write(System.getProperty(&quot;line.separator&quot;));
+        }
+        fw.flush();
+        fw.close();
+    }
+
+    public void writerEveryStep(int n) throws IOException {
+        String datPath = String.format(stepDat, n);
+        FileWriter fw = new FileWriter(datPath, false);
+        for (Particle p : parts) {
+            fw.write(p.toString());
+            fw.write(System.getProperty(&quot;line.separator&quot;));
+        }
+        fw.write(String.format(&quot;step-%d: gX = %10.3f%10.3f%10.3f%8.3f%8.3f&quot;, n, gX[0], gX[1], gX[2], gX[3], gX[4]));
+        fw.write(System.getProperty(&quot;line.separator&quot;));
+        fw.write(String.valueOf(gFitness));
+        fw.write(System.getProperty(&quot;line.separator&quot;));
+        fw.flush();
+        fw.close();
+    }
+
+    public void run() throws Exception {
+        initialParts();
+        for (int i = 0; i &lt; N; i++) {
+            updatePartBest();
+            updateGlobalBest();
+            writerEveryStep(i);
+            updateVAndX(i);
+            if (isConverge()) break;
+        }
+        writerFile();
+    }
+
+    public static void main(String[] args) {
+        Pso pso = new Pso();
+        try {
+            pso.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shxiaj.github.io/post/java-processbuild/" class="post-title gt-a-link">
+                    运行linux, shell命令和脚本-java
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/java-pso/" class="leancloud_visitors" data-flag-title="线性权值递减的粒子群优化算法寻找蛋白质最优吸附取向-java">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'QM3dMImm92WGVNBPIAhOOKRG-gzGzoHsz',
+		appKey: 'zSlPeu6NxF8ajsbMmveMGNe7',
+		avatar: 'wavatar',
+		pageSize: 10,
+		recordIp: false,
+		placeholder: 'Just Go Go',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let images = document.querySelectorAll("figure > img");
+  //   debugger
+  //   console.log("dddd: "+ images);
+  images.forEach(image => {
+    var parent = image.parentElement;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'gallery';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.appendChild(aelem);
+  })
+</script>
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">天道酬勤！</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShXiaJ/shxiaj.github.io" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/d1020" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+    <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021016184号</a>, Powered by <a
+    href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shxiaj.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.highlightAll()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

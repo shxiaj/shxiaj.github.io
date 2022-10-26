@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Ps中索引色、RGB色 | Origin中导出RGB256色 | ShXiaJ&#39;s Note</title>
+<title>Linux命令行下手动编译java工程 | ShXiaJ&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
@@ -102,12 +102,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#1%E4%BC%8F%E7%AC%94">1.伏笔</a></li>
-<li><a href="#2%E8%B5%B7%E5%9B%A0">2.起因</a></li>
-<li><a href="#3%E4%BB%BF%E4%BD%9B%E9%81%87%E5%88%B0%E4%BA%86bug">3.仿佛遇到了Bug</a></li>
-<li><a href="#4%E8%A7%A3%E5%86%B3">4.解决</a></li>
-<li><a href="#5%E5%8E%9F%E6%9D%A5%E5%A6%82%E6%AD%A4">5.原来如此</a></li>
-<li><a href="#6%E7%94%A8%E5%A4%84">6.用处</a></li>
+<li><a href="#1-%E7%BC%96%E8%AF%91%E6%97%A0%E7%89%B9%E5%AE%9A%E4%BE%9D%E8%B5%96%E7%9A%84%E5%B7%A5%E7%A8%8B">1. 编译无特定依赖的工程</a></li>
+<li><a href="#2-%E7%BC%96%E8%AF%91%E4%BE%9D%E8%B5%96jar">2. 编译依赖jar</a></li>
 </ul>
 </li>
 </ul>
@@ -118,35 +114,27 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Ps中索引色、RGB色 | Origin中导出RGB256色
+                    Linux命令行下手动编译java工程
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2022-06-22 ·
+                        · 2022-10-24 ·
                     </time>
                     
                 </div>
                 <div class="post-content">
-                    <p>形形色色的，仿佛是bug的</p>
-<!-- more -->
-<h3 id="1伏笔">1.伏笔</h3>
-<p>之前我一直很疑惑origin导出的tif图片，只有几十kb，明明300dpi，9cm的大小，觉得可能是图表色彩比较少存储空间用得少</p>
-<h3 id="2起因">2.起因</h3>
-<p>分析RMSF时，把&gt;0.2nm的resid全部画在了蛋白上，说明变得大的都不是二级结构方面。原本这图准备放SI里，结果觉得信息密度太低了，想了想可以放在RMSF的图里，就调调图腾个空放我的protein。用ps给这两合到一块去。</p>
-<h3 id="3仿佛遇到了bug">3.仿佛遇到了Bug</h3>
-<p>当我把origin导出的tif图放进ps里，再放protein图的时候，怎么也放不进去，以前都是这么叠加两张图的呀。打开关闭试了好几次，最后发现origin的图片显示的标志和普通的不一样啊。显示索引，图层也是被锁定的。<br>
-<img src="https://shxiaj.github.io/post-images/image-20220622132538859.png" alt="image-20220622132538859" loading="lazy"></p>
-<h3 id="4解决">4.解决</h3>
-<p>Google喽，色深不同搞的，ps-&gt;图像-&gt;模式-&gt;rgb，调了即可，原来是默认的索引色只有256色，不能修改。</p>
-<h3 id="5原来如此">5.原来如此</h3>
-<p>origin里默认导出的tif是rgb，色深256色。就是ps里的索引颜色。<br>
-<img src="https://shxiaj.github.io/post-images/image-20220622132429917.png" alt="image-20220622132429917" loading="lazy"><br>
-大概就是tif图片很小的原因吧。然后我又吃太饱了没事干，想看看256色和rgb24到底相差多少。<br>
-同样是300dpi，1063*815分辨率，9cm左右的大小。<br>
-<img src="https://shxiaj.github.io/post-images/image-20220622132433557.png" alt="image-20220622132433557" loading="lazy"><br>
-果然大小相差很多啊，同时颜色没看出来任何区别，放大到163%时，256色的会有一点点不明显的灰色噪点，影响很小。</p>
-<h3 id="6用处">6.用处</h3>
-<p><strong>图片太大，256色可以大大压缩图片大小</strong>。</p>
+                    <!-- more -->
+<h3 id="1-编译无特定依赖的工程">1. 编译无特定依赖的工程</h3>
+<pre><code class="language-bash"># -d 输出目录
+javac -d ./bin java/xyz/shxiaj/pso/*
+# -cp 字节码PATH
+java -cp ./bin: xyz.shxiaj.pso.Pso
+</code></pre>
+<h3 id="2-编译依赖jar">2. 编译依赖jar</h3>
+<pre><code class="language-bash"># 编译和运行都需要引入jar路径, -cp --classpath, 用法跟环境变量一样 用冒号: 分隔多个环境目录
+javac -cp ./hutool-all-5.8.9.jar -d ./bin java/xyz/shxiaj/pso/*
+java -cp bin:./hutool-all-5.8.9.jar xyz.shxiaj.pso.CmdTest
+</code></pre>
 
                 </div>
             </article>
@@ -155,14 +143,14 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.github.io/post/gmx-do_dssp/" class="post-title gt-a-link">
-                    gmx do_dssp &amp; xpm2ps 蛋白二级结构图绘制
+                <a href="https://shxiaj.github.io/post/gmx-betaPlot/" class="post-title gt-a-link">
+                    根据距离绘制接触残基梯度-gmx-shell
                 </a>
             </div>
         
 
         
-            <span id="/post/origin-ps-256&amp;rgb24/" class="leancloud_visitors" data-flag-title="Ps中索引色、RGB色 | Origin中导出RGB256色">
+            <span id="/post/java-buildProject/" class="leancloud_visitors" data-flag-title="Linux命令行下手动编译java工程">
                 <em class="post-meta-item-text">阅读量 </em>
                 <i class="leancloud-visitors-count">0</i>
             </span>

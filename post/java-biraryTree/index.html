@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1666444122636"
+            <form id="gridea-search-form" style="position: relative" data-update="1666788574481"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -113,6 +113,64 @@
                 <div class="post-content">
                     <pre><code class="language-java">import java.util.*
 
+public class BiraryTreeTraversal {
+	public List&lt;Integer&gt; preorderTraversal(TreeNode root) {
+		if (root == null) return null;
+		List&lt;Integer&gt; ret = new ArrayList&lt;&gt;();
+		Deque&lt;TreeNode&gt; stack = new ArrayDeque&lt;&gt;();
+		TreeNode node = root;
+		while (!stack.isEmpty() || node != null) {
+			while (node != null) {
+				ret.add(node.val);
+				stack.push(node);
+				node = node.left;
+			}
+			node = stack.pop();
+			node = node.right;
+		}
+		return ret;
+	}
+
+	public List&lt;Integer&gt; inorderTraversal(TreeNode root) {
+		if (root == null) return null;
+		List&lt;Integer&gt; ret = new ArrayList&lt;&gt;();
+		TreeNode node = root;
+		Deque&lt;TreeNode&gt; stack = new ArrayDeque&lt;&gt;();
+		while (!stack.isEmpty() || node != null) {
+			while (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+			node = stack.pop();
+			ret.add(node.val);
+			node = node.right;
+		}
+		return ret;
+	}
+	public List&lt;Integer&gt; postorderTraversal(TreeNode node) {
+		if (node == null) return null;
+		List&lt;Integer&gt; ret = new ArrayList&lt;&gt;();
+		Deque&lt;TreeNode&gt; stack = new ArrayDeque&lt;&gt;();
+		// flag rightNode, avoid repeat traversal
+		TreeNode prevRight = null;
+		while (!stack.isEmpty() || node != null) {
+			while (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+			node = stack.pop();
+			if (node.right == null || node.right == prevRight) {
+				ret.add(node.val);
+				prevRight = node;
+				node = null;
+			} else {
+				stack.push(node);
+				node = node.right;
+			}
+		}
+		return ret;
+	}
+}
 
 </code></pre>
 
