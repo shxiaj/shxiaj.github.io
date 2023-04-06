@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1666923366572"
+            <form id="gridea-search-form" style="position: relative" data-update="1680742882363"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -179,6 +179,7 @@ awk '{for(i=3;i&lt;=NF;i++) printf(&quot;%8.2f%6d\n&quot;,$1/1000,$i)}' index.da
 <h4 id="1-gmx-make_ndx-建立所有残基和表面的索引">1. gmx make_ndx 建立所有残基和表面的索引</h4>
 <pre><code class="language-bash"># 先建立表面的索引, 如23和24为表面的原子
 echo -e &quot;23|24\nq\n&quot; | gmx make_ndx -f md.tpr # samsurface
+echo -e &quot;22\nq\n&quot; | gmx make_ndx -f md.tpr # tco&amp;mos
 # echo -e &quot;15\nq\n&quot; | gmx make_ndx -f md.tpr # gosurface
 # 输出蛋白质所有残基的id到index.dat, 因为经常修改md.gro, 所以用完整的nvt.gro, 一般不会动
 gmx select -f ../nvt/nvt.gro -s md.tpr -select 'group protein' -oi -seltype res_com
@@ -194,10 +195,11 @@ gmx make_ndx -f md.tpr -n &lt; resid
 例如index.ndx索引的第26个是表面，27-524是残基组</p>
 <pre><code class="language-bash"># 首先准备要输入的表面组和残基组
 seq 26 524 &gt; minid
+seq 24 528 &gt; minid #tco&amp;mos
 # seq 24 528 &gt; minid # gosurface
 # 计算最小距离，-ng x 表示第一个组与后面x组做计算，例如27-524一共498个
 gmx mindist -f md.xtc -s md.tpr -n -od -tu ns -dt 0.1 -ng 498 &lt; minid
-# gmx mindist -f md.xtc -s md.tpr -n -od -tu ns -dt 0.1 -ng 504 &lt; minid
+gmx mindist -f md.xtc -s md.tpr -n -od -tu ns -dt 0.1 -ng 504 &lt; minid #tco&amp;mos
 </code></pre>
 <p><code>-od </code>输出的文件名默认是mindist.xvg</p>
 <h4 id="3-python统计数据绘图">3. Python统计数据绘图</h4>

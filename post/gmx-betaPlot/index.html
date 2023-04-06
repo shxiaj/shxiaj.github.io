@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1666923366572"
+            <form id="gridea-search-form" style="position: relative" data-update="1680742882363"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -144,6 +144,9 @@
 <p>残基与表面的最小距离gmx mindist<br>
 分析最后100ns的占比 ($1 &gt;= 200) 可以修改<br>
 按照距离大小给予权重 0.35 0.8 1.6 .. (nm)</p>
+<ul>
+<li>实测gawk &gt;=5.1没问题, gawk 4.x版本不正确,可能是 END结构中的for循环实现效果不一样.</li>
+</ul>
 <pre><code class="language-bash">awk '!/^(#|@)/ &amp;&amp; $1 &gt;= 200 {
   for (j = 2; j &lt;= NF; j++) {
     if ($j &lt; 0.2) {

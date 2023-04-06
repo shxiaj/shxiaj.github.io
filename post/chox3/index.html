@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1666923366572"
+            <form id="gridea-search-form" style="position: relative" data-update="1680742882363"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -153,7 +153,8 @@ plt.show()
 gmx energy -s ene*.tpr -f ene*.edr -o ene-ProSurf.xvg
 gmx energy -s ene*.tpr -f ene*.edr -o ene-ResSurf.xvg
 # 全部写成function
-g_eneidx 22 19 | gmx_ene
+# 22: 表示多少个残基, 19表示edr索引标号开始
+g_eneidx 22 19 | g_ene
 </code></pre>
 <p>隔四个取一个,统计接触残基能量，蛋白质整体能量。</p>
 <pre><code class="language-python">#!/usr/bin/env python3
@@ -215,7 +216,7 @@ gmx distance -s md.tpr -f md.xtc -oxyz -tu ns -n -select &quot;[0,0,1.632] plus 
 </code></pre>
 <h3 id="四-rmsd-rmsf-回旋半径">四、RMSD &amp; RMSF &amp; 回旋半径</h3>
 <pre><code class="language-bash"># 计算均方根偏差，选择蛋白质组 MainChain
-gmx rms -s md.tpr -f md.xtc -tu ns -n
+echo 5 5 | gmx rms -s md.tpr -f md.xtc -tu ns -n
 
 # 计算原子的均方根波动，选择蛋白质组
 echo 1 | gmx rmsf -s md.tpr -f md.xtc -res -n -b 200000

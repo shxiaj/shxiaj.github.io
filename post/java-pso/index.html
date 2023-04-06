@@ -76,7 +76,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1666923366572"
+            <form id="gridea-search-form" style="position: relative" data-update="1680742882363"
                 action="/search/">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -112,6 +112,9 @@
 <li><a href="#34-%E7%B2%92%E5%AD%90%E7%B1%BB">3.4 粒子类</a></li>
 </ul>
 </li>
+<li><a href="#32-%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%9C%80%E5%90%8E%E7%9A%84%E6%95%B0%E6%8D%AE">3.2 格式化最后的数据</a></li>
+<li><a href="#33">3.3</a></li>
+<li><a href="#34">3.4</a></li>
 </ul>
 </li>
 </ul>
@@ -644,6 +647,34 @@ public class Particle {
                 '}';
     }
 }
+</code></pre>
+<h3 id="32-格式化最后的数据">3.2 格式化最后的数据</h3>
+<pre><code class="language-bash">function delpunct() {
+  sed 's/[,:\[]/ /g; s/\]/ /g' $1 | awk '{
+    printf(&quot;%5d&quot;,$1);
+    for (i = 2; i &lt;= NF; i++) {
+      printf(&quot;%10.3f&quot;,$i);
+    }
+    printf(&quot;\n&quot;);
+  }' &gt; $2
+}
+gmx dipoles -f em.trr -s em.tpr
+awk '!/^(#|@)/ {theta = $4 / $5; print $1 &quot;     &quot; theta}' Mtot.xvg &gt; dipoles.dat
+</code></pre>
+<h3 id="33">3.3</h3>
+<pre><code class="language-bash">javac -d bin ./java/xyz/shxiaj/clpso/*.java
+java -cp bin xyz.shxiaj.clpso.Pso
+javac -d bin ./java/xyz/shxiaj/clpsoChange/*.java
+nohup java -cp bin xyz.shxiaj.clpsoChange.Pso &amp;
+java -cp bin xyz.shxiaj.clpsoChange.Pso
+</code></pre>
+<h3 id="34">3.4</h3>
+<pre><code class="language-bash">lines=(
+1   9   17  25
+65  73  81  89
+129 137 145 153
+193 201 209 217
+252 118)
 </code></pre>
 
                 </div>
