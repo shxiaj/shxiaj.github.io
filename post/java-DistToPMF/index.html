@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Intellij Idea 创建动态Web项目&amp;配置Tomcat | ShXiaJ&#39;s Note</title>
+<title>二维散点数据线性插值计算对应自变量的值-java | ShXiaJ&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://shxiaj.github.io/favicon.ico">
 
@@ -97,37 +97,21 @@
 </script>
     <div class="post-container">
         <div class="toc-container">
-            <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#1thymeleaf%E8%AD%A6%E5%91%8A">1.thymeleaf警告</a></li>
-<li><a href="#2idea-%E8%AE%BE%E7%BD%AE">2.idea 设置</a></li>
-<li><a href="#3tomcat%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81">3.tomcat控制台中文乱码</a></li>
-<li><a href="#4jdk18%E4%BF%9D%E5%B9%B3%E5%AE%89">4.JDK1.8保平安</a></li>
-<li><a href="#5springmvc%E8%A7%86%E5%9B%BE%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90">5.SpringMVC视图无法解析</a></li>
-<li><a href="#6bug%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BC%9A%E8%87%AA%E5%8A%A8%E5%8F%91%E9%80%81%E5%BD%93%E5%89%8D%E9%A1%B5%E9%9D%A2%E7%9A%84%E9%93%BE%E6%8E%A5%E5%8A%A0%E4%B8%8Anull%E8%AF%B7%E6%B1%82">6.Bug浏览器会自动发送当前页面的链接加上/null请求</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
+            
         </div>
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Intellij Idea 创建动态Web项目&amp;配置Tomcat
+                    二维散点数据线性插值计算对应自变量的值-java
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-12-01 ·
+                        · 2023-04-26 ·
                     </time>
+                    
+                        <a href="https://shxiaj.github.io/tag/yX1R-mTku/" class="post-tags">
+                            # Gromacs
+                        </a>
                     
                         <a href="https://shxiaj.github.io/tag/iV4T-YtS58/" class="post-tags">
                             # Java
@@ -135,37 +119,90 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>没有写，呼呼</p>
-<!-- more -->
-<h4 id="1thymeleaf警告">1.thymeleaf警告</h4>
-<p>[<a href="https://so.csdn.net/so/search?q=THYMELEAF&amp;spm=1001.2101.3001.7020">THYMELEAF</a>][restartedMain] Template Mode 'HTML5' is deprecated. Using Template Mode 'HTML' instead.</p>
-<h4 id="2idea-设置">2.idea 设置</h4>
-<p>下面两张图参数一致：</p>
-<figure data-type="image" tabindex="1"><img src="https://shxiaj.github.io/post-images/image-20220627133807185.png" alt="image-20220627133807185" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="https://shxiaj.github.io/post-images/image-20220627133837999.png" alt="image-20220627133837999" loading="lazy"></figure>
-<p>idea编译器设置字节码级别，重要！</p>
-<figure data-type="image" tabindex="3"><img src="https://shxiaj.github.io/post-images/image-20220627133922599.png" alt="image-20220627133922599" loading="lazy"></figure>
-<p><strong>jdk版本太高就会有各种bug</strong></p>
-<h4 id="3tomcat控制台中文乱码">3.tomcat控制台中文乱码</h4>
-<p>&quot;tomcat-9.0.64\conf\logging.properties&quot;程序目录下，修改配置文件里的UTF-8调整为GBK</p>
-<h4 id="4jdk18保平安">4.JDK1.8保平安</h4>
-<h4 id="5springmvc视图无法解析">5.SpringMVC视图无法解析</h4>
-<p>idea报错，但实际是可以用的。添加依赖可以解决，实测没有解决，不管了</p>
-<pre><code class="language-xml">&lt;!-- https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5 --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.thymeleaf.extras&lt;/groupId&gt;
-    &lt;artifactId&gt;thymeleaf-extras-springsecurity5&lt;/artifactId&gt;
-    &lt;version&gt;3.0.4.RELEASE&lt;/version&gt;
-&lt;/dependency&gt;
+                    <p>左边是已知数据. 一个dat文件, 右边是所需要求得数据列表,另一个dat文件</p>
+<pre><code>#  dist           ene   |   targetDist  time  targetEne
+-0.28295    -33.02512   |   -0.39624    xxx           
+-1.01E-01   -32.68187   |   -0.38924    xxx           
+-0.01417    -31.80614   |   -0.38424    xxx           
+0.02772     -30.1726    |   -0.38124    xxx           
+0.04128     -29.38776   |   .....       xxx           
+0.05483     -30.6218    |   -0.26124    xxx           
+0.06839     -30.99713   |   -0.26124    xxx           
+0.08195     -31.4469    |   -0.26024    xxx           
+0.0955      -31.18567   |   -0.26024    xxx           
+0.10906     -30.35387   |   ......      xxx           
+0.12261     -29.38833   |    2.39176    xxx            
+0.13617     -28.38347   |    2.40676    xxx            
+0.14973     -28.0361    |    2.43676    xxx            
+0.16328     -27.8113    |    2.44176    xxx            
+0.17684     -28.09536   |    2.45976    xxx            
+0.19039     -28.27295   |    2.49676    xxx            
+0.20395     -27.9215    |    2.51276    xxx            
+0.21751     -27.53844   |                          
+0.23106     -27.31849   |                          
+0.24462     -27.41703   |                          
 </code></pre>
-<h4 id="6bug浏览器会自动发送当前页面的链接加上null请求">6.Bug浏览器会自动发送当前页面的链接加上/null请求</h4>
-<pre><code class="language-log">[16:08:58.594 DEBUG] org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
-[16:08:58.824 DEBUG] org.springframework.web.servlet.DispatcherServlet - GET &quot;/c1/null&quot;, parameters={}
-[16:08:58.824 DEBUG] o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.atguigu.mvc.controller.HelloController#error404()
-[16:08:58.825 DEBUG] org.springframework.web.servlet.DispatcherServlet - Completed 200 OK
+<p>Java11 运行, java8应该也没问题, 特意避免了新的方法<br>
+主要是处理边界有点麻烦, 中间直接用线性插值就行, 找不到的默认就是0</p>
+<pre><code class="language-java">import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * @Author shxiaj.github.io
+ * @Date 2023/04/26 17:34
+ */
+public class DistToPMF {
+    public static void main(String[] args) throws Exception {
+        String p1 = args[0]; // distpmf
+        String p2 = args[1]; // disttime
+        double[][] pmf = readFile(p1);
+        double[][] time = readFile(p2);
+        double[] ret = new double[time.length];
+        FileWriter fw = new FileWriter(&quot;./pmfpred.dat&quot;, false);
+
+        int j = 0;
+        for (int i = 0; i &lt; time.length; i++) {
+            while (j &lt; pmf.length &amp;&amp; pmf[j][0] &lt; time[i][0]) {
+                j++;
+            }
+            if (j == pmf.length &amp;&amp; Math.abs(pmf[j - 1][0] - time[i][0]) &lt; 0.01) {
+                ret[i] = pmf[j - 1][1];
+            } else if (j == 0 &amp;&amp; Math.abs(pmf[j][0] - time[i][0]) &lt; 0.01) {
+                ret[i] = pmf[j][1];
+            } else if (j != pmf.length &amp;&amp; j != 0) {
+                double v = pmf[j - 1][1] + (pmf[j][1] - pmf[j - 1][1]) *
+                        (time[i][0] - pmf[j - 1][0]) / (pmf[j][0] - pmf[j - 1][0]);
+                ret[i] = v;
+            }
+        }
+        String desc = String.format(&quot;%6s%8s%8s%8s&quot;, &quot;index&quot;, &quot;dist&quot;, &quot;pmf&quot;, &quot;time&quot;);
+        fw.write(desc);
+        fw.write(System.getProperty(&quot;line.separator&quot;));
+        for (int i = 0; i &lt; ret.length; i++) {
+            String s = String.format(&quot;%6d%8.4f%8.3f%8.2f&quot;, i, time[i][0], ret[i], time[i][1]);
+            fw.write(s);
+            fw.write(System.getProperty(&quot;line.separator&quot;));
+        }
+        fw.close();
+    }
+
+    public static double[][] readFile(String path) throws IOException {
+        List&lt;String&gt; lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+        double[][] vals = new double[lines.size()][2];
+        for (int i = 0; i &lt; lines.size(); i++) {
+            String[] s = lines.get(i).trim().split(&quot;\\s+&quot;);
+            vals[i][0] = Double.parseDouble(s[0]);
+            vals[i][1] = Double.parseDouble(s[1]);
+        }
+        return vals;
+    }
+}
 </code></pre>
-<p><a href="https://blog.csdn.net/lindir/article/details/123152626">Edge插件导致的</a></p>
-<p>禁用鼠标手势插件就行了，真是吐了</p>
 
                 </div>
             </article>
@@ -174,14 +211,14 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shxiaj.github.io/post/java-MonotonousStack/" class="post-title gt-a-link">
-                    单调栈 LeetCode
+                <a href="https://shxiaj.github.io/post/matlab-clpso/" class="post-title gt-a-link">
+                    综合性学习的粒子群优化算法(CLPSO)文章+源码解析-matlab
                 </a>
             </div>
         
 
         
-            <span id="/post/soft-IdeaJ/" class="leancloud_visitors" data-flag-title="Intellij Idea 创建动态Web项目&amp;配置Tomcat">
+            <span id="/post/java-DistToPMF/" class="leancloud_visitors" data-flag-title="二维散点数据线性插值计算对应自变量的值-java">
                 <em class="post-meta-item-text">阅读量 </em>
                 <i class="leancloud-visitors-count">0</i>
             </span>
