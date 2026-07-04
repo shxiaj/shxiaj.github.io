@@ -1,5 +1,5 @@
 ---
-title: 'gmx do_dssp & xpm2ps 蛋白二级结构图绘制'
+title: '蛋白质二级结构图绘制 (dssp/xpm2ps)'
 date: 2022-06-19 02:06:59
 tags: [Gromacs]
 ---

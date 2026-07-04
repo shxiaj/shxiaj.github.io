@@ -1,5 +1,5 @@
 ---
-title: '氧化石墨烯表面力场构建 opls'
+title: '氧化石墨烯 (GO) OPLS 表面力场构建'
 date: 2022-09-29 15:55:55
 tags: [Gromacs, shell]
 ---

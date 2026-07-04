@@ -1,5 +1,5 @@
 ---
-title: 'Awk，Python与各种小工具'
+title: 'Awk / Python 常用工具技巧'
 date: 2021-12-16 16:56:10
 tags: [Gromacs,shell]
 ---

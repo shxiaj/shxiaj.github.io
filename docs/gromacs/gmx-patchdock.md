@@ -1,5 +1,5 @@
 ---
-title: 'PatchDock 使用'
+title: 'PatchDock 分子对接使用'
 date: 2022-10-02 15:55:55
 tags: [Gromacs, shell]
 ---

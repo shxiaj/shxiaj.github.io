@@ -1,5 +1,5 @@
 ---
-title: Clash-paperRule
+title: 'Clash 文献出版社直连规则'
 date: 2021-12-08 13:20:21
 tags: [soft]
 ---

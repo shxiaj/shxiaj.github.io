@@ -1,5 +1,5 @@
 ---
-title: 'Gromacs程序安装&使用'
+title: 'Gromacs 安装与性能调优指南'
 date: 2021-08-25 13:28:05
 tags: [Gromacs]
 ---

@@ -1,5 +1,5 @@
 ---
-title: '二维散点数据线性插值计算对应自变量的值-java'
+title: '距离-PMF 线性插值计算 (Java)'
 date: 2023-4-26 19:00:09
 tags: [Java,Gromacs]
 ---

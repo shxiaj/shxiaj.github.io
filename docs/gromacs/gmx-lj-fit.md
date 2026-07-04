@@ -1,5 +1,5 @@
 ---
-title: '氨基酸粗粒化的Lennard-Jones势函数拟合-shell-python'
+title: '氨基酸残基 Lennard-Jones 势函数拟合'
 date: 2022-10-18 19:57:25
 tags: [shell,python]
 ---

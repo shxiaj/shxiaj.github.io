@@ -1,5 +1,5 @@
 ---
-title: '计算蛋白疏水偶极 java'
+title: '蛋白质疏水偶极计算 (Java)'
 date: 2022-10-04 12:35:51
 tags: [Java,Gromacs]
 ---

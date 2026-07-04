@@ -1,5 +1,5 @@
 ---
-title: 'Tcl绘制Vmd里面的静电偶级'
+title: 'Tcl 脚本绘制 VMD 静电偶极'
 date: 2022-06-08 14:07:53
 tags: [Vmd,Tcl,Gromacs]
 ---

@@ -1,5 +1,5 @@
 ---
-title: 'ProtPos Learning Process'
+title: 'PyMOL Python 自动化学习笔记'
 date: 2022-09-26 20:45:07
 tags: []
 ---

@@ -1,5 +1,5 @@
 ---
-title: 'ChOx分析3-Python'
+title: 'ChOx 分析(3): Python 数据处理与可视化'
 date: 2021-10-28 13:40:28
 tags: [Gromacs]
 ---

@@ -1,5 +1,5 @@
 ---
-title: 'shell中实现并行控制执行-ptmc的运行'
+title: 'Shell 并行控制与 PTMC 批处理'
 date: 2022-10-20 15:55:55
 tags: [Gromacs, shell]
 ---

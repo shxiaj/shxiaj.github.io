@@ -1,5 +1,5 @@
 ---
-title: '根据距离绘制接触残基梯度-gmx-shell'
+title: '接触残基梯度图绘制 (beta coloring)'
 date: 2022-10-22 19:00:09
 tags: [Gromacs,shell]
 ---

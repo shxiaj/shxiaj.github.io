@@ -1,5 +1,5 @@
 ---
-title: 'Ps中索引色、RGB色 | Origin中导出RGB256色'
+title: 'Origin 导出图像：索引色与 RGB24 色深对比'
 date: 2022-06-22 13:12:39
 tags: []
 ---

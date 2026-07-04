@@ -1,5 +1,5 @@
 ---
-title: 'gromacs绘制蛋白质残基接触图'
+title: '蛋白质残基接触图绘制'
 date: 2022-06-13 21:24:14
 tags: [shell,awk,Gromacs]
 ---

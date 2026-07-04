@@ -1,5 +1,5 @@
 ---
-title: 'ChOx分析2-VMD'
+title: 'ChOx 分析(2): VMD 轨迹与偶极分析'
 date: 2021-09-30 13:40:28
 tags: [Gromacs]
 ---

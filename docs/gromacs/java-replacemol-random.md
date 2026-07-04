@@ -1,5 +1,5 @@
 ---
-title: '按比率随机替换大文件行中指定字符 Java-ReplaceMol'
+title: '大文件按比率随机替换指定字符 (Java)'
 date: 2022-09-26 12:51:50
 tags: [Java,shell,Gromacs]
 ---

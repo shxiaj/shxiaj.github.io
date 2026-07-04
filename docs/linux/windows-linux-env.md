@@ -1,5 +1,5 @@
 ---
-title: 'Windows下的Linux基础环境 & 程序'
+title: 'Windows 下 Linux 基础环境搭建'
 date: 2022-06-19 02:04:43
 tags: []
 ---
