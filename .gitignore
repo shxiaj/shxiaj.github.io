@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build output
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+
+# codegraph (local index, keep .gitignore)
+.codegraph/
+
+# opencode local state
+.omo/
+.opencode-trace/
+
+# editor / IDE
+.vscode/settings.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
