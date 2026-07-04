@@ -2,10 +2,6 @@
 title: 'xsd文件提取坐标与成键信息,格式化处理'
 date: 2022-10-19 20:55:55
 tags: [soft, shell, awk]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 练习活动
 

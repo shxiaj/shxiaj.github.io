@@ -2,10 +2,6 @@
 title: '氧化石墨烯表面力场构建 opls'
 date: 2022-09-29 15:55:55
 tags: [Gromacs, shell]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 
 

@@ -2,10 +2,6 @@
 title: 'Ps中索引色、RGB色 | Origin中导出RGB256色'
 date: 2022-06-22 13:12:39
 tags: []
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 形形色色的，仿佛是bug的
 

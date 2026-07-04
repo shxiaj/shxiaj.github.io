@@ -2,10 +2,6 @@
 title: 'shell中实现并行控制执行-ptmc的运行'
 date: 2022-10-20 15:55:55
 tags: [Gromacs, shell]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 运行ptmc程序的批处理脚本
 

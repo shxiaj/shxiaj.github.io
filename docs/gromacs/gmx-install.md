@@ -2,10 +2,6 @@
 title: 'Gromacs程序安装&使用'
 date: 2021-08-25 13:28:05
 tags: [Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 
 ###### by DingLiAng

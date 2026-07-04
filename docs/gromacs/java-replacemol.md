@@ -2,10 +2,6 @@
 title: '按比率随机替换大文件行中指定字符 Java-ReplaceMol'
 date: 2022-09-26 12:51:50
 tags: [Java,shell,Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 在一定比率下的随机替换指定行中的大文本字符串 java i/o 实现方法
 

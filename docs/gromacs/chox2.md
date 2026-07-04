@@ -2,10 +2,6 @@
 title: 'ChOx分析2-VMD'
 date: 2021-09-30 13:40:28
 tags: [Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 ChOx分析2-VMD
 ==== 

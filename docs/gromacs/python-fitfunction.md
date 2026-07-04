@@ -2,10 +2,6 @@
 title: '自定义非线性函数拟合-python,originpro'
 date: 2022-10-19 09:57:25
 tags: [shell,python]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 续接上文
 

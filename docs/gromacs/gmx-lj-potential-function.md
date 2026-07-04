@@ -2,10 +2,6 @@
 title: '氨基酸粗粒化的Lennard-Jones势函数拟合-shell-python'
 date: 2022-10-18 19:57:25
 tags: [shell,python]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 终于把很久之前想做的给做了, 还是挺麻烦的
 

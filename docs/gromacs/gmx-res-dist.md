@@ -2,10 +2,6 @@
 title: 'gromacs绘制蛋白质残基接触图'
 date: 2022-06-13 21:24:14
 tags: [shell,awk,Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 
 两种方法，一种感觉并不通用

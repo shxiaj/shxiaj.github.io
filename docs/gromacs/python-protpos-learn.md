@@ -2,10 +2,6 @@
 title: 'ProtPos Learning Process'
 date: 2022-09-26 20:45:07
 tags: []
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 记录一下
 

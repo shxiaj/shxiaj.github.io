@@ -2,10 +2,6 @@
 title: 'SAM.sh'
 date: 2020-12-16 13:40:28
 tags: [Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 #### 好多的酶
 ### PTMC

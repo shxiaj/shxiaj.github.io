@@ -2,10 +2,6 @@
 title: '根据距离绘制接触残基梯度-gmx-shell'
 date: 2022-10-22 19:00:09
 tags: [Gromacs,shell]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 多样化绘图接触残基
 

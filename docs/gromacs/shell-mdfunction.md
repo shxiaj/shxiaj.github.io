@@ -2,10 +2,6 @@
 title: '分子动力学模拟 Function'
 date: 2022-06-08 14:07:53
 tags: [Vmd,Tcl,Gromacs,shell]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 ## 1.建模部分
 

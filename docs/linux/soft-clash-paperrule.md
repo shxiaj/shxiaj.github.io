@@ -2,10 +2,6 @@
 title: Clash-paperRule
 date: 2021-12-08 13:20:21
 tags: [soft]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 文献网站直接代理
 

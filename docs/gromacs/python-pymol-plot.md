@@ -2,10 +2,6 @@
 title: 'Pymol 计算蛋白质静电势，渲染导出动画'
 date: 2022-06-08 12:32:28
 tags: [pymol]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 
 

@@ -2,10 +2,6 @@
 title: '计算蛋白疏水偶极 java'
 date: 2022-10-04 12:35:51
 tags: [Java,Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 重写了计算脚本, 在学习一下用java怎么处理这种数据吧, 尽管java不适合干这个
 

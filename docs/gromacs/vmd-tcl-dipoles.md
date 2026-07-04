@@ -2,10 +2,6 @@
 title: 'Tcl绘制Vmd里面的静电偶级'
 date: 2022-06-08 14:07:53
 tags: [Vmd,Tcl,Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 重写了diploes.sh，更快更方便
 

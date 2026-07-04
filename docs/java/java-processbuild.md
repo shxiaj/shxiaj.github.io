@@ -2,10 +2,6 @@
 title: '运行linux, shell命令和脚本-java'
 date: 2022-10-25 15:55:09
 tags: [Java]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 
 

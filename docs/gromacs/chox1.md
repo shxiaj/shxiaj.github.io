@@ -2,10 +2,6 @@
 title: 'ChOx分析1-Rerun'
 date: 2021-10-28 15:40:28
 tags: [Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 
 ChOx分析1-Rerun

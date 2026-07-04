@@ -2,10 +2,6 @@
 title: 'Sublime Text 右键打开当前文件夹'
 date: 2022-01-19 12:51:19
 tags: [soft]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 使用sublime 右键打开资源管理器里的当前文件夹
 

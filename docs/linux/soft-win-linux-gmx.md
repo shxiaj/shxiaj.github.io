@@ -2,10 +2,6 @@
 title: 'Windows下的Linux基础环境 & 程序'
 date: 2022-06-19 02:04:43
 tags: []
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 简洁美观，但是无比折腾
 

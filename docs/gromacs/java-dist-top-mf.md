@@ -2,10 +2,6 @@
 title: '二维散点数据线性插值计算对应自变量的值-java'
 date: 2023-4-26 19:00:09
 tags: [Java,Gromacs]
-published: true
-hideInList: false
-feature: 
-isTop: false
 ---
 左边是已知数据. 一个dat文件, 右边是所需要求得数据列表,另一个dat文件
 ```
