@@ -4,6 +4,7 @@ date: 2021-08-25 13:28:05
 tags: [Gromacs]
 ---
 
+# Gromacs 安装与性能调优指南
 ###### by DingLiAng
 ### cmake安装, 去官网下载Binary distributions二进制版
 解压就能用，方便

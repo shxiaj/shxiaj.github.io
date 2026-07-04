@@ -3,6 +3,9 @@ title: '接触残基梯度图绘制 (beta coloring)'
 date: 2022-10-22 19:00:09
 tags: [Gromacs,shell]
 ---
+
+# 接触残基梯度图绘制 (beta coloring)
+
 多样化绘图接触残基
 
 

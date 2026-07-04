@@ -3,6 +3,8 @@ title: '分子动力学模拟常用 Shell 函数'
 date: 2022-06-08 14:07:53
 tags: [Vmd,Tcl,Gromacs,shell]
 ---
+
+# 分子动力学模拟常用 Shell 函数
 ## 1.建模部分
 
 ```bash

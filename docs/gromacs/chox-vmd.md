@@ -3,6 +3,8 @@ title: 'ChOx 分析(2): VMD 轨迹与偶极分析'
 date: 2021-09-30 13:40:28
 tags: [Gromacs]
 ---
+
+# ChOx 分析(2): VMD 轨迹与偶极分析
 ChOx分析2-VMD
 ==== 
 ### 一、处理trr轨迹文件

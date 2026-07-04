@@ -4,6 +4,7 @@ date: 2022-06-13 21:24:14
 tags: [shell,awk,Gromacs]
 ---
 
+# 蛋白质残基接触图绘制
 两种方法，一种感觉并不通用
 
 ### A. gmx select工具

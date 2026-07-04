@@ -3,6 +3,8 @@ title: 'Awk / Python 常用工具技巧'
 date: 2021-12-16 16:56:10
 tags: [Gromacs,shell]
 ---
+
+# Awk / Python 常用工具技巧
 一个学习记录的过程
 
 

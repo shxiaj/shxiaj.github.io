@@ -3,6 +3,8 @@ title: 'Shell 并行控制与 PTMC 批处理'
 date: 2022-10-20 15:55:55
 tags: [Gromacs, shell]
 ---
+
+# Shell 并行控制与 PTMC 批处理
 运行ptmc程序的批处理脚本
 
 ### 1. ptmc文件设置

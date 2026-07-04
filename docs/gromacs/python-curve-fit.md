@@ -3,6 +3,8 @@ title: '自定义非线性函数曲线拟合 (Python/Origin)'
 date: 2022-10-19 09:57:25
 tags: [shell,python]
 ---
+
+# 自定义非线性函数曲线拟合 (Python/Origin)
 续接上文
 
 

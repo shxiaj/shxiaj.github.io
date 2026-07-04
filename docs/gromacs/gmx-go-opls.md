@@ -4,8 +4,7 @@ date: 2022-09-29 15:55:55
 tags: [Gromacs, shell]
 ---
 
-
-
+# 氧化石墨烯 (GO) OPLS 表面力场构建
 ### 1.  oplsaam 2015力场构成
 
 Robertson M J, Tirado-Rives J, Jorgensen W L.Improved Peptide and Protein Torsional Energetics with the OPLS-AA Force Field[J].Journal of Chemical Theory and Computation,2015, 11 (7): 3499-3509.

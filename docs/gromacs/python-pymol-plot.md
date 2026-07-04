@@ -4,8 +4,7 @@ date: 2022-06-08 12:32:28
 tags: [pymol]
 ---
 
-
-
+# PyMOL 蛋白质静电势计算与动画渲染
 ### 安装Pymol开源版
 参考：https://blog.csdn.net/weixin_45564533/article/details/115671036
 ```bash

@@ -3,6 +3,8 @@ title: 'XSD 文件坐标与成键信息提取'
 date: 2022-10-19 20:55:55
 tags: [soft, shell, awk]
 ---
+
+# XSD 文件坐标与成键信息提取
 练习活动
 
 xsd文件粗粒化由Materials Studio软件产生, 提取所需要的信息, 用于galamost的模型建立.

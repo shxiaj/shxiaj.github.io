@@ -3,6 +3,8 @@ title: 'Tcl 脚本绘制 VMD 静电偶极'
 date: 2022-06-08 14:07:53
 tags: [Vmd,Tcl,Gromacs]
 ---
+
+# Tcl 脚本绘制 VMD 静电偶极
 重写了diploes.sh，更快更方便
 
 调用方法:

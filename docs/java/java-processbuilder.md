@@ -4,7 +4,7 @@ date: 2022-10-25 15:55:09
 tags: [Java]
 ---
 
-
+# Java 调用 Shell 命令与脚本
 ### 1. Process类
 对于Process类可以使用Runtime类创建一个进程实例, 稍微有点点麻烦
 https://www.panziye.com/java/3846.html

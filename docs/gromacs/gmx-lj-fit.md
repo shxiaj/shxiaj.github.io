@@ -3,6 +3,8 @@ title: '氨基酸残基 Lennard-Jones 势函数拟合'
 date: 2022-10-18 19:57:25
 tags: [shell,python]
 ---
+
+# 氨基酸残基 Lennard-Jones 势函数拟合
 终于把很久之前想做的给做了, 还是挺麻烦的
 
 整体思路很简单, 单个残基跑md, 然后上下移动残基, 跑em, 得vdw能量与distance, 最后拟合
