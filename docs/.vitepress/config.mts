@@ -14,6 +14,28 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }],
+    // Giscus comments
+    // ⚠️ 部署前必须完成：
+    // 1. https://github.com/ShXiaJ/blog/settings/discussions → Enable Discussions
+    // 2. https://giscus.app → 输入 ShXiaJ/blog → 创建 category "Blog Comments"
+    // 3. 将下方 repo-id 和 category-id 替换为真实值
+    ['script', {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'ShXiaJ/blog',
+      'data-repo-id': 'TODO: 替换为你的 repo ID',
+      'data-category': 'Blog Comments',
+      'data-category-id': 'TODO: 替换为你的 category ID',
+      'data-mapping': 'pathname',
+      'data-strict': '0',
+      'data-reactions-enabled': '1',
+      'data-emit-metadata': '0',
+      'data-input-position': 'top',
+      'data-theme': 'preferred_color_scheme',
+      'data-lang': 'zh-CN',
+      'data-loading': 'lazy',
+      crossorigin: 'anonymous',
+      async: '',
+    }],
   ],
   themeConfig: {
     nav: [
