@@ -41,6 +41,7 @@ export default defineConfig({
     ],
   },
   markdown: {
+    math: true,
     lineNumbers: true,
   },
   ignoreDeadLinks: [/dssp\.7z/],
