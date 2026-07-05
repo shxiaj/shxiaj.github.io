@@ -11,6 +11,7 @@
   "devDependencies": {
     "markdown-it-mathjax3": "^4.3.2",
     "vitepress": "next",
+    "@giscus/vue": "^3.1.1",
     "vue": "^3.5.27"
   }
 }
