@@ -9,7 +9,7 @@ const __dirname = dirname(__filename)
 export default defineConfig({
   lang: 'zh-CN',
   title: 'ShXiaJ Blog',
-  description: 'Java, Gromacs, Shell, Python, 工具软件等技术博客',
+  description: 'AI, Java, Gromacs, Shell, Python, 工具软件等技术博客',
   base: '/',
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
@@ -18,6 +18,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
+      { text: 'AI', link: '/ai/' },
       { text: 'Gromacs', link: '/gromacs/' },
       { text: 'Java', link: '/java/' },
       { text: 'Linux', link: '/linux/' },

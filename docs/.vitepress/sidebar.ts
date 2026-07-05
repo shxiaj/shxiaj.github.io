@@ -65,7 +65,7 @@ function generateCategorySidebar(category: string): SidebarItem[] {
  * Build the full sidebar configuration object.
  */
 export function createSidebar(): Record<string, { text: string; items: SidebarItem[] }[]> {
-  const categories = ['gromacs', 'java', 'linux']
+  const categories = ['ai', 'gromacs', 'java', 'linux']
 
   const sidebar: Record<string, { text: string; items: SidebarItem[] }[]> = {}
   for (const cat of categories) {

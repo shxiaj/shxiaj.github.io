@@ -2,7 +2,7 @@
 
 技术博客，记录所学所思。
 
-内容涉及 Java、Gromacs、Shell、Python 及工具软件。
+内容涉及 AI、Java、Gromacs、Shell、Python 及工具软件。
 
 ## 技术栈
 
