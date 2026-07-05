@@ -34,6 +34,7 @@ docs/
 │   ├── config.mts        # VitePress 配置
 │   ├── sidebar.ts        # 自动侧边栏生成
 │   └── theme/            # 自定义主题
+├── ai/                   # AI 笔记
 ├── gromacs/              # Gromacs 笔记
 ├── java/                 # Java 笔记
 ├── linux/                # Linux / Shell 笔记
